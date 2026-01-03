@@ -1,5 +1,4 @@
 import type { ReactNode } from 'react';
-import clsx from 'clsx';
 import Layout from '@theme/Layout';
 import Heading from '@theme/Heading';
 import HomepageContent from './homepage-content.md';
@@ -8,7 +7,7 @@ import styles from './index.module.css';
 
 function HomepageHeader() {
   return (
-    <header className={clsx('hero', styles.heroBanner)}>
+    <header className={styles.heroBanner}>
       <div className="container">
         <div style={{
           display: 'flex',
