@@ -1,4 +1,582 @@
+actionscript:
+  label: ActionScript
+  permalink: /actionscript
+air:
+  label: Adobe AIR
+  permalink: /air
+algorithm:
+  label: Algorithm
+  permalink: /algorithm
+ana:
+  label: ANA
+  permalink: /ana
+android:
+  label: Android
+  permalink: /android
+anomaly:
+  label: Anomaly
+  permalink: /anomaly
+ansible:
+  label: Ansible
+  permalink: /ansible
+apache:
+  label: Apache
+  permalink: /apache
+apple:
+  label: Apple
+  permalink: /apple
+array:
+  label: Array
+  permalink: /array
+as400:
+  label: AS400
+  permalink: /as400
+backtrack:
+  label: BackTrack
+  permalink: /backtrack
+bash:
+  label: Bash
+  permalink: /bash
+bicycle:
+  label: Bicycle
+  permalink: /bicycle
+bios:
+  label: BIOS
+  permalink: /bios
+bitcoin:
+  label: Bitcoin
+  permalink: /bitcoin
+blockchain:
+  label: Blockchain
+  permalink: /blockchain
+blog:
+  label: Blog
+  permalink: /blog
+boost:
+  label: Boost
+  permalink: /boost
+bot:
+  label: Bot
+  permalink: /bot
+c-language:
+  label: C
+  permalink: /c-language
+c-sharp:
+  label: C#
+  permalink: /c-sharp
+centos:
+  label: CentOS
+  permalink: /centos
+certification:
+  label: Certification
+  permalink: /certification
+character:
+  label: Character
+  permalink: /character
+chatterbot:
+  label: ChatterBot
+  permalink: /chatterbot
+cisco:
+  label: Cisco
+  permalink: /cisco
+coffeescript:
+  label: CoffeeScript
+  permalink: /coffeescript
+command:
+  label: Command
+  permalink: /command
+create:
+  label: Create
+  permalink: /create
+cron:
+  label: Cron
+  permalink: /cron
+csv:
+  label: Csv
+  permalink: /csv
+date:
+  label: Date
+  permalink: /date
+days:
+  label: Days
+  permalink: /days
+debian:
+  label: Debian
+  permalink: /debian
+defi:
+  label: DeFi
+  permalink: /defi
+design-pattern:
+  label: Design Pattern
+  permalink: /design-pattern
+django:
+  label: Django
+  permalink: /django
+docker:
+  label: Docker
+  permalink: /docker
+don:
+  label: Don
+  permalink: /don
+donniefinance:
+  label: Donnie Finance
+  permalink: /donniefinance
+dovecot:
+  label: Dovecot
+  permalink: /dovecot
+earth-coding:
+  label: Earth Coding
+  permalink: /earth-coding
+eclipse:
+  label: Eclipse
+  permalink: /eclipse
+economics:
+  label: Economics
+  permalink: /economics
+email:
+  label: Email
+  permalink: /email
+english:
+  label: English
+  permalink: /english
+ethereum:
+  label: Ethereum
+  permalink: /ethereum
+ethos:
+  label: ethos
+  permalink: /ethos
+excel:
+  label: Excel
+  permalink: /excel
+exception:
+  label: Exception
+  permalink: /exception
+experiment:
+  label: Experiment
+  permalink: /experiment
+file:
+  label: File
+  permalink: /file
+flash-actionscript:
+  label: Flash / ActionScript
+  permalink: /flash-actionscript
+flask:
+  label: Flask
+  permalink: /flask
+flex:
+  label: Adobe Flex
+  permalink: /flex
+ftp:
+  label: FTP
+  permalink: /ftp
+game:
+  label: Game
+  permalink: /game
+git:
+  label: Git
+  permalink: /git
+github:
+  label: GitHub
+  permalink: /github
+google:
+  label: Google
+  permalink: /google
+goruck:
+  label: GORUCK
+  permalink: /goruck
+graphics:
+  label: Graphics
+  permalink: /graphics
+gui:
+  label: Gui
+  permalink: /gui
+html:
+  label: HTML
+  permalink: /html
+hubot:
+  label: Hubot
+  permalink: /hubot
+ibm:
+  label: IBM
+  permalink: /ibm
+idiom:
+  label: Idiom
+  permalink: /idiom
+image:
+  label: Image
+  permalink: /image
+ingress:
+  label: Ingress
+  permalink: /ingress
+iost:
+  label: IOST
+  permalink: /iost
+iphone:
+  label: iPhone
+  permalink: /iphone
+irc:
+  label: IRC
+  permalink: /irc
+iseries:
+  label: iSeries
+  permalink: /iseries
+java:
+  label: Java
+  permalink: /java
+javascript:
+  label: JavaScript
+  permalink: /javascript
+jetson:
+  label: Jetson Nano
+  permalink: /jetson
+jsp:
+  label: JSP
+  permalink: /jsp
+junit:
+  label: JUnit
+  permalink: /junit
+kensington:
+  label: Kensington
+  permalink: /kensington
+kindle:
+  label: Kindle
+  permalink: /kindle
+kubernetes:
+  label: Kubernetes
+  permalink: /kubernetes
+ldap:
+  label: LDAP
+  permalink: /ldap
+ledger:
+  label: Ledger
+  permalink: /ledger
+lifehack:
+  label: Lifehack
+  permalink: /lifehack
+linux:
+  label: Linux
+  permalink: /linux
+list:
+  label: List
+  permalink: /list
+loop:
+  label: Loop
+  permalink: /loop
+mac:
+  label: Mac
+  permalink: /mac
+magic:
+  label: Magic
+  permalink: /magic
+mariadb:
+  label: MariaDB
+  permalink: /mariadb
+mathematics:
+  label: Mathematics
+  permalink: /mathematics
+memory:
+  label: Memory
+  permalink: /memory
+mind-map:
+  label: Mind Map
+  permalink: /mind-map
+mining:
+  label: Mining
+  permalink: /mining
+module:
+  label: Module
+  permalink: /module
+moscow:
+  label: Moscow
+  permalink: /moscow
+mouse:
+  label: Mouse
+  permalink: /mouse
+mq:
+  label: MQ
+  permalink: /mq
+multithread:
+  label: Multithread
+  permalink: /multithread
+mws:
+  label: MWS
+  permalink: /mws
+mysql:
+  label: MySQL
+  permalink: /mysql
+n-gram:
+  label: N-gram
+  permalink: /n-gram
+netbeans:
+  label: NetBeans
+  permalink: /netbeans
+network:
+  label: Network
+  permalink: /network
+nginx:
+  label: Nginx
+  permalink: /nginx
+node-js:
+  label: Node.js
+  permalink: /node-js
+note:
+  label: Note
+  permalink: /note
+number:
+  label: Number
+  permalink: /number
+numpy:
+  label: NumPy
+  permalink: /numpy
+office:
+  label: Office
+  permalink: /office
+onenote:
+  label: Onenote
+  permalink: /onenote
+opengl:
+  label: OpenGL
+  permalink: /opengl
+order:
+  label: Order
+  permalink: /order
+paint:
+  label: Paint
+  permalink: /paint
+pandas:
+  label: pandas
+  permalink: /pandas
+pebble:
+  label: Pebble
+  permalink: /pebble
+php:
+  label: PHP
+  permalink: /php
+phrase:
+  label: Phrase
+  permalink: /phrase
+plugin:
+  label: Plugin
+  permalink: /plugin
+polkadot:
+  label: Polkadot
+  permalink: /polkadot
+post:
+  label: Post
+  permalink: /post
+postfix:
+  label: Postfix
+  permalink: /postfix
+pthread:
+  label: pthread
+  permalink: /pthread
+pycharm:
+  label: PyCharm
+  permalink: /pycharm
+pygaze:
+  label: PyGaze
+  permalink: /pygaze
+python:
+  label: Python
+  permalink: /python
+qnap:
+  label: QNAP
+  permalink: /qnap
+r:
+  label: R
+  permalink: /r
+random:
+  label: Random
+  permalink: /random
+read:
+  label: Read
+  permalink: /read
+redmine:
+  label: Redmine
+  permalink: /redmine
+regexp:
+  label: Regexp
+  permalink: /regexp
+rmt:
+  label: RMT
+  permalink: /rmt
+ruby:
+  label: Ruby
+  permalink: /ruby
+russia:
+  label: Russia
+  permalink: /russia
+safepal:
+  label: SafePal
+  permalink: /safepal
+search-engine:
+  label: Search Engine
+  permalink: /search-engine
+seccon:
+  label: SECCON
+  permalink: /seccon
 security:
   label: Security
   permalink: /security
-  description: Security tag description
+select:
+  label: Select
+  permalink: /select
+sen:
+  label: Sen
+  permalink: /sen
+sequence:
+  label: Sequence
+  permalink: /sequence
+server:
+  label: Server
+  permalink: /server
+servlet:
+  label: Servlet
+  permalink: /servlet
+set:
+  label: Set
+  permalink: /set
+setting:
+  label: Setting
+  permalink: /setting
+shell:
+  label: Shell
+  permalink: /shell
+sna:
+  label: SNA
+  permalink: /sna
+socket:
+  label: Socket
+  permalink: /socket
+solana:
+  label: Solana
+  permalink: /solana
+sort:
+  label: Sort
+  permalink: /sort
+sound:
+  label: Sound
+  permalink: /sound
+ssh:
+  label: SSH
+  permalink: /ssh
+stack:
+  label: Stack
+  permalink: /stack
+statistics:
+  label: Statistics
+  permalink: /statistics
+string:
+  label: String
+  permalink: /string
+strip:
+  label: Strip
+  permalink: /strip
+subversion:
+  label: Subversion
+  permalink: /subversion
+swing:
+  label: Swing
+  permalink: /swing
+switch:
+  label: Switch
+  permalink: /switch
+synchronization:
+  label: Synchronization
+  permalink: /synchronization
+system-i:
+  label: System i
+  permalink: /system-i
+system-i-access:
+  label: System i Access
+  permalink: /system-i-access
+time:
+  label: Time
+  permalink: /time
+tls:
+  label: TLS
+  permalink: /tls
+trip:
+  label: Trip
+  permalink: /trip
+tripwire:
+  label: Tripwire
+  permalink: /tripwire
+twitter:
+  label: Twitter
+  permalink: /twitter
+uml:
+  label: UML
+  permalink: /uml
+university:
+  label: University
+  permalink: /university
+unix:
+  label: Unix
+  permalink: /unix
+update:
+  label: Update
+  permalink: /update
+user:
+  label: User
+  permalink: /user
+vagrant:
+  label: Vagrant
+  permalink: /vagrant
+vba:
+  label: VBA
+  permalink: /vba
+vector:
+  label: Vector
+  permalink: /vector
+vim:
+  label: Vim
+  permalink: /vim
+vmware:
+  label: VMware
+  permalink: /vmware
+vscode:
+  label: VS Code
+  permalink: /vscode
+web20:
+  label: Web 2.0
+  permalink: /web20
+websphere-mq:
+  label: WebSphere MQ
+  permalink: /websphere-mq
+where:
+  label: Where
+  permalink: /where
+wifi:
+  label: Wifi
+  permalink: /wifi
+windows:
+  label: Windows
+  permalink: /windows
+word:
+  label: Word
+  permalink: /word
+wordpress:
+  label: WordPress
+  permalink: /wordpress
+working:
+  label: Working
+  permalink: /working
+write:
+  label: Write
+  permalink: /write
+x11:
+  label: X11
+  permalink: /x11
+xml:
+  label: XML
+  permalink: /xml
+xss:
+  label: XSS
+  permalink: /xss
+yahoo:
+  label: Yahoo
+  permalink: /yahoo
+未踏:
+  label: 未踏
+  permalink: /未踏
