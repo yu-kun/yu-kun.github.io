@@ -27,6 +27,10 @@ const config: Config = {
 
   onBrokenLinks: 'throw',
 
+  markdown: {
+    format: 'detect',
+  },
+
   // Even if you don't use internationalization, you can use this field to set
   // useful metadata like html lang. For example, if your site is Chinese, you
   // may want to replace "en" with "zh-Hans".
@@ -52,14 +56,11 @@ const config: Config = {
             type: ['rss', 'atom'],
             xslt: true,
           },
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
-          // Useful options to enforce blogging best practices
+          blogSidebarCount: 10,
+          blogSidebarTitle: 'Recent Posts',
           onInlineTags: 'warn',
           onInlineAuthors: 'warn',
-          onUntruncatedBlogPosts: 'warn',
+          onUntruncatedBlogPosts: 'ignore',
         },
         theme: {
           customCss: './src/css/custom.css',
@@ -88,6 +89,7 @@ const config: Config = {
           label: 'Documents',
         },
         { to: '/blog', label: 'Blog', position: 'left' },
+        { to: '/blog/archive', label: 'Archive', position: 'left' },
         {
           href: 'https://github.com/yu-kun',
           label: 'GitHub',
