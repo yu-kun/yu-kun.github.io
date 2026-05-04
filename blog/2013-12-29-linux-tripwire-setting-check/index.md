@@ -1,0 +1,338 @@
+---
+title: 'Linux: Tripwireの運用サイクルの基本 - ポリシー設定から改竄チェック〜DB更新'
+date: 2013-12-29
+authors: [yukun]
+tags:
+  - debian
+  - linux
+  - security
+  - tripwire
+slug: linux-tripwire-setting-check
+---
+
+[前回の記事](/blog/linux-tripwire-install "Linux: Tripwireのインストール – ファイル改竄検知ツール")に続けて、Tripwireの初期設定、ファイル改竄チェック、レポートファイルの確認、そしてデータベースファイルの更新方法等の改竄検知の運用サイクルを記載。実施環境等は[前記事](/blog/linux-tripwire-install "Linux: Tripwireのインストール – ファイル改竄検知ツール")をご参照。また、ここではポリシーファイルの詳細な説明は省く。あくまでツールの基本的な使い方の流れを説明。参考サイトは例によって記事末尾に掲載。 少し復習から入るが、Tripwireでは2つの鍵ファイル(site key, local key)を利用してファイルの暗号化(や署名)を行い、(インストール時に設定を求められたやつ。)site keyはTripwireの設定・ポリシーファイルを保護、local keyはTripwireのデータベースとレポートを保護するもの。 一つのポリシーファイルを複数のホストに適用し、ポリシー制御を集中させ、DB管理とレポートの生成はサーバー個々に分散させる手法もある。 
+<!-- truncate -->
+
+
+### 設定ディレクトリ
+
+尚、local・site keyや設定・ポリシーファイルはデフォルトでは下記ディレクトリに保管されている。
+
+```
+# cd /etc/tripwire/
+# ls
+debian-local.key  site.key  tw.cfg  twcfg.txt  tw.pol  tw.pol.bak  twpol.txt  twpol.txt.bk
+
+```
+
+local keyがdebian-local.key、site keyがsite.key、tw.cfgが暗号化済み設定ファイル、tw.polが暗号化済みポリシーファイルとなる。設定・ポリシーを変更する際は、twcfg.txt、twpol.txtを編集の上、設定を反映、暗号化する必要がある。なお、本運用の際は\*.txt(平文)は削除し侵入時お設定内容の漏洩を防止に備える。 仮に暗号化ファイルから平文の内容を確認したい場合は下記のコマンドを用いる。
+
+```
+# twadmin --print-cfgfile | less ← 設定ファイル
+# twadmin --print-polfile | less ← ポリシーファイル
+
+```
+
+因みにコマンドオプションの簡略形はそれぞれ下記の通り。
+
+```
+# twadmin -m f
+# twadmin -m p
+
+```
+
+参考までに下記にtwcfg.txt内容を記載する。各項目の詳細説明はman twconfigで参照可能。
+
+```
+ROOT          =/usr/sbin
+POLFILE       =/etc/tripwire/tw.pol
+DBFILE        =/var/lib/tripwire/$(HOSTNAME).twd
+REPORTFILE    =/var/lib/tripwire/report/$(HOSTNAME)-$(DATE).twr
+SITEKEYFILE   =/etc/tripwire/site.key
+LOCALKEYFILE  =/etc/tripwire/$(HOSTNAME)-local.key
+EDITOR        =/usr/bin/editor
+LATEPROMPTING =false
+LOOSEDIRECTORYCHECKING =false
+MAILNOVIOLATIONS =true
+EMAILREPORTLEVEL =3
+REPORTLEVEL   =3
+SYSLOGREPORTING =true
+MAILMETHOD    =SMTP
+SMTPHOST      =localhost
+SMTPPORT      =25
+
+```
+
+本運用ではDBFILEは読み取り専用の媒体に格納されていることが望ましい。改竄検知ツールが検知に使用するベースデーターベースが汚染されていては改竄検知が出来ない為。 設定ファイルの平文→暗号化は下記のコマンドで行う。
+
+```
+# twadmin --create-cfgfile --site-keyfile ./site.key twcfg.txt
+Please enter your site passphrase:
+Wrote configuration file: /etc/tripwire/tw.cfg
+#
+
+```
+
+コマンドオプションの簡略形は下記の通り。
+
+```
+# twadmin -m F -S ./site.key twcfg.txt
+
+```
+
+### ポリシーファイルの編集・反映
+
+今回はサンプルとしてユーザーのホームディレクトリを監視するポリシーファイルをtwpol.txtファイルに追記する。
+
+```
+#
+# my home directory
+#
+(
+  rulename = "My Home Directory",
+  severity = $(SIG_LOW)
+)
+{
+        /home/yu        -> $(SEC_CONFIG) (recurse = 1);
+}
+
+```
+
+これで/home/yu以下のサブディレクトリ1階層下まで監視するよう指示している。$(ペケペケ)は変数参照$(SEC\_CONFIG)はファイル上部で下記の通り宣言されている。
+
+```
+SEC_CONFIG    = $(Dynamic) ;         # Config files that are changed
+                        # infrequently but accessed often
+
+```
+
+Dynamicは定義済みプロパティマスク。よくユーザーディレクトリ・ファイル等の可変ファイルに適用される。どのような属性がチェックされるかは記事末尾のマニュアルをご参照。 ポリシーファイルをインストール(署名兼暗号化)するには下記のコマンドを用いる。
+
+```
+# twadmin --create-polfile --site-keyfile ./site.key twpol.txt
+lease enter your site passphrase:
+Wrote policy file: /etc/tripwire/tw.pol
+
+```
+
+コマンドオプションの簡略形は下記の通り。
+
+```
+# twadmin -m P -S ./site.key twpol.txt
+
+```
+
+### データベースの初期化
+
+Tripwireはベースとなるシステムのスナップショット、すなわちポリシーファイルが対象としているファイルのハッシュ値と現時点とスナップショットの比較によりファイルの改竄検知を行う。その為、まずはポリシーファイルを元にベースとなる現時点でのシステム情報をデータベース化する。上述のDBFILEディレクティブに指定のディレクトリに\*.twdファイルが作成される。
+
+```
+# tripwire --init
+もしくは
+# tripwire -m i
+
+```
+
+初期の既存ポリシーをそのまま流用すると行くつくか下記のような警告が出るが今回は特に気にする必要は無い。(元々存在しないファイルを探してエラーを出力しているだけ)
+
+```
+lease enter your local passphrase:
+Parsing policy file: /etc/tripwire/tw.pol
+Generating the database...
+*** Processing Unix File System ***
+The object: "/var/run/vmblock-fuse" is on a different file system...ignoring.
+The object: "/lib/init/rw" is on a different file system...ignoring.
+### Warning: File system error.
+### Filename: /etc/rc.boot
+### No such file or directory
+### Continuing...
+＜中略＞
+The object: "/proc/fs/nfsd" is on a different file system...ignoring.
+The object: "/proc/sys/fs/binfmt_misc" is on a different file system...ignoring.
+Wrote database file: /var/lib/tripwire/debian.twd
+The database was successfully generated.
+
+```
+
+### 改竄チェックとレポート参照
+
+ベースとなるスナップショットがとれたら、後は定期的なチェック、すなわちある時点でのスナップショットとベースの比較を行う。コマンドは下記の通り。
+
+```
+# tripwire --check > report.txt
+もしくは
+# tripwire -m c > report.txt
+
+```
+
+コマンドを実行すると標準出力とレポートファイルに出力する。標準出力にはかなり出るので、リダイレクトしているのはその為。但し標準エラー出力もそれなりに出るがそれは今回は読み飛ばす。 report.txt内容を抜粋すると下記の通りとなる。
+
+```
+Parsing policy file: /etc/tripwire/tw.pol
+*** Processing Unix File System ***
+Performing integrity check...
+The object: "/var/run/vmblock-fuse" is on a different file system...ignoring.
+The object: "/lib/init/rw" is on a different file system...ignoring.
+The object: "/dev/pts" is on a different file system...ignoring.
+The object: "/dev/shm" is on a different file system...ignoring.
+The object: "/proc/fs/nfsd" is on a different file system...ignoring.
+The object: "/proc/sys/fs/binfmt_misc" is on a different file system...ignoring.
+Wrote report file: /var/lib/tripwire/report/debian-20131229-222915.twr
+Open Source Tripwire(R) 2.4.1 Integrity Check Report
+Report generated by:          root
+Report created on:            Sun Dec 29 22:29:15 2013
+Database last updated on:     Never
+===============================================================================
+Report Summary:
+===============================================================================
+Host name:                    debian
+Host IP address:              127.0.1.1
+Host ID:                      None
+Policy file used:             /etc/tripwire/tw.pol
+Configuration file used:      /etc/tripwire/tw.cfg
+Database file used:           /var/lib/tripwire/debian.twd
+Command line used:            tripwire -m c
+===============================================================================
+Rule Summary:
+===============================================================================
+-------------------------------------------------------------------------------
+  Section: Unix File System
+-------------------------------------------------------------------------------
+  Rule Name                       Severity Level    Added    Removed  Modified
+  --------- -------------- ----- ------- --------
+  Invariant Directories           66                0        0        0
+  Tripwire Data Files             100               0        0        0
+  Other binaries                  66                0        0        0
+  Tripwire Binaries               100               0        0        0
+  Other libraries                 66                0        0        0
+  Root file-system executables    100               0        0        0
+* System boot changes             100               5        3        73
+  Root file-system libraries      100               0        0        0
+  (/lib)
+  Critical system boot files      100               0        0        0
+* Other configuration files       66                0        0        13
+  (/etc)
+  Boot Scripts                    100               0        0        0
+  Security Control                66                0        0        0
+* Root config files               100               2        8        2
+* Devices & Kernel information    100               33695    33793    173
+* My Home Directory               33                0        0        2
+  (/home/yu)
+Total objects scanned:  74796
+Total violations found:  67769
+===============================================================================
+Object Summary:
+===============================================================================
+＜中略＞
+-------------------------------------------------------------------------------
+Rule Name: Root config files (/root)
+Severity Level: 100
+-------------------------------------------------------------------------------
+Added:
+"/root/1129/report.txt"
+"/root/1129/report2.txt"
+Removed:
+"/root/Desktop"
+"/root/Documents"
+"/root/Downloads"
+"/root/Music"
+"/root/Pictures"
+"/root/Public"
+"/root/Templates"
+"/root/Videos"
+Modified:
+"/root"
+"/root/1129"
+-------------------------------------------------------------------------------
+＜中略＞
+-------------------------------------------------------------------------------
+Rule Name: My Home Directory (/home/yu)
+Severity Level: 33
+-------------------------------------------------------------------------------
+Modified:
+"/home/yu/.dmrc"
+"/home/yu/.gtk-bookmarks"
+===============================================================================
+Error Report:
+===============================================================================
+＜中略＞
+-------------------------------------------------------------------------------
+*** End of report ***
+Open Source Tripwire 2.4 Portions copyright 2000 Tripwire, Inc. Tripwire is a registered
+trademark of Tripwire, Inc. This software comes with ABSOLUTELY NO WARRANTY;
+for details use --version. This is free software which may be redistributed
+or modified only under certain conditions; see COPYING for details.
+All rights reserved.
+Integrity check complete.
+
+```
+
+実はinit後check前に/root/1129ディレクトリにファイルを作成したりrootディレクトリ内のディレクトリを削除しているので、上記のログではそれが検知されている。また、OSが自動で書き換えるような箇所も検知される為、システム毎に何を検知するべきかを設計の上、ポリシーファイルを編集する必要がある。尚、同時に保存されたレポートファイルは下記のコマンドで参照可能。ここで指定している、--report-level 0の場合はサマリーを1行で表示する。
+
+```
+# twprint --print-report --report-level 0 --twrfile /var/lib/tripwire/report/debian-20131229-222915.twr
+もしくは、
+# twprint -m r -t 0 -r /var/lib/tripwire/report/debian-20131229-222915.twr
+Note: Report is not encrypted.
+TWReport debian 20131229222915 V:67769 S:100 A:33702 R:33804 C:263
+
+```
+
+レポートファイル名には作成日時が付与されているので、実行環境毎にファイル名は読み替えて実行すること。
+
+### データベースの更新
+
+本運用ではcheck後に監視対象ファイルの変更を検知した場合は、その変更が攻撃者からの改竄なのか正規のシステム変更かを見極める必要がある。仮に正規の変更である場合は、その変更を下記のコマンドを用いてベースデータベースに反映する。
+
+```
+# tripwire --update --twrfile /var/lib/tripwire/report/debian-20131229-222915.twr
+もしくは、
+# tripwire -m u -r /var/lib/tripwire/report/debian-20131229-222915.twr
+
+```
+
+実行するとviエディタが起動し、各変更に対して反映する・反映しないのチェックボックスを\[X\] or \[ \]で設定する(デフォルトは全反映)
+
+```
+＜中略＞
+-------------------------------------------------------------------------------
+Rule Name: Root config files (/root)
+Severity Level: 100
+-------------------------------------------------------------------------------
+Remove the "x" from the adjacent box to prevent updating the database
+with the new values for this object.
+Added:
+[x] "/root/1129/report.txt"
+[x] "/root/1129/report2.txt"
+Removed:
+[x] "/root/Desktop"
+[x] "/root/Documents"
+[x] "/root/Downloads"
+[x] "/root/Music"
+[x] "/root/Pictures"
+[x] "/root/Public"
+[x] "/root/Templates"
+[x] "/root/Videos"
+Modified:
+[x] "/root"
+[x] "/root/1129"
+＜中略＞
+
+```
+
+編集終了後にlocal passphraseを入力すればデータベースへの反映完了。
+
+```
+# tripwire -m u -r /var/lib/tripwire/report/debian-20131229-222915.twr
+＜viエディタ起動(上述)＞
+Please enter your local passphrase:
+Wrote database file: /var/lib/tripwire/debian.twd
+
+```
+
+試しに再度tripwire -m cを実行して前回のレポート内容と比較しupdateされていることを確認してみると良い。最後に、下記の参考サイト(command reference)はかなりオススメなので、tripwireを使用する際は手元に置いておくと良い。
+
+### 参考サイト
+
+- [Tripwire command reference and manual](http://sourceforge.net/projects/tripwire/files/tripwire-src/2.3.0-docs-pdf/tripwire-2.3.0-docs-pdf.tar.gz/download?use_mirror=jaist)：コマンドオプションの簡略形と詳細形がマトリクスで載っていて有用。
+- [止められないUNIXサーバのセキュリティ対策（最終回）：Tripwireのポリシーを最適化する (1/3) - ＠IT](http://www.atmarkit.co.jp/ait/articles/0407/23/news090.html)
