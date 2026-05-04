@@ -13,7 +13,41 @@ slug: python-string
 
 
 ```python
- #!/usr/bin/python # coding: UTF-8 # 文字列の検索 | index(), reindex()の使い方 s1 = 'Hello, Jan !' # 引数（パターン）が1文字の文字列 try: i = s1.index('l') # 引数で与えられた文字列を先頭から探索した場合の出現位置を返す except ValueError: i = None # 存在しない場合は例外ValueErrorがなげれられる print i, s1[i] try: i = s1.rindex('l') # 末尾から探索した場合の最初の出現位置を返す except ValueError: i = None print i, s1[i] print # 引数（パターン）が2文字以上の文字列 str = 'lo' try: i = s1.index(str) except ValueError: i = None print i, s1[i] try: i = s1.rindex(str) except ValueError: i = None print i, s1[i] print # 引数で与えられた文字列（パターン）が存在しない場合 try: i = s1.index('Max') except ValueError: i = None print i 
+#!/usr/bin/python
+# coding: UTF-8
+# 文字列の検索 | index(), reindex()の使い方
+s1 = 'Hello, Jan !'
+# 引数（パターン）が1文字の文字列
+try:
+    i = s1.index('l')  # 引数で与えられた文字列を先頭から探索した場合の出現位置を返す
+except ValueError:
+    i = None           # 存在しない場合は例外ValueErrorがなげれられる
+print i, s1[i]
+try:
+    i = s1.rindex('l') # 末尾から探索した場合の最初の出現位置を返す
+except ValueError:
+    i = None
+print i, s1[i]
+print
+# 引数（パターン）が2文字以上の文字列
+str = 'lo'
+try:
+    i = s1.index(str)
+except ValueError:
+    i = None
+print i, s1[i]
+try:
+    i = s1.rindex(str)
+except ValueError:
+    i = None
+print i, s1[i]
+print
+# 引数で与えられた文字列（パターン）が存在しない場合
+try:
+    i = s1.index('Max')
+except ValueError:
+    i = None
+print i
 ```
 
 

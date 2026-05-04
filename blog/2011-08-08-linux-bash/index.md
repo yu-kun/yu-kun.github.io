@@ -25,7 +25,12 @@ slug: linux-bash
 
 
 ```bash
- $ ps -f UID PID PPID C STIME TTY TIME CMD xxx 13450 13449 0 21:26 pts/1 00:00:00 -bash xxx 13476 13450 0 21:26 pts/1 00:00:00 bash xxx 13499 13476 0 21:27 pts/1 00:00:00 ksh xxx 13501 13499 0 21:27 pts/1 00:00:00 ps –f 
+$ ps -f
+UID        PID  PPID  C STIME TTY          TIME CMD
+xxx      13450 13449  0 21:26 pts/1    00:00:00 -bash
+xxx     13476 13450  0 21:26 pts/1    00:00:00 bash
+xxx      13499 13476  0 21:27 pts/1    00:00:00 ksh
+xxx      13501 13499  0 21:27 pts/1    00:00:00 ps –f
 ```
 
 
@@ -38,7 +43,8 @@ slug: linux-bash
 
 
 ```bash
- $ ls -l /bin/sh lrwxrwxrwx 1 root root 4 7月 9 15:06 /bin/sh -> bash 
+$ ls -l /bin/sh
+lrwxrwxrwx 1 root root 4  7月  9 15:06 /bin/sh -> bash
 ```
 
 
@@ -66,7 +72,10 @@ slug: linux-bash
 
 
 ```bash
- $ type cp cp is /bin/cp $ type cd cd is a shell builtin 
+$ type cp
+cp is /bin/cp
+$ type cd
+cd is a shell builtin
 ```
 
 

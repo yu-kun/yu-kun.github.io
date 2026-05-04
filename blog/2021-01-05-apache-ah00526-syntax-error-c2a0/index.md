@@ -18,7 +18,12 @@ Apache httpdの公式Docker imageであるhttpd:2.4.46において、/usr/local/
 
 
 ```bash
- > Executing task: docker logs -f 8b75027a04df9b312e5e371cc553e8caecc57cafb7f90829f19d4587e974effb < AH00526: Syntax error on line 558 of /usr/local/apache2/conf/httpd.conf: Invalid command '\xc2\xa0', perhaps misspelled or defined by a module not included in the server configuration AH00526: Syntax error on line 558 of /usr/local/apache2/conf/httpd.conf: Invalid command '\xc2\xa0', perhaps misspelled or defined by a module not included in the server configuration AH00526: Syntax error on line 558 of /usr/local/apache2/conf/httpd.conf: Invalid command '\xc2\xa0', perhaps misspelled or defined by a module not included in the server configuration AH00526: Syntax error on line 558 of /usr/local/apache2/conf/httpd.conf: Invalid command '\xc2\xa0', perhaps misspelled or defined by a module not included in the server configuration ＜後略(docker-compose.ymlでrestart: unless-stopped設定した為、エンドレスに出力された)＞ 
+&gt; Executing task: docker logs -f 8b75027a04df9b312e5e371cc553e8caecc57cafb7f90829f19d4587e974effb &lt; 
+AH00526: Syntax error on line 558 of /usr/local/apache2/conf/httpd.conf: Invalid command '\xc2\xa0', perhaps misspelled or defined by a module not included in the server configuration 
+AH00526: Syntax error on line 558 of /usr/local/apache2/conf/httpd.conf: Invalid command '\xc2\xa0', perhaps misspelled or defined by a module not included in the server configuration 
+AH00526: Syntax error on line 558 of /usr/local/apache2/conf/httpd.conf: Invalid command '\xc2\xa0', perhaps misspelled or defined by a module not included in the server configuration 
+AH00526: Syntax error on line 558 of /usr/local/apache2/conf/httpd.conf: Invalid command '\xc2\xa0', perhaps misspelled or defined by a module not included in the server configuration 
+＜後略(docker-compose.ymlでrestart: unless-stopped設定した為、エンドレスに出力された)＞
 ```
 
 

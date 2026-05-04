@@ -20,7 +20,18 @@ slug: postfix-smtpd-restrictions-error
 
 
 ```bash
- Dec 16 17:46:15 tk2-228-23559.vs.sakura.ne.jp systemd[1]: Starting Postfix Mail Transport Agent… Dec 16 17:46:16 tk2-228-23559.vs.sakura.ne.jp postfix/master[28257]: daemon started -- version 3.4.7, configuration /etc/postfix Dec 16 17:46:16 tk2-228-23559.vs.sakura.ne.jp systemd[1]: Started Postfix Mail Transport Agent. Dec 16 17:46:31 tk2-228-23559.vs.sakura.ne.jp postfix/smtpd[28279]: fatal: in parameter smtpd_relay_restrictions or smtpd_recipient_restrictions, specify at least one working instance of: reject_unauth_destination, defer_unauth_destination, reject, defer, defer_if_permit or check_relay_domains Dec 16 17:46:32 tk2-228-23559.vs.sakura.ne.jp postfix/master[28257]: warning: process /usr/libexec/postfix/smtpd pid 28279 exit status 1 
+Dec 16 17:46:15 tk2-228-23559.vs.sakura.ne.jp systemd[1]: 
+Starting Postfix Mail Transport Agent…
+Dec 16 17:46:16 tk2-228-23559.vs.sakura.ne.jp postfix/master[28257]: 
+daemon started -- version 3.4.7, configuration /etc/postfix
+Dec 16 17:46:16 tk2-228-23559.vs.sakura.ne.jp systemd[1]: 
+Started Postfix Mail Transport Agent.
+Dec 16 17:46:31 tk2-228-23559.vs.sakura.ne.jp postfix/smtpd[28279]: fatal: 
+in parameter smtpd_relay_restrictions or smtpd_recipient_restrictions, specify at least one working 
+instance of: reject_unauth_destination, defer_unauth_destination, 
+reject, defer, defer_if_permit or check_relay_domains
+Dec 16 17:46:32 tk2-228-23559.vs.sakura.ne.jp postfix/master[28257]: 
+warning: process /usr/libexec/postfix/smtpd pid 28279 exit status 1
 ```
 
 

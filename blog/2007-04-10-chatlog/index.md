@@ -21,7 +21,30 @@ slug: chatlog
 
 
 ```ruby
- #! ruby -Ks require ‘kconv’ MSNRegexp =/(.*?)<.Text>/xm data = "" filename = ARGV[0] begin open(filename) do |f| f.each do |line| # ファイルから1行ずつ読む line = Kconv.kconv(line, Kconv::SJIS) # 文字コードを変換 line.chomp! next if line.empty? data.concat(line) end end rescue => e puts(e.message) end open(’msnLog.txt’, ‘w’) do |f| # 出力ファイル data.scan(MSNRegexp){|tdata| if tdata f.puts(tdata) end } end 
+#! ruby -Ks
+require ‘kconv’
+MSNRegexp =/(.*?)&lt;.Text&gt;/xm
+data = ""
+filename = ARGV[0]
+begin
+  open(filename) do |f|
+    f.each do |line| # ファイルから1行ずつ読む
+    line = Kconv.kconv(line, Kconv::SJIS) # 文字コードを変換
+    line.chomp!
+    next if line.empty?
+    data.concat(line)
+  end
+end
+rescue => e
+  puts(e.message)
+end
+open(’msnLog.txt’, ‘w’) do |f| # 出力ファイル
+data.scan(MSNRegexp){|tdata|
+  if tdata
+    f.puts(tdata)
+  end
+}
+end
 ```
 
 

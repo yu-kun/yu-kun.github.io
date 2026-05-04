@@ -12,7 +12,20 @@ slug: python-file2
 
 
 ```python
- $ python >>> import os >>> os.access('/root', os.F_OK) True >>> os.access('/root', os.R_OK) False >>> os.access('/home', os.R_OK) True >>> os.access('/root', os.W_OK) False >>> os.access('/root', os.X_OK) False >>> exit() $ 
+$ python
+>>> import os
+>>> os.access('/root', os.F_OK)
+True
+>>> os.access('/root', os.R_OK)
+False
+>>> os.access('/home', os.R_OK)
+True
+>>> os.access('/root', os.W_OK)
+False
+>>> os.access('/root', os.X_OK)
+False
+>>> exit()
+$
 ```
 
  os.access()の第1引数には調べるパスを指定し、第2引数には調べる内容を指定します。

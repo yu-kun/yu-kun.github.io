@@ -29,7 +29,74 @@ slug: boost-thread-mutex-condition
 
 
 ```cpp
- #include #include #include #include using namespace std; using namespace boost; class HandleData { public: HandleData() : index_(0), iarr_len_(sizeof(iarr_)/sizeof(iarr_[0])), num_data_(0){} // データの追加 void putData(int n) { // mutexインスタンスにロックをかける mutex::scoped_lock look(thread_sync_); while (index_ >= iarr_len_) { printf("[putData] waitn"); // 引数のmutexインスタンスのロックを解除する。 // notify_all()などが呼ばれるまでこのスレッドを一時停止する thread_state_.wait(thread_sync_); } printf("put: %d in iarr_[%d]n", n, index_); iarr_[index_++] = n; int loop = 1000000; while(loop--) ; // 空回し用 thread_state_.notify_all(); } // lockのデストラクタが呼ばれてロック解除(lookインスタンスのスコープ切れ) // データの取得 int getData() { // putData()と同じくiarr_にスレッドセーフでアクセスする為にロックをかける mutex::scoped_lock look(thread_sync_); while (index_ <= 0) { // putData側のthread_state_.notify_all();が実行されるまで待つ printf("[getData] waitn"); thread_state_.wait(thread_sync_); } num_data_ = iarr_[--index_]; printf("get: %d in iarr_[%d]n", num_data_, index_); thread_state_.notify_all(); return num_data_; } // lookのデストラクタでロック解除 private: mutex thread_sync_; condition thread_state_; int index_; int iarr_[100]; // putData()、getData()からアクセスされる変数 const unsigned int iarr_len_; int num_data_; }; void threadPut(HandleData *hd) { const unsigned int NUM_LOOP = 100; for (int i = 0; i < NUM_LOOP; i++) { hd->putData(i); } } void threadGet(HandleData *hd) { const unsigned int NUM_LOOP = 100; for (int i = 0; i < NUM_LOOP; i++) { hd->getData(); } } int main() { HandleData hd; thread thr_put(bind(&threadPut, &hd)); thread thr_get(bind(&threadGet, &hd)); thr_put.join(); thr_get.join(); return 0; } 
+#include <iostream>
+#include <string>
+#include <boost/thread.hpp>
+#include <boost/bind.hpp>
+using namespace std;
+using namespace boost;
+class HandleData {
+ public:
+  HandleData()
+    : index_(0), iarr_len_(sizeof(iarr_)/sizeof(iarr_[0])), num_data_(0){}
+  // データの追加
+  void putData(int n) {
+    // mutexインスタンスにロックをかける
+    mutex::scoped_lock look(thread_sync_);
+    while (index_ >= iarr_len_) {
+      printf("[putData] waitn");
+      // 引数のmutexインスタンスのロックを解除する。
+      // notify_all()などが呼ばれるまでこのスレッドを一時停止する
+      thread_state_.wait(thread_sync_);
+    }
+    printf("put: %d in iarr_[%d]n", n, index_);
+    iarr_[index_++] = n;
+    int loop = 1000000;
+    while(loop--) ; // 空回し用
+    thread_state_.notify_all();
+  } // lockのデストラクタが呼ばれてロック解除(lookインスタンスのスコープ切れ)
+  // データの取得
+  int getData() {
+    // putData()と同じくiarr_にスレッドセーフでアクセスする為にロックをかける
+    mutex::scoped_lock look(thread_sync_);
+    while (index_ <= 0) { // putData側のthread_state_.notify_all();が実行されるまで待つ
+      printf("[getData] waitn");
+      thread_state_.wait(thread_sync_);
+    }
+    num_data_ = iarr_[--index_];
+    printf("get: %d in iarr_[%d]n", num_data_, index_);
+    thread_state_.notify_all();
+    return num_data_;
+  } // lookのデストラクタでロック解除
+ private:
+  mutex thread_sync_;
+  condition thread_state_;
+  int index_;
+  int iarr_[100]; // putData()、getData()からアクセスされる変数
+  const unsigned int iarr_len_;
+  int num_data_;
+};
+void threadPut(HandleData *hd) {
+  const unsigned int NUM_LOOP = 100;
+  for (int i = 0; i < NUM_LOOP; i++) {
+    hd->putData(i);
+  }
+}
+void threadGet(HandleData *hd) {
+  const unsigned int NUM_LOOP = 100;
+  for (int i = 0; i < NUM_LOOP; i++) {
+    hd->getData();
+  }
+}
+int main()
+{
+  HandleData hd;
+  thread thr_put(bind(&threadPut, &hd));
+  thread thr_get(bind(&threadGet, &hd));
+  thr_put.join();
+  thr_get.join();
+  return 0;
+}
 ```
 
 

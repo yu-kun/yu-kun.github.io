@@ -15,7 +15,14 @@ slug: python-sequence-string
 
 
 ```python
- #!/usr/bin/python # coding: UTF-8 s = 'abcdefg' print 's ', s print 's[0:] ', s[0:] print 's[1:] ', s[1:] print 's[-1:] ', s[-1:] print 's[-5:] ', s[-5:] 
+#!/usr/bin/python
+# coding: UTF-8
+s = 'abcdefg'
+print 's      ', s
+print 's[0:]  ', s[0:]
+print 's[1:]  ', s[1:]
+print 's[-1:] ', s[-1:]
+print 's[-5:] ', s[-5:]
 ```
 
 
@@ -34,7 +41,11 @@ s[-5:]  cdefg
 
 
 ```python
- s = 'abcdefg' print 's ', s print 's[:3] ', s[:3] # s[0] s[1] s[2]まで print 's[:-1] ', s[:-1] # Yは-1よりs[(-1)-1]→s[-2]までの文字列 print 's[:-5] ', s[:-5] 
+s = 'abcdefg'
+print 's      ', s
+print 's[:3]  ', s[:3]  # s[0] s[1] s[2]まで
+print 's[:-1] ', s[:-1] # Yは-1よりs[(-1)-1]→s[-2]までの文字列
+print 's[:-5] ', s[:-5]
 ```
 
 
@@ -52,7 +63,11 @@ s[:-5]  ab
 
 
 ```python
- s = 'abcdefg' print 's ', s print 's[::1] ', s[::1] # 1間隔なのでsと同じ print 's[::2] ', s[::2] print 's[::-1]', s[::-1] # 「-」を付けると逆順に辿っていきます 
+s = 'abcdefg'
+print 's      ', s
+print 's[::1] ', s[::1]  # 1間隔なのでsと同じ
+print 's[::2] ', s[::2]
+print 's[::-1]', s[::-1] # 「-」を付けると逆順に辿っていきます
 ```
 
 
@@ -72,7 +87,12 @@ s[::-1] gfedcba
 
 
 ```python
- s = 'abcdefg' print 's ', s print 's[1:3] ', s[1:3] print 's[:-1:2] ', s[:-1:2] print 's[-1::-2]', s[-1::-2] print 's[1:4:2] ', s[1:4:2] 
+s = 'abcdefg'
+print 's        ', s
+print 's[1:3]   ', s[1:3]
+print 's[:-1:2] ', s[:-1:2]
+print 's[-1::-2]', s[-1::-2]
+print 's[1:4:2] ', s[1:4:2]
 ```
 
 

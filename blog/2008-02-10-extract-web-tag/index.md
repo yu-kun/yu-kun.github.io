@@ -16,7 +16,23 @@ slug: extract-web-tag
 
 
 ```ruby
- require 'net/http' require 'kconv' def parse_array(string, beg_tag, close_tag) array = Array.new string.scan(/#{beg_tag}(.*?)#{close_tag}/sm) { |matched| #puts matched array = array | matched } return array end Net::HTTP.version_1_2 Net::HTTP.start('b.hatena.ne.jp', 80) {|http| response = http.get('/hotentry/') str = Kconv.tosjis(response.body) a_tag_array = parse_array(str, "" ) puts a_tag_array } 
+require 'net/http'
+require 'kconv'
+def parse_array(string, beg_tag, close_tag)
+  array = Array.new
+  string.scan(/#{beg_tag}(.*?)#{close_tag}/sm) { |matched|
+    #puts matched
+    array = array | matched
+  }
+  return array
+end
+Net::HTTP.version_1_2
+Net::HTTP.start('b.hatena.ne.jp', 80) {|http|
+  response = http.get('/hotentry/')
+  str = Kconv.tosjis(response.body)
+  a_tag_array = parse_array(str, "" )
+  puts a_tag_array
+}
 ```
 
 

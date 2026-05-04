@@ -34,7 +34,15 @@ Macに標準のPythonにPyDevでのPythonインタプリターの設定を試み
 ターミナル上で使用するPythonもPython.orgのものにする場合は、シンボリックリンクを下記のように置き換える。 ※()書きのところはコメントの為、入力不要。 
 
 ```bash
- $ sudo rm /usr/bin/python (既存のリンクを削除) $ sudo ln -s /Library/Frameworks/Python.framework/Versions/2.7/bin/python2.7 /usr/bin/python (新しく設定) $ ls -l python (リンク情報を確認) lrwxr-xr-x 1 root wheel 63 6 30 15:56 python -> /Library/Frameworks/Python.framework/Versions/2.7/bin/python2.7 $ python (反映されているか試しに起動する) Python 2.7.2 (v2.7.2:8527427914a2, Jun 11 2011, 15:22:34) [GCC 4.2.1 (Apple Inc. build 5666) (dot 3)] on darwin Type "help", "copyright", "credits" or "license" for more information. >>> quit() 
+$ sudo rm /usr/bin/python  (既存のリンクを削除)
+$ sudo ln -s /Library/Frameworks/Python.framework/Versions/2.7/bin/python2.7 /usr/bin/python  (新しく設定)
+$ ls -l python  (リンク情報を確認)
+lrwxr-xr-x  1 root  wheel  63  6 30 15:56 python -> /Library/Frameworks/Python.framework/Versions/2.7/bin/python2.7
+$ python  (反映されているか試しに起動する)
+Python 2.7.2 (v2.7.2:8527427914a2, Jun 11 2011, 15:22:34)
+[GCC 4.2.1 (Apple Inc. build 5666) (dot 3)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+>>> quit()
 ```
 
 

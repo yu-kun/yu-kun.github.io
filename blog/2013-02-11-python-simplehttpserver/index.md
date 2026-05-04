@@ -12,7 +12,8 @@ slug: python-simplehttpserver
 Python のみでWebサーバを提供できるのでその動作確認。今回は下記SimpleHTTPServerモジュールを使用する。 
 
 ```python
- import SimpleHTTPServer SimpleHTTPServer.test() 
+import SimpleHTTPServer
+SimpleHTTPServer.test()
 ```
 
  上記コードを実行すると下記のようにWebサーバをポート8000番（デフォルト）で提供する。 
@@ -39,7 +40,9 @@ Serving HTTP on 0.0.0.0 port 8000 ...
 続いてスクリプトと同階層フォルダにindex.htmlのファイル名で下記のHTMLを設置する。 
 
 ```html
- Hello World! 
+<html><body>
+Hello World!
+</body></html>
 ```
 
  再度、localhostにアクセスすると下記のようにindex.htmlの内容が表示される。(SimpleHTTPServerのDirectoryIndexにindex.htmlが設定されているため。) [![Python_SimpleHTTPServer_test_html](./Python_SimpleHTTPServer_test_html.png)](./Python_SimpleHTTPServer_test_html.png)

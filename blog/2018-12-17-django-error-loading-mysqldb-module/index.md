@@ -51,7 +51,8 @@ _app\_root\_folder_/_app\_name_/\_\_init\_\_.py
 
 
 ```python
- import pymysql pymysql.install_as_MySQLdb() 
+import pymysql
+pymysql.install_as_MySQLdb()
 ```
 
 

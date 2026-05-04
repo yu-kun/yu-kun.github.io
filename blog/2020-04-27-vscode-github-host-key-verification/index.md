@@ -55,7 +55,13 @@ Please make sure you have the correct access rights and the repository exists. ï
 
 
 ```bash
- % ssh-add -l The agent has no identities. % ssh-add $HOME/.ssh/id_rsa Identity added: /Users/xxx/.ssh/id_rsa (/Users/xxx/.ssh/id_rsa) % ssh-add -l 4096 SHA256:gqtj+gasge+tvvW9Tqke56uerdftsqo8o7kTdkSDYc /Users/xxx/.ssh/id_rsa (RSA) % 
+% ssh-add -l
+The agent has no identities.
+% ssh-add $HOME/.ssh/id_rsa
+Identity added: /Users/xxx/.ssh/id_rsa (/Users/xxx/.ssh/id_rsa)
+% ssh-add -l
+4096 SHA256:gqtj+gasge+tvvW9Tqke56uerdftsqo8o7kTdkSDYc /Users/xxx/.ssh/id_rsa (RSA)
+%
 ```
 
 
@@ -63,7 +69,12 @@ Please make sure you have the correct access rights and the repository exists. ï
 
 
 ```bash
- vscode@096d672ed308:/workspace$ ssh -T git@github.com The authenticity of host 'github.com (52.192.72.89)' can't be established. RSA key fingerprint is SHA256:nThb3kXUpJWgwagwtagwagxdCARLviKw6E5SY8. Are you sure you want to continue connecting (yes/no)? yes Warning: Permanently added 'github.com,52.192.72.89' (RSA) to the list of known hosts. Hi xxx! You've successfully authenticated, but GitHub does not provide shell access. 
+vscode@096d672ed308:/workspace$ ssh -T git@github.com
+The authenticity of host 'github.com (52.192.72.89)' can't be established.
+RSA key fingerprint is SHA256:nThb3kXUpJWgwagwtagwagxdCARLviKw6E5SY8.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added 'github.com,52.192.72.89' (RSA) to the list of known hosts.
+Hi xxx! You've successfully authenticated, but GitHub does not provide shell access.
 ```
 
 
@@ -79,7 +90,10 @@ Please make sure you have the correct access rights and the repository exists. ï
 
 
 ```bash
- Host * AddKeysToAgent yes UseKeychain yes IdentityFile ~/.ssh/id_rsa 
+Host *
+  AddKeysToAgent yes
+  UseKeychain yes
+  IdentityFile ~/.ssh/id_rsa
 ```
 
 

@@ -17,7 +17,23 @@ slug: python-read-file-try-except-else-finally
 
 
 ```python
- # -*- coding: UTF-8 -*- import sys script_name = sys.argv[0] try: arg = sys.argv[1] f = open(arg, 'r') except IndexError: print 'Usage: %s TEXTFILE' % script_name except IOError: print '"%s" cannot be opened.' % arg else: print arg, 'contains', len(f.read().split(' ')), 'words.' f.close() finally: print 'n"%s" process end.' % script_name quit() print 'Not reach this line.' 
+# -*- coding: UTF-8 -*-
+import sys
+script_name = sys.argv[0]
+try:
+    arg = sys.argv[1]
+    f = open(arg, 'r')
+except IndexError:
+    print 'Usage: %s TEXTFILE' % script_name
+except IOError:
+    print '"%s" cannot be opened.' % arg
+else:
+    print arg, 'contains', len(f.read().split(' ')), 'words.'
+    f.close()
+finally:
+    print 'n"%s" process end.' % script_name
+    quit()
+print 'Not reach this line.'
 ```
 
 

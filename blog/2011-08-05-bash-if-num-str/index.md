@@ -16,7 +16,12 @@ slug: bash-if-num-str
 
 
 ```bash
- #!/bin/sh if expr "$1" : '[0-9]*' > /dev/null ; then echo "数字です" else echo "数字以外です" fi 
+#!/bin/sh
+if expr "$1" : '[0-9]*' > /dev/null ; then
+  echo "数字です"
+else
+  echo "数字以外です"
+fi
 ```
 
 

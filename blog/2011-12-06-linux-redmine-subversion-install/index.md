@@ -262,7 +262,14 @@ Adding password for user ＜任意のユーザー名＞
 ↓下記の設定をファイル末尾に追加 
 
 ```php
- DAV svn SVNParentPath /var/lib/svn AuthType Basic AuthName "svn repository" AuthUserFile /etc/httpd/conf/svn_auth_file Require valid-user 
+<location /svn>
+        DAV svn
+        SVNParentPath /var/lib/svn
+        AuthType Basic
+        AuthName "svn repository"
+        AuthUserFile /etc/httpd/conf/svn_auth_file
+        Require valid-user
+</location>
 ```
 
  www.example.com/svn/＜リポジトリ名＞ でアクセス可能となる。Basic認証を用いてredmineと連携する場合は、redmine用の認証ユーザーを別途作成しredmineに設定すればOK。

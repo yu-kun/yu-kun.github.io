@@ -12,7 +12,9 @@ slug: wordpress-remove-filter-url-link
  
 
 ```php
- /* 自動リンク除去 */ remove_filter('comment_text', 'make_clickable'); remove_filter('the_content', 'make_clickable'); 
+/* 自動リンク除去 */
+remove_filter('comment_text', 'make_clickable');
+remove_filter('the_content', 'make_clickable');
 ```
 
  ※余談： 上記の設定をしてもリンクが解除されなかったので、他の原因を探ってみたら、chromeブラウザで拡張機能Text URL Linkeを使用していると、記事中のhttp:～リンクを自動的にタグで囲んでしまうので、これも無効化する必要があった(^\_^;)

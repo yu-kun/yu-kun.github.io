@@ -14,7 +14,29 @@ slug: python-random
 
 
 ```python
- #!/usr/bin/python # coding: UTF-8 # 乱数の生成 | random()、randint()、uniform()、seed()メソッドの使い方 import random # モジュールのインポート print random.random(), 'n' # 0.0 ≦ F ＜ 1.0 の浮動小数点数をランダムに返す # randint(x, y)メソッド: 整数x以上y以下(x ≦ N ≦ y)の乱数を返す for i in range(10): print random.randint(10, 20), ' ', print 'n' # uniform(x, y)メソッド: 実数x以上y未満(x ≦ N ＜ y)の乱数を返す for i in range(10): print random.uniform(10, 20) print # seed()メソッド: 乱数の種の初期化 # (省略した場合はシステムの現在時刻で初期化が行われる) random.seed(1) # 明示的に初期化 for i in range(10): print random.randint(10, 20), ' ', print 'n' random.seed(1) # もう一度初期化(結果は上と同じとなる) for i in range(10): print random.randint(10, 20), ' ', print 'n' 
+#!/usr/bin/python
+# coding: UTF-8
+# 乱数の生成 | random()、randint()、uniform()、seed()メソッドの使い方
+import random # モジュールのインポート
+print random.random(), 'n' # 0.0 ≦ F ＜ 1.0 の浮動小数点数をランダムに返す
+# randint(x, y)メソッド: 整数x以上y以下(x ≦ N ≦ y)の乱数を返す
+for i in range(10):
+    print random.randint(10, 20), ' ',
+print 'n'
+# uniform(x, y)メソッド: 実数x以上y未満(x ≦ N ＜ y)の乱数を返す
+for i in range(10):
+    print random.uniform(10, 20)
+print
+# seed()メソッド: 乱数の種の初期化
+#                 (省略した場合はシステムの現在時刻で初期化が行われる)
+random.seed(1)  # 明示的に初期化
+for i in range(10):
+    print random.randint(10, 20), ' ',
+print 'n'
+random.seed(1)  # もう一度初期化(結果は上と同じとなる)
+for i in range(10):
+    print random.randint(10, 20), ' ',
+print 'n'
 ```
 
 

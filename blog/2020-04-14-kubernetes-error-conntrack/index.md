@@ -17,7 +17,10 @@ Ubuntu上に Kubernetes v1.18.0のminikubeをインストールしminikube start
 
 
 ```bash
- $ sudo minikube --driver=none start 😄 minikube v1.9.2 on Ubuntu 16.04 (vbox/amd64) ✨ Using the none driver based on user configuration 💣 Sorry, Kubernetes v1.18.0 requires conntrack to be installed in root's path 
+$ sudo minikube --driver=none start
+😄  minikube v1.9.2 on Ubuntu 16.04 (vbox/amd64)
+✨  Using the none driver based on user configuration
+💣  Sorry, Kubernetes v1.18.0 requires conntrack to be installed in root's path
 ```
 
 
@@ -27,7 +30,24 @@ conntrackがインストールされていない為発生したエラー。下�
 
 
 ```bash
- $ sudo apt install conntrack Reading package lists... Done Building dependency tree Reading state information... Done The following NEW packages will be installed: conntrack 0 upgraded, 1 newly installed, 0 to remove and 1 not upgraded. Need to get 27.3 kB of archives. After this operation, 91.1 kB of additional disk space will be used. Get:1 http://archive.ubuntu.com/ubuntu xenial/main amd64 conntrack amd64 1:1.4.3-3 [27.3 kB] Fetched 27.3 kB in 1s (25.4 kB/s) Selecting previously unselected package conntrack. (Reading database ... 62970 files and directories currently installed.) Preparing to unpack .../conntrack_1%3a1.4.3-3_amd64.deb ... Unpacking conntrack (1:1.4.3-3) ... Processing triggers for man-db (2.7.5-1) ... Setting up conntrack (1:1.4.3-3) ... $ 
+$ sudo apt install conntrack
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+The following NEW packages will be installed:
+  conntrack
+0 upgraded, 1 newly installed, 0 to remove and 1 not upgraded.
+Need to get 27.3 kB of archives.
+After this operation, 91.1 kB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu xenial/main amd64 conntrack amd64 1:1.4.3-3 [27.3 kB]
+Fetched 27.3 kB in 1s (25.4 kB/s)
+Selecting previously unselected package conntrack.
+(Reading database ... 62970 files and directories currently installed.)
+Preparing to unpack .../conntrack_1%3a1.4.3-3_amd64.deb ...
+Unpacking conntrack (1:1.4.3-3) ...
+Processing triggers for man-db (2.7.5-1) ...
+Setting up conntrack (1:1.4.3-3) ...
+$
 ```
 
 

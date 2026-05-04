@@ -28,7 +28,67 @@ slug: shell-script-kill-process
 
 
 ```bash
- #!/usr/bin/sh inter=3 # プロセスの監視間隔 wait=5 # serverの起動待ち時間 while true do isAliveSev=`ps -ef | grep "/server" | grep -v grep | wc -l` if [ $isAliveSev = 1 ]; then # serverが動いているか echo "o:serverプロセス" else echo "x:serverプロセス" pidEng=(`ps -ef | grep "/engine" | grep -v grep | awk '{ print $2; }'`) kill $pidEng /ret/eng/engine & flag=true while $flag do echo "serverの起動待ち" reAliveSev=`ps -ef | grep "/server" | grep -v grep | wc -l` if [ $reAliveSev = 1 ]; then flag=false fi sleep $wait reAliveEng=`ps -ef | grep "/engine" | grep -v grep | wc -l` if [ $reAliveEng = 0 ]; then # 両方止まったとき /ret/eng/engine & fi done fi isAliveEng=`ps -ef | grep "/engine" | grep -v grep | wc -l` if [ $isAliveEng = 1 ]; then # engineが動いているか echo "o:engineプロセス" else echo "x:engineプロセス" pidSev=(`ps -ef | grep "/server" | grep -v grep | awk '{ print $2; }'`) kill $pidSev /ret/eng/engine & flag=true while $flag do echo "serverの起動待ち" reAliveSev=`ps -ef | grep "/server" | grep -v grep | wc -l` if [ $reAliveSev = 1 ]; then flag=false fi sleep $wait reAliveEng=`ps -ef | grep "/engine" | grep -v grep | wc -l` if [ $reAliveEng = 0 ]; then # 両方止まったとき /ret/eng/engine & fi done fi sleep $inter # モニター間隔(秒単位) done 
+#!/usr/bin/sh
+inter=3 # プロセスの監視間隔
+wait=5  # serverの起動待ち時間
+while true
+do
+  isAliveSev=`ps -ef | grep "/server" |
+        grep -v grep | wc -l`
+  if [ $isAliveSev = 1 ]; then # serverが動いているか
+    echo "o:serverプロセス"
+  else
+    echo "x:serverプロセス"
+    pidEng=(`ps -ef | grep "/engine" |
+        grep -v grep | awk '{ print $2; }'`)
+    kill $pidEng
+    /ret/eng/engine &
+    flag=true
+    while $flag
+    do
+      echo "serverの起動待ち"
+      reAliveSev=`ps -ef | grep "/server" |
+          grep -v grep | wc -l`
+      if [ $reAliveSev = 1 ]; then
+        flag=false
+      fi
+      sleep $wait
+      reAliveEng=`ps -ef | grep "/engine" |
+          grep -v grep | wc -l`
+      if [ $reAliveEng = 0 ]; then # 両方止まったとき
+        /ret/eng/engine &
+      fi
+    done
+  fi
+  isAliveEng=`ps -ef | grep "/engine" |
+        grep -v grep | wc -l`
+  if [ $isAliveEng = 1 ]; then # engineが動いているか
+    echo "o:engineプロセス"
+  else
+    echo "x:engineプロセス"
+    pidSev=(`ps -ef | grep "/server" |
+        grep -v grep | awk '{ print $2; }'`)
+    kill $pidSev
+    /ret/eng/engine &
+    flag=true
+    while $flag
+    do
+      echo "serverの起動待ち"
+      reAliveSev=`ps -ef | grep "/server" |
+          grep -v grep | wc -l`
+      if [ $reAliveSev = 1 ]; then
+        flag=false
+      fi
+      sleep $wait
+      reAliveEng=`ps -ef | grep "/engine" |
+          grep -v grep | wc -l`
+      if [ $reAliveEng = 0 ]; then # 両方止まったとき
+        /ret/eng/engine &
+      fi
+    done
+  fi
+  sleep $inter # モニター間隔(秒単位)
+done
 ```
 
 
@@ -38,7 +98,57 @@ slug: shell-script-kill-process
 
 
 ```bash
- #!/usr/bin/sh inter=3 # プロセスの監視間隔 wait=3 # engineの起動待ち時間 while true do isAliveEng=`ps -ef | grep "/engine" | grep -v grep | wc -l` if [ $isAliveEng = 1 ]; then echo "o:engineプロセス" else echo "x:engineプロセス" pidSev=(`ps -ef | grep "/server" | grep -v grep | awk '{ print $2; }'`) kill $pidSev flag=true while $flag do echo "engineの起動待ち" reAliveEng=`ps -ef | grep "/engine" | grep -v grep | wc -l` if [ $reAliveEng = 1 ]; then flag=false fi sleep $wait done /ret/sev/server & fi isAliveSev=`ps -ef | grep "/server" | grep -v grep | wc -l` if [ $isAliveSev = 1 ]; then echo "o:serverプロセス" else echo "x:serverプロセス" pidEng=(`ps -ef | grep "/engine" | grep -v grep | awk '{ print $2; }'`) kill $pidEng flag=true while $flag do echo "engineの起動待ち" reAliveEng=`ps -ef | grep "/engine" | grep -v grep | wc -l` if [ $reAliveEng = 1 ]; then flag=false fi sleep $wait done /ret/sev/server & fi sleep $inter # モニター間隔(秒単位) done 
+#!/usr/bin/sh
+inter=3 # プロセスの監視間隔
+wait=3  # engineの起動待ち時間
+while true
+do
+  isAliveEng=`ps -ef | grep "/engine" |
+        grep -v grep | wc -l`
+  if [ $isAliveEng = 1 ]; then
+    echo "o:engineプロセス"
+  else
+    echo "x:engineプロセス"
+    pidSev=(`ps -ef | grep "/server" |
+        grep -v grep | awk '{ print $2; }'`)
+    kill $pidSev
+    flag=true
+    while $flag
+    do
+      echo "engineの起動待ち"
+      reAliveEng=`ps -ef | grep "/engine" |
+          grep -v grep | wc -l`
+      if [ $reAliveEng = 1 ]; then
+        flag=false
+      fi
+       sleep $wait
+    done
+    /ret/sev/server &
+  fi
+  isAliveSev=`ps -ef | grep "/server" |
+        grep -v grep | wc -l`
+  if [ $isAliveSev = 1 ]; then
+    echo "o:serverプロセス"
+  else
+    echo "x:serverプロセス"
+    pidEng=(`ps -ef | grep "/engine" |
+        grep -v grep | awk '{ print $2; }'`)
+    kill $pidEng
+    flag=true
+    while $flag
+    do
+      echo "engineの起動待ち"
+      reAliveEng=`ps -ef | grep "/engine" |
+          grep -v grep | wc -l`
+      if [ $reAliveEng = 1 ]; then
+        flag=false
+      fi
+       sleep $wait
+    done
+    /ret/sev/server &
+  fi
+  sleep $inter # モニター間隔(秒単位)
+done
 ```
 
 

@@ -26,13 +26,40 @@ slug: python-beautifulsoup-install-mac
 
 
 ```bash
- $ sudo easy_install beautifulsoup4 Password: Searching for beautifulsoup4 Reading https://pypi.org/simple/beautifulsoup4/ Reading http://www.crummy.com/software/BeautifulSoup/bs4/ Reading http://www.crummy.com/software/BeautifulSoup/bs4/download/ Best match: beautifulsoup4 4.1.3 Downloading Processing beautifulsoup4-4.1.3.tar.gz Running beautifulsoup4-4.1.3/setup.py -q bdist_egg --dist-dir /tmp/easy_install-vQ3gxL/beautifulsoup4-4.1.3/egg-dist-tmp-QEs1O5 zip_safe flag not set; analyzing archive contents... Adding beautifulsoup4 4.1.3 to easy-install.pth file Installed /Library/Python/2.7/site-packages/beautifulsoup4-4.1.3-py2.7.egg Processing dependencies for beautifulsoup4 Finished processing dependencies for beautifulsoup4 $ 
+$ sudo easy_install beautifulsoup4
+Password:
+Searching for beautifulsoup4
+Reading https://pypi.org/simple/beautifulsoup4/
+Reading http://www.crummy.com/software/BeautifulSoup/bs4/
+Reading http://www.crummy.com/software/BeautifulSoup/bs4/download/
+Best match: beautifulsoup4 4.1.3
+Downloading 
+Processing beautifulsoup4-4.1.3.tar.gz
+Running beautifulsoup4-4.1.3/setup.py -q bdist_egg --dist-dir /tmp/easy_install-vQ3gxL/beautifulsoup4-4.1.3/egg-dist-tmp-QEs1O5
+zip_safe flag not set; analyzing archive contents...
+Adding beautifulsoup4 4.1.3 to easy-install.pth file
+Installed /Library/Python/2.7/site-packages/beautifulsoup4-4.1.3-py2.7.egg
+Processing dependencies for beautifulsoup4
+Finished processing dependencies for beautifulsoup4
+$
 ```
 
  このインストール方法を用いた場合は、下記のディレクトリにインストールされ、サーチパスリスト(sys.path)にも追加される。 `/Library/Python/2.7/site-packages/beautifulsoup4-4.1.3-py2.7.egg` 
 
 ```python
- >>> import sys >>> print sys.path ['', '/Library/Python/2.7/site-packages/beautifulsoup4-4.1.3-py2.7.egg', '/Library/Frameworks/Python.framework/Versions/2.7/lib/python27.zip', '/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7', '/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/plat-darwin', '/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/plat-mac', '/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/plat-mac/lib-scriptpackages', '/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-tk', '/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-old', '/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-dynload', '/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages', '/Library/Python/2.7/site-packages'] 
+>>> import sys
+>>> print sys.path
+['', '/Library/Python/2.7/site-packages/beautifulsoup4-4.1.3-py2.7.egg',
+'/Library/Frameworks/Python.framework/Versions/2.7/lib/python27.zip',
+'/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7',
+'/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/plat-darwin',
+'/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/plat-mac',
+'/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/plat-mac/lib-scriptpackages',
+'/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-tk',
+'/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-old',
+'/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-dynload',
+'/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages',
+'/Library/Python/2.7/site-packages']
 ```
 
 

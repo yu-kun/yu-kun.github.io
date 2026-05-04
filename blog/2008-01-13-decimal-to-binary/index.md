@@ -13,7 +13,38 @@ slug: decimal-to-binary
 
 
 ```cpp
- // filename: dtob.c // convert decimal to binary #include const int BitSize = sizeof(int) * 8; // 整数型のビットサイズを算出 void dtob(int x) { int bit = 1, i; char c[BitSize]; for (i = 0; i < BitSize; i++) { if (x & bit) c[i] = '1'; else c[i] = '0'; bit <<= 1; } // 計算結果の表示 printf("2進数: "); for ( i = BitSize - 1; i >= 0; i-- ) { putchar(c[i]); } printf("\n"); } int main() { int x = 0; do { printf("10進数を2進数に変換します(0で終了)\n"); printf("xの値: "); scanf("%d", &x); dtob(x); } while (x != 0); return 0; } 
+// filename: dtob.c
+// convert decimal to binary
+#include <stdio.h>
+const int BitSize = sizeof(int) * 8; // 整数型のビットサイズを算出
+void dtob(int x) {
+  int bit = 1, i;
+  char c[BitSize];
+  for (i = 0; i < BitSize; i++) {
+    if (x & bit)
+      c[i] = '1';
+    else
+      c[i] = '0';
+    bit <<= 1;
+  }
+  // 計算結果の表示
+  printf("2進数: ");
+  for ( i = BitSize - 1; i >= 0; i-- ) {
+      putchar(c[i]);
+  }
+  printf("\n");
+}
+int main()
+{
+  int x = 0;
+  do {
+  printf("10進数を2進数に変換します(0で終了)\n");
+  printf("xの値: ");
+  scanf("%d", &x);
+  dtob(x);
+  } while (x != 0);
+  return 0;
+}
 ```
 
 

@@ -30,7 +30,13 @@ TEST005
 
 
 ```bash
- $ cat crtdev.sh #!/bin/sh filename=$1 cat ${filename} | while read line do system "CRTDEVDSP DEVD(${line}) DEVCLS(*VRT) TYPE(3179) MODEL(2)" done 
+$ cat crtdev.sh
+#!/bin/sh
+filename=$1
+cat ${filename} | while read line
+do
+  system "CRTDEVDSP DEVD(${line}) DEVCLS(*VRT) TYPE(3179) MODEL(2)"
+done
 ```
 
  シェルからCLコマンドを使用するにはsystemユーティリティを使用する。使用方法の詳細は下記のページを参照。 [IBM i 7.1 Information Center>プログラミング>シェルおよびユーティリティー>Qshell>ユーティリティー>コマンド実行>system - CL コマンドを実行する](http://www-01.ibm.com/support/knowledgecenter/ssw_ibm_i_71/rzahz/rzahzsystem.htm?lang=ja)

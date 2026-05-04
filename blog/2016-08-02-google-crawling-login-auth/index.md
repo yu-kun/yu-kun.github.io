@@ -17,7 +17,25 @@ slug: google-crawling-login-auth
 説明の簡略化の為に、import文など省いている。 
 
 ```python
- login_url = "https://www.ingress.com/intel?ll=35.663091,139.735247" GOOGLE_USER = os.environ['GOOGLE_USER'] GOOGLE_PASS = os.environ['GOOGLE_PASS'] driver = webdriver.PhantomJS(executable_path='/usr/local/bin/phantomjs') driver.get(login_url) driver.find_element_by_link_text('Sign in').click() WebDriverWait(driver, 10).until( expected_conditions.visibility_of_element_located((By.ID, 'Email')) ) idTextBox = driver.find_element_by_id('Email') idTextBox.send_keys(GOOGLE_USER) nextButton = driver.find_element_by_id('next') nextButton.click() WebDriverWait(driver, 10).until( expected_conditions.visibility_of_element_located((By.ID, 'Passwd')) ) driver.find_element_by_id('Passwd').send_keys(GOOGLE_PASS) driver.find_element_by_id('signIn').click() capture() # 画面キャプチャを取得する関数(ここでは内容割愛) 
+login_url = "https://www.ingress.com/intel?ll=35.663091,139.735247"
+GOOGLE_USER = os.environ['GOOGLE_USER']
+GOOGLE_PASS = os.environ['GOOGLE_PASS']
+driver = webdriver.PhantomJS(executable_path='/usr/local/bin/phantomjs')
+driver.get(login_url)
+driver.find_element_by_link_text('Sign in').click()
+WebDriverWait(driver, 10).until(
+  expected_conditions.visibility_of_element_located((By.ID, 'Email'))
+)
+idTextBox = driver.find_element_by_id('Email')
+idTextBox.send_keys(GOOGLE_USER)
+nextButton = driver.find_element_by_id('next')
+nextButton.click()
+WebDriverWait(driver, 10).until(
+  expected_conditions.visibility_of_element_located((By.ID, 'Passwd'))
+)
+driver.find_element_by_id('Passwd').send_keys(GOOGLE_PASS)
+driver.find_element_by_id('signIn').click()
+capture() # 画面キャプチャを取得する関数(ここでは内容割愛)
 ```
 
 

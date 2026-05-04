@@ -17,7 +17,26 @@ Pythonの数値計算モジュールであるNumPyのアレイに対する行・
 Python 3系の書式で記載。一見だと転置処理がわかりにくい場合もあるので、末尾の公式ドキュメント(サンプルソース記載有り)も合わせて参照して理解度を確認した方が良い。 
 
 ```python
- import numpy as np # 4x4のアレイを作成 (reshape(row, col)メソッドでrow行col列のアレイへ修正 arr = np.arange(16).reshape((4,4)) print("arr == \n", arr) # .Tで転置したアレイを出力(arr自体は書き換わらない) print("arr.T == \n", arr.T) # transpose()メソッドでも同様に転置される。 print("arr.transpose() == \n", arr.transpose()) # transpose(n1, n2, n3...)と引数入れ替え順序を指定可能 # 指定できる引数の数は次元数で指定数値は0, 1, ... print("arr.transpose(1, 0) == \n", arr.transpose(1, 0)) # この場合、↑の結果はarr.transpose()、arr.Tと同値。 # 軸の入れ替えとしてはswapaxes()もある print("arr.swapaxes(0,1) == \n", arr.swapaxes(0,1)) # 3次元の行列を作成 arr3d = np.arange(12).reshape((3,2,2)) print("\n arr3d == \n", arr3d) # 下記のtransposeの意味は、2x2行列(3つ)の要素の順序は同じくし # 2x2行列内の転置を行う。 print("arr3d.transpose((0,2,1)) == \n", arr3d.transpose((0,2,1))) 
+import numpy as np
+# 4x4のアレイを作成 (reshape(row, col)メソッドでrow行col列のアレイへ修正
+arr = np.arange(16).reshape((4,4))
+print("arr == \n", arr)
+# .Tで転置したアレイを出力(arr自体は書き換わらない)
+print("arr.T == \n", arr.T)
+# transpose()メソッドでも同様に転置される。
+print("arr.transpose() == \n", arr.transpose())
+# transpose(n1, n2, n3...)と引数入れ替え順序を指定可能
+# 指定できる引数の数は次元数で指定数値は0, 1, ...
+print("arr.transpose(1, 0) == \n", arr.transpose(1, 0))
+# この場合、↑の結果はarr.transpose()、arr.Tと同値。
+# 軸の入れ替えとしてはswapaxes()もある
+print("arr.swapaxes(0,1) == \n", arr.swapaxes(0,1))
+# 3次元の行列を作成
+arr3d = np.arange(12).reshape((3,2,2))
+print("\n arr3d == \n", arr3d)
+# 下記のtransposeの意味は、2x2行列(3つ)の要素の順序は同じくし
+# 2x2行列内の転置を行う。
+print("arr3d.transpose((0,2,1)) == \n", arr3d.transpose((0,2,1)))
 ```
 
 

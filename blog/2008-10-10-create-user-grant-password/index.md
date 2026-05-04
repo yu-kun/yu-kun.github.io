@@ -27,7 +27,9 @@ slug: create-user-grant-password
 root権限で以下のコマンドを打ちます。 
 
 ```sql
- mysql> CREATE USER yukun IDENTIFIED BY 'ticktack'; Query OK, 0 rows affected (0.00 sec) mysql> 
+mysql> CREATE USER yukun IDENTIFIED BY 'ticktack';
+Query OK, 0 rows affected (0.00 sec)
+mysql>
 ```
 
  一般式
@@ -37,7 +39,12 @@ root権限で以下のコマンドを打ちます。
 ユーザの追加はCREATE USERコマンドを使用します。上の例では、"yukun"という名前のユーザを作成し、"ticktack"というパスワードを設定しました。パスワードは本来もっと複雑なものにする必要がありますが今回はローカルでの開発用、と限定した環境での仕様を念頭においていますので、安直な単語にしました。 それでは一回MySQLをログアウトして、再度ユーザyukunとしてログインし、bookshelを使ってみましょう。 
 
 ```sql
- mysql> quit Bye C:\Users\yukun>mysql -u yukun -pticktack mysql> USE bookshelf； ERROR 1044 (42000): Access denied for user 'yukun'@'%' to database 'bookshelf' mysql> 
+mysql> quit
+Bye
+C:\Users\yukun>mysql -u yukun -pticktack
+mysql> USE bookshelf；
+ERROR 1044 (42000): Access denied for user 'yukun'@'%' to database 'bookshelf'
+mysql>
 ```
 
  USEコマンドでbookshelfを使用しようと試みていますが、ユーザyukunは操作権限が無いためエラーが出ていますね。それでは、このユーザyukunにデータベースbookshelfに対する全操作の権限を付加してみましょう。
@@ -47,7 +54,9 @@ root権限で以下のコマンドを打ちます。
 もう一度rootユーザでMySQLにログインし以下のコマンドを打ちます。 
 
 ```sql
- mysql> GRANT ALL PRIVILEGES ON bookshelf.* TO yukun@localhost IDENTIFIED BY 'ticktack'; Query OK, 0 rows affected (0.00 sec) mysql> 
+mysql> GRANT ALL PRIVILEGES ON bookshelf.* TO yukun@localhost IDENTIFIED BY 'ticktack';
+Query OK, 0 rows affected (0.00 sec)
+mysql>
 ```
 
  一般式
@@ -57,7 +66,10 @@ root権限で以下のコマンドを打ちます。
 さぁ、今度こそbookshelfを操作できるはずですので、もう一度先ほどのUSEコマンドを打ってみましょう。 
 
 ```sql
- C:\Users\yukun>mysql -u yukun -pticktack mysql> USE bookshelf; Database changed mysql> 
+C:\Users\yukun>mysql -u yukun -pticktack
+mysql> USE bookshelf;
+Database changed
+mysql>
 ```
 
  おぉ、USEコマンドで使用するDBを選択できるようになっていますね(^-^)b

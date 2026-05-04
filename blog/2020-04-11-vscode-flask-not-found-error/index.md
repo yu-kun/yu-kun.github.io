@@ -19,7 +19,18 @@ Visual Studio CodeのDev Container上でPython Flaskライブラリの使用を�
 
 
 ```bash
- vscode@7a83afce1faf:/workspaces/test-vs$ pip freeze click==7.1.1 Flask==1.1.2 itsdangerous==1.1.0 Jinja2==2.11.1 MarkupSafe==1.1.1 Werkzeug==1.0.1 vscode@7a83afce1faf:/workspaces/test-vs$ /usr/bin/python3 /workspaces/test-vs/app.py Traceback (most recent call last): File "/workspaces/test-vs/app.py", line 1, in from flask import Flask ModuleNotFoundError: No module named 'flask' 
+vscode@7a83afce1faf:/workspaces/test-vs$ pip freeze
+click==7.1.1
+Flask==1.1.2
+itsdangerous==1.1.0
+Jinja2==2.11.1
+MarkupSafe==1.1.1
+Werkzeug==1.0.1
+vscode@7a83afce1faf:/workspaces/test-vs$ /usr/bin/python3 /workspaces/test-vs/app.py
+Traceback (most recent call last):
+  File "/workspaces/test-vs/app.py", line 1, in <module>
+    from flask import Flask
+ModuleNotFoundError: No module named 'flask'
 ```
 
 
@@ -29,7 +40,8 @@ Visual Studio CodeのDev Container上でPython Flaskライブラリの使用を�
 
 
 ```bash
- vscode@7a83afce1faf:/workspaces/test-vs$ which python /usr/local/bin/python 
+vscode@7a83afce1faf:/workspaces/test-vs$ which python
+/usr/local/bin/python
 ```
 
 
@@ -37,7 +49,9 @@ Visual Studio CodeのDev Container上でPython Flaskライブラリの使用を�
 
 
 ```javascript
- { "python.pythonPath": "/usr/bin/python3" } 
+{
+    "python.pythonPath": "/usr/bin/python3"
+}
 ```
 
 
@@ -47,7 +61,10 @@ Visual Studio CodeのDev Container上でPython Flaskライブラリの使用を�
 
 
 ```javascript
- { "python.pythonPath": "/usr/local/bin/python3.8" //"python.pythonPath": "/usr/bin/python3" } 
+{
+    "python.pythonPath": "/usr/local/bin/python3.8"
+    //"python.pythonPath": "/usr/bin/python3"
+}
 ```
 
 
@@ -55,7 +72,14 @@ Visual Studio CodeのDev Container上でPython Flaskライブラリの使用を�
 
 
 ```bash
- vscode@7a83afce1faf:/workspaces/test-vs$ /usr/local/bin/python3.8 /workspaces/test-vs/app.py * Serving Flask app "app" (lazy loading) * Environment: production WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead. * Debug mode: off * Running on (Press CTRL+C to quit) 127.0.0.1 - - [11/Apr/2020 13:24:20] "GET / HTTP/1.1" 200 -
+vscode@7a83afce1faf:/workspaces/test-vs$ /usr/local/bin/python3.8 /workspaces/test-vs/app.py
+ * Serving Flask app "app" (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: off
+ * Running on  (Press CTRL+C to quit)
+127.0.0.1 - - [11/Apr/2020 13:24:20] "GET / HTTP/1.1" 200 -
 ```
 
 

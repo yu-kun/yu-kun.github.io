@@ -18,37 +18,39 @@ lxml とはXMLやHTMLを扱うPythonのライブラリの一つです。
 
 
 ```bash
- # yum python-lxml 
+# yum python-lxml
 ```
 
  も一つの手ですがバージョンが古いので、通常はeasy\_install経由でlxmlをインストールします。 前段階として、easy\_installをインストールするためにhttp://peak.telecommunity.com/dist/ez\_setup.pyをダウンロードしてスーパーユーザで実行します。 
 
 ```bash
- # python ez_setup.py error: invalid Python installation: unable to open /usr/lib/python2.5/config/Makefile (No such file or directory) 
+# python ez_setup.py error: invalid Python installation: unable to open /usr/lib/python2.5/config/Makefile (No such file or directory)
 ```
 
  上のようなエラーがでた場合はpython-develをインストールします。また、合わせてlxmlに必要なパッケージもインストールするには以下のようなコマンドを実行します。 
 
 ```bash
- # yum install python-devel libxml2* libxslt* 
+# yum install python-devel libxml2* libxslt*
 ```
 
  改めて、 
 
 ```bash
- # python ez_setup.py 
+# python ez_setup.py
 ```
 
  完了後、easy\_installコマンドが実行できるようになります。 lxmlのインストールは以下のコマンドを実行すればOKです。 
 
 ```bash
- # easy_install lxml 
+# easy_install lxml
 ```
 
  ライブラリの確認方法は、 
 
 ```python
- $ python >>> import lxml >>> 
+$ python
+>>> import lxml
+>>>
 ```
 
  でエラーが出なければOKです。
@@ -58,7 +60,7 @@ lxml とはXMLやHTMLを扱うPythonのライブラリの一つです。
 以下のコマンドを実行。 
 
 ```python
- # easy_install -mxN lxml 
+# easy_install -mxN lxml
 ```
 
 

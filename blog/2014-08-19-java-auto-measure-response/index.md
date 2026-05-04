@@ -32,7 +32,48 @@ slug: java-auto-measure-response
 
 
 ```java
- package info.yukun.autoWebAccess; import java.util.concurrent.ExecutorService; import java.util.concurrent.Executors; import java.util.concurrent.TimeUnit; public class Main { public static void main(String[] args) throws InterruptedException { System.out.println("Entering main"); // スレッドの作成数 ExecutorService pool = Executors.newFixedThreadPool(20); // レスポンス計測対象のページ final String url = "http://www.example.com/"; // タスク完了を待つ時間(sec) final long awaitTime = 5 * 60; // スレッドpoolに投げるタスク内容 Runnable task = new Runnable() { public void run() { NetHttpClient http = new NetHttpClient(url); http.executeGet(); System.out.println("Client - " + Thread.currentThread().getId() + ": " + http.getResponseTime() + "sec"); } }; // スレッドプールにタスクを投げる for (int i = 0; i < 50; i++) { pool.execute(task); } try { // 全タスクが終了後にスレッドを終了させる。 pool.shutdown(); // (全てのタスクが終了した場合、trueを返しif内はスキップ) if (!pool.awaitTermination(awaitTime, TimeUnit.SECONDS)) { // タイムアウトした場合、全てのスレッドを中断(interrupted)してスレッドプールを破棄する。 pool.shutdownNow(); } } catch (InterruptedException e) { // awaitTerminationスレッドがinterruptedした場合も、全てのスレッドを中断する System.out.println("awaitTermination interrupted: " + e); pool.shutdownNow(); } System.out.println("Exit main"); } } 
+package info.yukun.autoWebAccess;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+public class Main {
+	public static void main(String[] args) throws InterruptedException {
+		System.out.println("Entering main");
+		// スレッドの作成数
+		ExecutorService pool = Executors.newFixedThreadPool(20);
+		// レスポンス計測対象のページ
+		final String url = "http://www.example.com/";
+		// タスク完了を待つ時間(sec)
+		final long awaitTime = 5 * 60;
+		// スレッドpoolに投げるタスク内容
+		Runnable task = new Runnable() {
+			public void run() {
+				NetHttpClient http = new NetHttpClient(url);
+				http.executeGet();
+				System.out.println("Client - " + Thread.currentThread().getId()
+						+ ": " + http.getResponseTime() + "sec");
+			}
+		};
+		// スレッドプールにタスクを投げる
+		for (int i = 0; i < 50; i++) {
+			pool.execute(task);
+		}
+		try {
+			// 全タスクが終了後にスレッドを終了させる。
+			pool.shutdown();
+			// (全てのタスクが終了した場合、trueを返しif内はスキップ)
+			if (!pool.awaitTermination(awaitTime, TimeUnit.SECONDS)) {
+				// タイムアウトした場合、全てのスレッドを中断(interrupted)してスレッドプールを破棄する。
+				pool.shutdownNow();
+			}
+		} catch (InterruptedException e) {
+			// awaitTerminationスレッドがinterruptedした場合も、全てのスレッドを中断する
+			System.out.println("awaitTermination interrupted: " + e);
+			pool.shutdownNow();
+		}
+		System.out.println("Exit main");
+	}
+}
 ```
 
 
@@ -40,7 +81,58 @@ slug: java-auto-measure-response
 
 
 ```java
- package info.yukun.autoWebAccess; import java.io.BufferedReader; import java.io.IOException; import java.io.InputStreamReader; import java.net.HttpURLConnection; import java.net.URL; import java.nio.charset.StandardCharsets; public class NetHttpClient { private StringBuffer res; private long msec; private String path; public NetHttpClient(String url) { this.res = new StringBuffer(); this.path = url; } public void executeGet() { long start = System.currentTimeMillis(); try { URL url = new URL(path); HttpURLConnection connection = null; try { connection = (HttpURLConnection) url.openConnection(); connection.setRequestMethod("GET"); if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) { try (InputStreamReader isr = new InputStreamReader( connection.getInputStream(), StandardCharsets.UTF_8); BufferedReader reader = new BufferedReader(isr)) { String line; while ((line = reader.readLine()) != null) { res.append(line); res.append(System.getProperty("line.separator")); } } } } finally { if (connection != null) { connection.disconnect(); } } } catch (IOException e) { e.printStackTrace(); } long stop = System.currentTimeMillis(); msec = stop - start; } public double getResponseTime() { return (double) msec / 1000; } public StringBuffer getResponse() { return res; } } 
+package info.yukun.autoWebAccess;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
+public class NetHttpClient {
+	private StringBuffer res;
+	private long msec;
+	private String path;
+	public NetHttpClient(String url) {
+		this.res = new StringBuffer();
+		this.path = url;
+	}
+	public void executeGet() {
+		long start = System.currentTimeMillis();
+		try {
+			URL url = new URL(path);
+			HttpURLConnection connection = null;
+			try {
+				connection = (HttpURLConnection) url.openConnection();
+				connection.setRequestMethod("GET");
+				if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+					try (InputStreamReader isr = new InputStreamReader(
+							connection.getInputStream(), StandardCharsets.UTF_8);
+							BufferedReader reader = new BufferedReader(isr)) {
+						String line;
+						while ((line = reader.readLine()) != null) {
+							res.append(line);
+							res.append(System.getProperty("line.separator"));
+						}
+					}
+				}
+			} finally {
+				if (connection != null) {
+					connection.disconnect();
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		long stop = System.currentTimeMillis();
+		msec = stop - start;
+	}
+	public double getResponseTime() {
+		return (double) msec / 1000;
+	}
+	public StringBuffer getResponse() {
+		return res;
+	}
+}
 ```
 
 

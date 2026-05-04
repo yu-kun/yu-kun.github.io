@@ -19,7 +19,29 @@ slug: websphere-mq-trigger-amqsinq
 ソーズコードはLinuxでは下記に保管されている。 保管先：/opt/mqm/samp/amqsinqa.c プログラムのロジックはソース中のコメントに分かりやすいものが記載されていたので、引用させて頂く。 
 
 ```c
- /* Program logic: */ /* MQCONNect to message queue manager */ /* MQOPEN message queue (A) for shared input */ /* while no MQI failures, */ /* . MQGET next message from queue A */ /* . if message is a request, */ /* . . MQOPEN queue (B) named in request message for INQUIRE */ /* . . Use MQINQ, find values of some of B's attributes */ /* . . Prepare reply message if MQINQ was successful */ /* . . MQCLOSE queue B */ /* . . Prepare a report message if reply not available */ /* . . MQPUT1, send reply or report to named reply queue */ /* MQCLOSE queue A */ /* MQDISConnect from queue manager */ /* */ /* */ /********************************************************************/ /* */ /* AMQSINQA has 1 parameter - a string (MQTMC2) based on the */ /* initiation trigger message; only the QName and queue */ /* manager name fields are used in this example */ /* */ /********************************************************************/ 
+ /*  Program logic:                                                  */
+ /*     MQCONNect to message queue manager                           */
+ /*     MQOPEN message queue (A) for shared input                    */
+ /*     while no MQI failures,                                       */
+ /*     .  MQGET next message from queue A                           */
+ /*     .  if message is a request,                                  */
+ /*     .  .  MQOPEN queue (B) named in request message for INQUIRE  */
+ /*     .  .  Use MQINQ, find values of some of B's attributes       */
+ /*     .  .  Prepare reply message if MQINQ was successful          */
+ /*     .  .  MQCLOSE queue B                                        */
+ /*     .  .  Prepare a report message if reply not available        */
+ /*     .  .  MQPUT1, send reply or report to named reply queue      */
+ /*     MQCLOSE queue A                                              */
+ /*     MQDISConnect from queue manager                              */
+ /*                                                                  */
+ /*                                                                  */
+ /********************************************************************/
+ /*                                                                  */
+ /*   AMQSINQA has 1 parameter - a string (MQTMC2) based on the      */
+ /*       initiation trigger message; only the QName and queue       */
+ /*       manager name fields are used in this example               */
+ /*                                                                  */
+ /********************************************************************/
 ```
 
  amqsechと同じく、amqsinqもトリガー・モニター経由で起動される。トリガー・モニターより渡された構造体内で指定されているキューからメッセージを順々にgetし、そのメッセージをキューの名前としてMQINQをcallする。その結果を構造体内で指定されているReply-toキューにputする。

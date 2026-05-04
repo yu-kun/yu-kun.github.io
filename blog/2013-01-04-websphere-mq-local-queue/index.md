@@ -86,7 +86,52 @@ amqsputが実行されると、最初の二行を出力した後、標準入力�
 
 
 ```c
- ＜前略＞ while (CompCode != MQCC_FAILED) { if (fgets(buffer, sizeof(buffer), fp) != NULL) { messlen = (MQLONG)strlen(buffer); /* length without null */ if (buffer[messlen-1] == '\n') /* last char is a new-line */ { buffer[messlen-1] = ''; /* replace new-line with null */ --messlen; /* reduce buffer length */ } } else messlen = 0; /* treat EOF same as null line */ /****************************************************************/ /* */ /* Put each buffer to the message queue */ /* */ /****************************************************************/ if (messlen > 0) { /**************************************************************/ /* The following two statements are not required if the */ /* MQPMO_NEW_MSG_ID and MQPMO_NEW _CORREL_ID options are used */ /**************************************************************/ memcpy(md.MsgId, /* reset MsgId to get a new one */ MQMI_NONE, sizeof(md.MsgId) ); memcpy(md.CorrelId, /* reset CorrelId to get a new one */ MQCI_NONE, sizeof(md.CorrelId) ); MQPUT(Hcon, /* connection handle */ Hobj, /* object handle */ &md, /* message descriptor */ &pmo, /* default options (datagram) */ messlen, /* message length */ buffer, /* message buffer */ &CompCode, /* completion code */ &Reason); /* reason code */ /* report reason, if any */ if (Reason != MQRC_NONE) { printf("MQPUT ended with reason code %d\n", Reason); } } else /* satisfy end condition when empty line is read */ CompCode = MQCC_FAILED; } ＜後略＞ 
+＜前略＞
+   while (CompCode != MQCC_FAILED)
+   {
+     if (fgets(buffer, sizeof(buffer), fp) != NULL)
+     {
+       messlen = (MQLONG)strlen(buffer); /* length without null      */
+       if (buffer[messlen-1] == '\n')  /* last char is a new-line    */
+       {
+         buffer[messlen-1]  = '';    /* replace new-line with null */
+         --messlen;                    /* reduce buffer length       */
+       }
+     }
+     else messlen = 0;        /* treat EOF same as null line         */
+     /****************************************************************/
+     /*                                                              */
+     /*   Put each buffer to the message queue                       */
+     /*                                                              */
+     /****************************************************************/
+     if (messlen &gt; 0)
+     {
+       /**************************************************************/
+       /* The following two statements are not required if the       */
+       /* MQPMO_NEW_MSG_ID and MQPMO_NEW _CORREL_ID options are used */
+       /**************************************************************/
+       memcpy(md.MsgId,           /* reset MsgId to get a new one    */
+              MQMI_NONE, sizeof(md.MsgId) );
+       memcpy(md.CorrelId,        /* reset CorrelId to get a new one */
+              MQCI_NONE, sizeof(md.CorrelId) );
+       MQPUT(Hcon,                /* connection handle               */
+             Hobj,                /* object handle                   */
+             &amp;md,                 /* message descriptor              */
+             &amp;pmo,                /* default options (datagram)      */
+             messlen,             /* message length                  */
+             buffer,              /* message buffer                  */
+             &amp;CompCode,           /* completion code                 */
+             &amp;Reason);            /* reason code                     */
+       /* report reason, if any */
+       if (Reason != MQRC_NONE)
+       {
+         printf("MQPUT ended with reason code %d\n", Reason);
+       }
+     }
+     else   /* satisfy end condition when empty line is read */
+       CompCode = MQCC_FAILED;
+   }
+＜後略＞
 ```
 
  空行'\\n'か'null'の際にwhileループの条件判定CompCodeにMQCC\_FAILEDを代入してループを抜けるように組んである。残り2つのサンプル・プログラムについても、同フォルダにソースが保管されているので、時間があれば確認してみると良いと思う。プログラムの冒頭にその論理構造がコメントブロックに記載されているので、初見でも読みやすい。
@@ -160,7 +205,35 @@ $
 
 
 ```c
- ＜前略＞ /******************************************************************/ /* Use these options when connecting to Queue Managers that also */ /* support them, see the Application Programming Reference for */ /* details. */ /* These options cause the MsgId and CorrelId to be replaced, so */ /* that there is no need to reset them before each MQGET */ /******************************************************************/ /*gmo.Version = MQGMO_VERSION_2;*/ /* Avoid need to reset Message */ /*gmo.MatchOptions = MQMO_NONE; */ /* ID and Correlation ID after */ /* every MQGET */ gmo.Options = MQGMO_WAIT /* wait for new messages */ | MQGMO_NO_SYNCPOINT /* no transaction */ | MQGMO_CONVERT; /* convert if necessary */ gmo.WaitInterval = 15000; /* 15 second limit for waiting */ while (CompCode != MQCC_FAILED) { buflen = sizeof(buffer) - 1; /* buffer size available for GET */ ＜中略＞ MQGET(Hcon, /* connection handle */ Hobj, /* object handle */ &md, /* message descriptor */ &gmo, /* get message options */ buflen, /* buffer length */ buffer, /* message buffer */ &messlen, /* message length */ &CompCode, /* completion code */ &Reason); /* reason code */ ＜後略＞ 
+＜前略＞
+   /******************************************************************/
+   /* Use these options when connecting to Queue Managers that also  */
+   /* support them, see the Application Programming Reference for    */
+   /* details.                                                       */
+   /* These options cause the MsgId and CorrelId to be replaced, so  */
+   /* that there is no need to reset them before each MQGET          */
+   /******************************************************************/
+   /*gmo.Version = MQGMO_VERSION_2;*/ /* Avoid need to reset Message */
+   /*gmo.MatchOptions = MQMO_NONE; */ /* ID and Correlation ID after */
+                                      /* every MQGET                 */
+   gmo.Options = MQGMO_WAIT           /* wait for new messages       */
+               | MQGMO_NO_SYNCPOINT   /* no transaction              */
+               | MQGMO_CONVERT;       /* convert if necessary        */
+   gmo.WaitInterval = 15000;          /* 15 second limit for waiting */
+   while (CompCode != MQCC_FAILED)
+   {
+     buflen = sizeof(buffer) - 1; /* buffer size available for GET   */
+＜中略＞
+     MQGET(Hcon,                /* connection handle                 */
+           Hobj,                /* object handle                     */
+           &amp;md,                 /* message descriptor                */
+           &amp;gmo,                /* get message options               */
+           buflen,              /* buffer length                     */
+           buffer,              /* message buffer                    */
+           &amp;messlen,            /* message length                    */
+           &amp;CompCode,           /* completion code                   */
+           &amp;Reason);            /* reason code                       */
+＜後略＞
 ```
 
  (MQGMO) gmo.WaitIntervalに対して15000ms=15secを設定していることが分かる。 また、現在のキューの中身が空であることを念のため下記のコマンドで確認する。

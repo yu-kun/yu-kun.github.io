@@ -17,13 +17,45 @@ slug: python-udp-socket-server-client
 補足はソースコード中のコメントを参照。サンプルの為、サーバ・クライアントは同一マシン上での実行を想定。 **tsUdpServ.py** 
 
 ```python
- # coding: utf-8 from socket import * from time import ctime HOST = gethostname() PORT = 34512 BUFSIZE = 1024 ADDR = (gethostbyname(HOST), PORT) USER = 'Server' udpServSock = socket(AF_INET, SOCK_DGRAM) # IPv4/UDPでソケット作成 udpServSock.bind(ADDR) # HOST, PORTでbinding while True: print 'Waiting for message...' data, addr = udpServSock.recvfrom(BUFSIZE) # データ受信 print '...received from and returned to:', addr udpServSock.sendto('%s > [%s] %s' % (USER, ctime(), data), addr) # データ送信 udpServSock.close() 
+# coding: utf-8
+from socket import *
+from time import ctime
+HOST = gethostname()
+PORT = 34512
+BUFSIZE = 1024
+ADDR = (gethostbyname(HOST), PORT)
+USER = 'Server'
+udpServSock = socket(AF_INET, SOCK_DGRAM) # IPv4/UDPでソケット作成
+udpServSock.bind(ADDR) # HOST, PORTでbinding
+while True:
+	print 'Waiting for message...'
+	data, addr = udpServSock.recvfrom(BUFSIZE) # データ受信
+	print '...received from and returned to:', addr
+	udpServSock.sendto('%s > [%s] %s' % (USER, ctime(), data), addr) # データ送信
+udpServSock.close()
 ```
 
  TCPと大きく変わるところは、ソケットの作成時にソケットファミリーをSOCK\_DGRAMとすること。また、listen()とaccept()メソッドが不要となったところあたりかな。 **tsUdpClnt.py** 
 
 ```python
- # coding: utf-8 from socket import * HOST = gethostname() PORT = 34512 BUFSIZE = 1024 ADDR = (gethostbyname(HOST), PORT) USER = 'Client' udpClntSock = socket(AF_INET, SOCK_DGRAM) while True: data = raw_input('%s > ' % USER) # 標準入力からのデータ入力 if not data: break udpClntSock.sendto(data, ADDR) # データ送信 data, ADDR = udpClntSock.recvfrom(BUFSIZE) # データ受信 if not data: break print data # データ出力 udpClntSock.close() 
+# coding: utf-8
+from socket import *
+HOST = gethostname()
+PORT = 34512
+BUFSIZE = 1024
+ADDR = (gethostbyname(HOST), PORT)
+USER = 'Client'
+udpClntSock = socket(AF_INET, SOCK_DGRAM)
+while True:
+	data = raw_input('%s > ' % USER) # 標準入力からのデータ入力
+	if not data:
+		break
+	udpClntSock.sendto(data, ADDR) # データ送信
+	data, ADDR = udpClntSock.recvfrom(BUFSIZE) # データ受信
+	if not data:
+		break
+	print data # データ出力
+udpClntSock.close()
 ```
 
  

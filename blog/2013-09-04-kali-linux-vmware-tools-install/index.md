@@ -11,7 +11,8 @@ slug: kali-linux-vmware-tools-install
 [前回](/blog/linux-backtrack-vmware-tools-install "Linux: BackTrack5 RC3にVMWare Toolsをインストール")に引き続きBackTrackの後継であるKali LinuxへのVMWare Toolsのインストール方法を記載する。BTと比較してKaliは下記の2コマンドでインストールでき、Kaliを再起動すれば反映・起動が完了する。 
 
 ```bash
- # apt-get install open-vm-tools # apt-get install open-vm-toolbox 
+# apt-get install open-vm-tools
+# apt-get install open-vm-toolbox
 ```
 
 

@@ -39,7 +39,9 @@ C:\simplegeo-python-oauth2-1920657>python setup.py install
 為念、import を実行しインストールの確認を取る。 
 
 ```python
- >>> import httplib2 >>> import simplejson >>> import oauth2 
+>>> import httplib2
+>>> import simplejson
+>>> import oauth2
 ```
 
  最後に、python-twitter ライブラリをインストールする。
@@ -58,7 +60,12 @@ C:\python-twitter-0.8.1>python setup.py install
 
 
 ```python
- import twitter api = twitter.Api() statuses = api.GetUserTimeline('yukun_') for s in statuses: if s.text[0] != '@': print s.text , "|" , s.created_at 
+import twitter
+api = twitter.Api()
+statuses = api.GetUserTimeline('yukun_')
+for s in statuses:
+	if s.text[0] != '@':
+		print s.text , "|" , s.created_at
 ```
 
 

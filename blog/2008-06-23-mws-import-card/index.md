@@ -139,7 +139,124 @@ CA
 
 
 ```python
- # coding: Shift_JIS """ Magic Work Station の Spoiler List 作成スクリプト author : Yukun Edit : 2008/6/23 GPLv2 """ import sys version = '0.1' err_inv = 'SpoilerMaker\'s Error: Nonexistent key' err_non = 'Nothing' success = 'Normal' class MagicCard: CN = 'Card Name:\t' CC = 'Card Color:\t' MC = 'Mana Cost:\t' TC = 'Type & Class:\t' PT = 'Pow/Tou:\t' CT = 'Card Text:\t' FT = 'Flavor Text:\t' AT = 'Artist:\t\t' RA = 'Rarity:\t\t' CA = 'Card #:\t\t' def __init__(self): self.flag = 0 self.attr = [{'CN':MagicCard.CN}, {'CC':MagicCard.CC}, {'MC':MagicCard.MC}, {'TC':MagicCard.TC}, {'PT':MagicCard.PT}, {'CT':MagicCard.CT}, {'FT':MagicCard.FT}, {'AT':MagicCard.AT}, {'RA':MagicCard.RA}, {'CA':MagicCard.CA}, ] def set_attr(self, key, value): attr = self.attr for i in range(len(attr)): if (attr[i].get(key, err_non) != err_non): attr[i][key] = attr[i][key]+value self.flag = 1 self.attr = attr return success return err_inv def __str__(self): attr = self.attr str = '' for i in range(len(attr)): for (k, v) in attr[i].items(): str += '%s :: %s\n' % (k, v) return str class SpoilerMaker: def __init__(self): self.cards = [] self.card_num = 0 self.line_num = 0 def read(self, filename): f = open(filename) x = f.read() f.close() lines = x.split('\n') cards = self.cards card = MagicCard() card_num = self.card_num line_num = self.line_num for line in lines: line_num +=1 if (line == ''): if (card.flag != 0): cards.append(card) card_num += 1 card = MagicCard() else: kv = line.split(' ', 1) if (len(kv) != 2): print ' %d行目でエラーです。書式を確認してください。' % line_num print ' 処理を中断し、終了します。' exit(1) s = card.set_attr(kv[0], kv[1]) if (s != success): print ' %d行目でエラーです。書式を確認してください。' % line_num print ' %s :: \'%s\' at line %d' % (s, kv[0], line_num) self.card_num = card_num self.line_num = line_num self.cards = cards def write(self, filename): g = open(filename, 'w') cards = self.cards for i in range(len(cards)): attr = cards[i].attr for j in range(len(attr)): if (j == 9): attr[j]['CA'] = '%s%d/%d' % (MagicCard.CA, i+1, self.card_num) g.write('%s\n' % attr[j].values()[0]) g.write('\n') g.close() def __str__(self): cards = self.cards str = '' for i in range(len(cards)): attr = cards[i].attr for j in range(len(attr)): str += '%s\n' % attr[j].values()[0] str += '\n' return str def _main(): argv_list = sys.argv readfile = argv_list[1] writefile = argv_list[2] s = SpoilerMaker() print 'ファイル\"%s\"を読み込みます。' % readfile print '変換処理中...' s.read(readfile) print '変換処理が完了しました。' s.write(writefile) print 'ファイル\"%s\"に変換データを保存しました。' % writefile if __name__ == '__main__': _main() 
+# coding: Shift_JIS
+"""
+Magic Work Station の Spoiler List 作成スクリプト
+author  : Yukun
+Edit    : 2008/6/23
+GPLv2
+"""
+import sys
+version = '0.1'
+err_inv = 'SpoilerMaker\'s Error: Nonexistent key'
+err_non = 'Nothing'
+success = 'Normal'
+class MagicCard:
+    CN = 'Card Name:\t'
+    CC = 'Card Color:\t'
+    MC = 'Mana Cost:\t'
+    TC = 'Type & Class:\t'
+    PT = 'Pow/Tou:\t'
+    CT = 'Card Text:\t'
+    FT = 'Flavor Text:\t'
+    AT = 'Artist:\t\t'
+    RA = 'Rarity:\t\t'
+    CA = 'Card #:\t\t'
+    def __init__(self):
+        self.flag = 0
+        self.attr = [{'CN':MagicCard.CN},
+                    {'CC':MagicCard.CC},
+                    {'MC':MagicCard.MC},
+                    {'TC':MagicCard.TC},
+                    {'PT':MagicCard.PT},
+                    {'CT':MagicCard.CT},
+                    {'FT':MagicCard.FT},
+                    {'AT':MagicCard.AT},
+                    {'RA':MagicCard.RA},
+                    {'CA':MagicCard.CA},
+                    ]
+    def set_attr(self, key, value):
+        attr = self.attr
+        for i in range(len(attr)):
+            if (attr[i].get(key, err_non) != err_non):
+                attr[i][key] = attr[i][key]+value
+                self.flag = 1
+                self.attr = attr
+                return success
+        return err_inv
+    def __str__(self):
+        attr = self.attr
+        str = ''
+        for i in range(len(attr)):
+            for (k, v) in attr[i].items():
+                str += '%s :: %s\n' % (k, v)
+        return str
+class SpoilerMaker:
+    def __init__(self):
+        self.cards = []
+        self.card_num = 0
+        self.line_num = 0
+    def read(self, filename):
+        f = open(filename)
+        x = f.read()
+        f.close()
+        lines = x.split('\n')
+        cards = self.cards
+        card = MagicCard()
+        card_num = self.card_num
+        line_num = self.line_num
+        for line in lines:
+            line_num +=1
+            if (line == ''):
+                if (card.flag != 0):
+                    cards.append(card)
+                    card_num += 1
+                    card = MagicCard()
+            else:
+                kv = line.split(' ', 1)
+                if (len(kv) != 2):
+                    print '  %d行目でエラーです。書式を確認してください。' % line_num
+                    print '  処理を中断し、終了します。'
+                    exit(1)
+                s = card.set_attr(kv[0], kv[1])
+                if (s != success):
+                    print '  %d行目でエラーです。書式を確認してください。' % line_num
+                    print '  %s :: \'%s\' at line %d' % (s, kv[0], line_num)
+        self.card_num = card_num
+        self.line_num = line_num
+        self.cards = cards
+    def write(self, filename):
+        g = open(filename, 'w')
+        cards = self.cards
+        for i in range(len(cards)):
+            attr = cards[i].attr
+            for j in range(len(attr)):
+                if (j == 9):
+                    attr[j]['CA'] = '%s%d/%d' % (MagicCard.CA, i+1, self.card_num)
+                g.write('%s\n' % attr[j].values()[0])
+            g.write('\n')
+        g.close()
+    def __str__(self):
+        cards = self.cards
+        str = ''
+        for i in range(len(cards)):
+            attr = cards[i].attr
+            for j in range(len(attr)):
+                str += '%s\n' % attr[j].values()[0]
+            str += '\n'
+        return str
+def _main():
+    argv_list = sys.argv
+    readfile  = argv_list[1]
+    writefile = argv_list[2]
+    s = SpoilerMaker()
+    print 'ファイル\"%s\"を読み込みます。' % readfile
+    print '変換処理中...'
+    s.read(readfile)
+    print '変換処理が完了しました。'
+    s.write(writefile)
+    print 'ファイル\"%s\"に変換データを保存しました。' % writefile
+if __name__ == '__main__': _main()
 ```
 
 

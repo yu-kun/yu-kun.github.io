@@ -20,7 +20,10 @@ slug: siteexplorer-bookmarklet
 [サイトエクスプローラー(同)](javascript:\(function\(\){ document.location.href='http://siteexplorer.search.yahoo.co.jp/advsearch?p='+escape\(document.location.href\) }\)\(\);) コード 
 
 ```javascript
- javascript:(function(){ document.location.href= 'http://siteexplorer.search.yahoo.co.jp/advsearch?p='+escape(document.location.href) })(); 
+javascript:(function(){
+document.location.href=
+'http://siteexplorer.search.yahoo.co.jp/advsearch?p='+escape(document.location.href)
+})();
 ```
 
 

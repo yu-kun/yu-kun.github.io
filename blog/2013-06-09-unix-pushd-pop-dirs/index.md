@@ -20,7 +20,25 @@ pushdでスタックにジャンプしたいディレクトリを登録し、そ
 
 
 ```bash
- $ pushd /Applications/MAMP /Applications/MAMP ~ $ pushd /var/log /var/log /Applications/MAMP ~ $ pushd /etc /etc /var/log /Applications/MAMP ~ $ dirs -v 0 /etc 1 /var/log 2 /Applications/MAMP 3 ~ $ popd /var/log /Applications/MAMP ~ $ dirs -v 0 /var/log 1 /Applications/MAMP 2 ~ $ pwd /var/log 
+$ pushd /Applications/MAMP
+/Applications/MAMP ~
+$ pushd /var/log
+/var/log /Applications/MAMP ~
+$ pushd /etc
+/etc /var/log /Applications/MAMP ~
+$ dirs -v
+ 0  /etc
+ 1  /var/log
+ 2  /Applications/MAMP
+ 3  ~
+$ popd
+/var/log /Applications/MAMP ~
+$ dirs -v
+ 0  /var/log
+ 1  /Applications/MAMP
+ 2  ~
+$ pwd
+/var/log
 ```
 
 
@@ -29,7 +47,19 @@ pushdでスタックにジャンプしたいディレクトリを登録し、そ
 上記のスタックの状態からホームディレクトリに移動するにはpushd +2を使用する。 
 
 ```bash
- $ pushd +2 ~ /var/log /Applications/MAMP $ pwd /Users/yu $ dirs -v 0 ~ 1 /var/log 2 /Applications/MAMP $ pushd +2 /Applications/MAMP ~ /var/log $ pwd /Applications/MAMP $ 
+$ pushd +2
+~ /var/log /Applications/MAMP
+$ pwd
+/Users/yu
+$ dirs -v
+ 0  ~
+ 1  /var/log
+ 2  /Applications/MAMP
+$ pushd +2
+/Applications/MAMP ~ /var/log
+$ pwd
+/Applications/MAMP
+$
 ```
 
 
@@ -38,7 +68,19 @@ pushdでスタックにジャンプしたいディレクトリを登録し、そ
 当コマンドをより便利に使う為に、以下のaliasやよく使うディレクトリを予め~/.bash\_profile等に登録しておくと良い。 
 
 ```bash
- alias pu='pushd' alias po='popd' alias dirs='dirs -v' alias d='dirs' alias pu1='pushd +1' alias pu2='pushd +2' alias pu3='pushd +3' alias pu4='pushd +4' alias pu5='pushd +5' alias pu6='pushd +6' alias pu7='pushd +7' alias pu8='pushd +8' alias pu9='pushd +9' 
+alias pu='pushd'
+alias po='popd'
+alias dirs='dirs -v'
+alias d='dirs'
+alias pu1='pushd +1'
+alias pu2='pushd +2'
+alias pu3='pushd +3'
+alias pu4='pushd +4'
+alias pu5='pushd +5'
+alias pu6='pushd +6'
+alias pu7='pushd +7'
+alias pu8='pushd +8'
+alias pu9='pushd +9'
 ```
 
  これで若干でも日々のタイプ量が減ると思うと、かなり良い。

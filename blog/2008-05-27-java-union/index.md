@@ -29,7 +29,52 @@ slug: java-union
 
 
 ```java
-import java.util.ArrayList; import java.util.Collections; /** * 検索エンジンのOR演算 */ public class BooleanRetrieval { /** * OR演算処理 * @param postsSet 全ての検索語の転置インデックスリスト * @return 演算後の転置インデックスリスト */ public static ArrayList union(ArrayList> postsSet) { ArrayList result; // 最終演算結果 if (postsSet == null) return null; int len = postsSet.size(); if (len == 0) return null; else if (len == 1) return postsSet.get(0); result = postsSet.get(0); for (int i = 1; i < len; i++) { result = union(result, postsSet.get(i)); } return result; } public static ArrayList union(ArrayList p1, ArrayList p2) { ArrayList answer = new ArrayList(); // 2語の演算結果 int len1 = p1.size(); int len2 = p2.size(); int i=0, j=0; while (iOR演算の実行結果
+import java.util.ArrayList;
+import java.util.Collections;
+/**
+ * 検索エンジンのOR演算
+ */
+public class BooleanRetrieval {
+  /**
+   * OR演算処理
+   * @param postsSet 全ての検索語の転置インデックスリスト
+   * @return 演算後の転置インデックスリスト
+   */
+  public static ArrayList<integer> union(ArrayList<arrayList<integer>> postsSet) {
+    ArrayList<integer> result; // 最終演算結果
+    if (postsSet == null) return null;
+    int len = postsSet.size();
+    if (len == 0) return null;
+    else if (len == 1) return postsSet.get(0);
+    result = postsSet.get(0);
+    for (int i = 1; i < len; i++) {
+      result = union(result, postsSet.get(i));
+    }
+    return result;
+  }
+  public static ArrayList<integer> union(ArrayList<integer> p1, ArrayList<integer> p2) {
+    ArrayList<integer> answer = new ArrayList<integer>(); // 2語の演算結果
+    int len1 = p1.size();
+    int len2 = p2.size();
+    int i=0, j=0;
+    while (i<len1 && j<len2) {
+      int diff = p1.get(i) - p2.get(j);
+      if (diff == 0) {
+        answer.add(p1.get(i));
+        i++; j++;
+      } else if (diff < 0) {
+        answer.add(p1.get(i));
+        i++;
+      } else {
+        answer.add(p2.get(j));
+        j++;
+      }
+    }
+    while (i<len1) { answer.add(p1.get(i++)); }
+    while (j<len2) { answer.add(p2.get(j++)); }
+    return answer;
+  }
+}
 ```
 
 

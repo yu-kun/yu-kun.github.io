@@ -14,7 +14,15 @@ slug: ruby-extract-tag
 
 
 ```ruby
- def return_between(unporsed, start, termi) unporsed =~ /#{start}(.*?)#{termi}/ return $1 end str = "Trump Code" start = "" termi = "" puts return_between(str, start, termi) #=> Trump Code 
+def return_between(unporsed, start, termi)
+  unporsed =~ /#{start}(.*?)#{termi}/
+  return $1
+end
+str = "<title>Trump Code</title>"
+start = "<title>"
+termi = "</title>"
+puts return_between(str, start, termi)
+#=> Trump Code
 ```
 
 

@@ -12,7 +12,36 @@ slug: python-regular-expression-range
 
 
 ```python
- # coding: Shift_JIS import re # 正規表現を扱うモジュールのインポート # 正規表現のチェックプリント用の関数 def PrintRegMatch(pat, txt): # 探索される文字列をテキスト # 探索する 文字列をパターン # 書式: re.match(パターン, テキスト) m = re.match(pat, txt) # パターンにマッチしなかった場合はNoneを返す if m != None: print 'パターン"%s"はテキスト"%s"にマッチ「する」' % (pat, txt) else: print 'パターン"%s"はテキスト"%s"にマッチ「しない」' % (pat, txt) # []で括られた文字の内どれか1つにマッチすれば真 PrintRegMatch('[ABC]D', 'CD') # A or B or C の次に D がくるパターンにマッチ PrintRegMatch('[A-C]E', 'CE') # [A-C]は[ABC]と同意 print # [A-Z]は全てのアルファベット大文字の内のどれか1つの意 PrintRegMatch('[A-Z]*END', 'CHSHSBSRAWRGARENDGREW') PrintRegMatch('A[A-Z]*E', 'AgafgafE') PrintRegMatch('A[a-z]*E', 'AewnglfngowE') # [0-9]は0～9の数字の内どれか1つの意 PrintRegMatch('[0-9]*-[0-9]*-[0-9]*', '03-3333-2222') print # []内の「^」否定 PrintRegMatch('[^ABC]D', 'DD') # A or B or C でない文字の次に D がくるパターンにマッチ PrintRegMatch('[^A-Z]*-[^A-Z]*', '164-9999') print PrintRegMatch('[ABC][DEF]', 'CE') PrintRegMatch('[ABC][DEF]', 'CC') PrintRegMatch('[a-zA-Z]*', 'FjAVzxRUqyOIn') PrintRegMatch('[a-z][A-Z]*', 'FjAVzxRUqyOIn') PrintRegMatch('[a-z]*[A-Z]*', 'FjAVzxRUqyOIn') 
+# coding: Shift_JIS
+import re # 正規表現を扱うモジュールのインポート
+# 正規表現のチェックプリント用の関数
+def PrintRegMatch(pat, txt):
+    # 探索される文字列をテキスト
+    # 探索する  文字列をパターン
+    # 書式: re.match(パターン, テキスト)
+    m = re.match(pat, txt) # パターンにマッチしなかった場合はNoneを返す
+    if m != None: print 'パターン"%s"はテキスト"%s"にマッチ「する」' % (pat, txt)
+    else: print 'パターン"%s"はテキスト"%s"にマッチ「しない」' % (pat, txt)
+# []で括られた文字の内どれか1つにマッチすれば真
+PrintRegMatch('[ABC]D', 'CD') # A or B or C の次に D がくるパターンにマッチ
+PrintRegMatch('[A-C]E', 'CE') # [A-C]は[ABC]と同意
+print
+# [A-Z]は全てのアルファベット大文字の内のどれか1つの意
+PrintRegMatch('[A-Z]*END', 'CHSHSBSRAWRGARENDGREW')
+PrintRegMatch('A[A-Z]*E', 'AgafgafE')
+PrintRegMatch('A[a-z]*E', 'AewnglfngowE')
+# [0-9]は0～9の数字の内どれか1つの意
+PrintRegMatch('[0-9]*-[0-9]*-[0-9]*', '03-3333-2222')
+print
+# []内の「^」否定
+PrintRegMatch('[^ABC]D', 'DD') # A or B or C でない文字の次に D がくるパターンにマッチ
+PrintRegMatch('[^A-Z]*-[^A-Z]*', '164-9999')
+print
+PrintRegMatch('[ABC][DEF]', 'CE')
+PrintRegMatch('[ABC][DEF]', 'CC')
+PrintRegMatch('[a-zA-Z]*',    'FjAVzxRUqyOIn')
+PrintRegMatch('[a-z][A-Z]*',  'FjAVzxRUqyOIn')
+PrintRegMatch('[a-z]*[A-Z]*', 'FjAVzxRUqyOIn')
 ```
 
 

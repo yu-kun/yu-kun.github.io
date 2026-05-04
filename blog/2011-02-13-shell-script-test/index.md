@@ -14,7 +14,11 @@ slug: shell-script-test
  
 
 ```bash
- $ test 10 -gt 20 $ echo $? 1 $ test 10 -lt 20 $ echo $? 
+$ test 10 -gt 20
+$ echo $?
+1
+$ test 10 -lt 20
+$ echo $?
 ```
 
  以下のシェルスクリプトはtestコマンドを用いた条件判定のサンプルとなる。
@@ -25,7 +29,19 @@ slug: shell-script-test
 
 
 ```bash
- #!/bin/sh if test $1 -eq $2 then echo "($1) = ($2)" else echo "($1) != ($2)" fi if [ $1 -le $2 ] then echo "($1) <= ($2)" else echo "($1) > ($2)" fi 
+#!/bin/sh
+if test $1 -eq $2
+then
+	echo "($1)  = ($2)"
+else
+	echo "($1) != ($2)"
+fi
+if [ $1 -le $2 ]
+then
+	echo "($1) <= ($2)"
+else
+	echo "($1) >  ($2)"
+fi
 ```
 
  尚、testコマンドは\[ _条件式_ \]でも記述できる。
@@ -34,7 +50,15 @@ slug: shell-script-test
 
 
 ```bash
- $ sh test01.sh 10 10 (10) = (10) (10) <= (10) $ sh test01.sh 10 20 (10) != (20) (10) <= (20) $ sh test01.sh 10 5 (10) != (5) (10) > (5) 
+$ sh test01.sh 10 10
+(10)  = (10)
+(10) <= (10)
+$ sh test01.sh 10 20
+(10) != (20)
+(10) <= (20)
+$ sh test01.sh 10 5
+(10) != (5)
+(10) >  (5)
 ```
 
 
@@ -44,7 +68,17 @@ slug: shell-script-test
 
 
 ```bash
- #!/bin/sh if [ "$1" = "$2" ] then echo "($1) = ($2)" else echo "($1) != ($2)" fi if [ "$3" != "" ] then echo "\$3 is not null. It's <$3>." fi 
+#!/bin/sh
+if [ "$1" = "$2" ]
+then
+	echo "($1)  = ($2)"
+else
+	echo "($1) != ($2)"
+fi
+if [ "$3" != "" ]
+then
+	echo "\$3 is not null. It's <$3>."
+fi
 ```
 
 
@@ -52,7 +86,11 @@ slug: shell-script-test
 
 
 ```bash
- $ sh test02.sh hello world shell (hello) != (world) $3 is not null. It's . $ sh test02.sh hello hello (hello) = (hello) 
+$ sh test02.sh hello world shell
+(hello) != (world)
+$3 is not null. It's <shell>.
+$ sh test02.sh hello hello
+(hello)  = (hello)
 ```
 
 

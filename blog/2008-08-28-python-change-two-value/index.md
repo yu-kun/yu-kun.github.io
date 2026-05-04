@@ -14,7 +14,11 @@ slug: python-change-two-value
 
 
 ```python
- # coding: UTF-8 a = [10, 20] print '%d %d' % (a[0], a[1]) a[0], a[1] = a[1], a[0] print '%d %d' % (a[0], a[1]) 
+# coding: UTF-8
+a = [10, 20]
+print '%d %d' % (a[0], a[1])
+a[0], a[1] = a[1], a[0]
+print '%d %d' % (a[0], a[1])
 ```
 
 

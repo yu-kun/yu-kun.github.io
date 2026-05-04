@@ -43,7 +43,8 @@ Donating to ISRG / Let's Encrypt: https://letsencrypt.org/donate Donating to EFF
 
 
 ```bash
- smtpd_tls_cert_file = /etc/letsencrypt/live/mail.example.com/fullchain.pem smtpd_tls_key_file = /etc/letsencrypt/live/mail.example.com/privkey.pem 
+smtpd_tls_cert_file = /etc/letsencrypt/live/mail.example.com/fullchain.pem
+smtpd_tls_key_file = /etc/letsencrypt/live/mail.example.com/privkey.pem
 ```
 
 
@@ -51,7 +52,8 @@ Donating to ISRG / Let's Encrypt: https://letsencrypt.org/donate Donating to EFF
 
 
 ```bash
- ssl_cert = </etc/letsencrypt/live/mail.example.com/fullchain.pem ssl_key = </etc/letsencrypt/live/mail.example.com/privkey.pem 
+ssl_cert = &lt;/etc/letsencrypt/live/mail.example.com/fullchain.pem
+ssl_key = &lt;/etc/letsencrypt/live/mail.example.com/privkey.pem
 ```
 
 
@@ -61,7 +63,11 @@ Postfix, Dovecot全般の設定については今後別途記事でまとめる�
 
 
 ```bash
- Mar 14 18:53:58 tk2-123-45678 dovecot: imap-login: Aborted login (no auth attempts in 0 secs): user=<>, rip=192.168.2.1, lip=192.168.2.2, TLS, session=<DJ+hkfsagVK7SirDy> Mar 14 18:53:59 tk2-123-45678 dovecot: imap-login: Disconnected (no auth attempts in 1 secs): user=<>, rip=192.168.2.1, lip=192.168.2.2, TLS, session=<G/OkkM2gsaSirDy> Mar 14 18:54:00 tk2-123-45678 dovecot: imap-login: Login: user=<email@example.com>, method=CRAM-MD5, rip=192.168.2.1, lip=192.168.2.2, mpid=30131, TLS, session=<Grq5kMgafeeSirDy> Mar 14 18:54:22 tk2-123-45678 dovecot: imap-login: Disconnected (no auth attempts in 0 secs): user=<>, rip=192.168.2.1, lip=192.168.2.2, TLS handshaking: SSL_accept() failed: error:14094416:SSL routines:ssl3_read_bytes:sslv3 alert certificate unknown: SSL alert number 46, session=<F2sfasg6vjSirDy> ・・・以下同メッセージが出力され続ける。 
+Mar 14 18:53:58 tk2-123-45678 dovecot: imap-login: Aborted login (no auth attempts in 0 secs): user=&lt;&gt;, rip=192.168.2.1, lip=192.168.2.2, TLS, session=&lt;DJ+hkfsagVK7SirDy&gt;
+Mar 14 18:53:59 tk2-123-45678 dovecot: imap-login: Disconnected (no auth attempts in 1 secs): user=&lt;&gt;, rip=192.168.2.1, lip=192.168.2.2, TLS, session=&lt;G/OkkM2gsaSirDy&gt;
+Mar 14 18:54:00 tk2-123-45678 dovecot: imap-login: Login: user=&lt;email@example.com&gt;, method=CRAM-MD5, rip=192.168.2.1, lip=192.168.2.2, mpid=30131, TLS, session=&lt;Grq5kMgafeeSirDy&gt;
+Mar 14 18:54:22 tk2-123-45678 dovecot: imap-login: Disconnected (no auth attempts in 0 secs): user=&lt;&gt;, rip=192.168.2.1, lip=192.168.2.2, TLS handshaking: SSL_accept() failed: error:14094416:SSL routines:ssl3_read_bytes:sslv3 alert certificate unknown: SSL alert number 46, session=&lt;F2sfasg6vjSirDy&gt;
+・・・以下同メッセージが出力され続ける。
 ```
 
 
