@@ -20,7 +20,32 @@ slug: boost-thread-group-create
 
 
 ```cpp
- #include #include #include using namespace std; using namespace boost; // マルチスレッドで実行する関数 void run(const char thr_name) { int count = 0; while(1) { if (++count % 100000000 == 0) // 空回り用の if 文 cout << "Thread-" << thr_name << ": No." << count << endl; } } int main() { const char chs[] = {'A', 'B', 'C', 'D'}; // 生成スレッドの名前の配列 const int NUM_THREAD = sizeof(chs) / sizeof(chs[0]); // 配列の要素数の算出 // スレッドグループの生成と実行開始 thread_group thr_grp; for (int i = 0; i < NUM_THREAD; ++i) { thr_grp.create_thread(bind(&run, chs[i])); // create_thread()でrun()を別スレッドで実行 } // join_all()で全スレッドの終了を待つ thr_grp.join_all(); return 0; } 
+#include <iostream>
+#include <boost/bind.hpp>
+#include <boost/thread.hpp>
+using namespace std;
+using namespace boost;
+// マルチスレッドで実行する関数
+void run(const char thr_name) {
+  int count = 0;
+  while(1) {
+    if (++count % 100000000 == 0) // 空回り用の if 文
+      cout << "Thread-" << thr_name << ": No." << count << endl;
+  }
+}
+int main()
+{
+  const char chs[] = {'A', 'B', 'C', 'D'}; // 生成スレッドの名前の配列
+  const int NUM_THREAD = sizeof(chs) / sizeof(chs[0]); // 配列の要素数の算出
+  // スレッドグループの生成と実行開始
+  thread_group thr_grp;
+  for (int i = 0; i < NUM_THREAD; ++i) {
+    thr_grp.create_thread(bind(&run, chs[i])); // create_thread()でrun()を別スレッドで実行
+  }
+  // join_all()で全スレッドの終了を待つ
+  thr_grp.join_all();
+  return 0;
+}
 ```
 
 

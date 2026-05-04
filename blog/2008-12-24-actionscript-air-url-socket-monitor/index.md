@@ -17,7 +17,45 @@ slug: actionscript-air-url-socket-monitor
 
 
 ```actionscript
- 
+<?xml version="1.0" encoding="utf-8"?>
+<mx:WindowedApplication xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute"
+  applicationComplete="startup()">
+  <mx:Script>
+    <![CDATA[
+    import air.net.SocketMonitor
+    import air.net.URLMonitor;
+    import flash.net.URLRequest;
+    import flash.events.StatusEvent;
+    private var SERVER_URL:String = "http://www.yukun.info/";
+    private var SOCK_ADRR:String = "yukun.info";
+    private var PORT:int = 6667;
+    private var INTERVAL_TIME:int = 3000; // ms
+    private var serviceMonitor:URLMonitor = null;
+    private var socketMonitor:SocketMonitor = null;
+    private function startup():void {
+      var endpoint:URLRequest = new URLRequest(SERVER_URL);
+      serviceMonitor = new URLMonitor(endpoint);
+      serviceMonitor.addEventListener(StatusEvent.STATUS, onStatusEvent);
+      serviceMonitor.pollInterval = INTERVAL_TIME;
+      serviceMonitor.start();
+      socketMonitor = new SocketMonitor(SOCK_ADRR, PORT);
+      socketMonitor.addEventListener(StatusEvent.STATUS, onSocketStatusChange);
+      socketMonitor.pollInterval = INTERVAL_TIME;
+      socketMonitor.start();
+    }
+    // ネットワークサービスの状態の検知
+    private function onStatusEvent(e:StatusEvent):void {
+      var date:Date = new Date();
+      trace(date.toLocaleTimeString());
+      trace(SERVER_URL + "に" + (serviceMonitor.available ? "接続可" : "切断中"));
+    }
+    private function onSocketStatusChange(e:StatusEvent):void {
+      trace(SOCK_ADRR + "のポート" + PORT + "は" +
+        (socketMonitor.available ? "接続可" : "切断中"));
+    }
+    ]]]]><![CDATA[>
+  </mx:Script>
+</mx:WindowedApplication>
 ```
 
 

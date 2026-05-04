@@ -46,7 +46,7 @@ macOS 10.15.2, PyCharm 2019.3, Python 3.8.1, pip 19.3.1, mysqlclient 1.4.6
 
 
 ```bash
- xcode-select --install 
+xcode-select --install
 ```
 
 
@@ -126,7 +126,8 @@ For pkg-config to find openssl@1.1 you may need to set: export PKG_CONFIG_PATH="
 
 
 ```bash
- (venv) % echo $LDFLAGS -L/usr/local/opt/openssl@1.1/lib 
+(venv) % echo $LDFLAGS
+-L/usr/local/opt/openssl@1.1/lib
 ```
 
 
@@ -134,7 +135,12 @@ For pkg-config to find openssl@1.1 you may need to set: export PKG_CONFIG_PATH="
 
 
 ```bash
- (venv) % pip install mysqlclient Collecting mysqlclient Using cached https://files.pythonhosted.org/packages/d0/97/7326248ac8d5049968bf4ec708a5d3d4806e412a42e74160d7f266a3e03a/mysqlclient-1.4.6.tar.gz Installing collected packages: mysqlclient Running setup.py install for mysqlclient ... done Successfully installed mysqlclient-1.4.6 
+(venv) % pip install mysqlclient
+Collecting mysqlclient
+  Using cached https://files.pythonhosted.org/packages/d0/97/7326248ac8d5049968bf4ec708a5d3d4806e412a42e74160d7f266a3e03a/mysqlclient-1.4.6.tar.gz
+Installing collected packages: mysqlclient
+    Running setup.py install for mysqlclient ... done
+Successfully installed mysqlclient-1.4.6
 ```
 
 

@@ -41,7 +41,24 @@ stripメソッドは内部でstripStartとstripEndメソッドを実行してい
 
 
 ```java
- public static String stripEnd(String str, String stripChars) { int end; if (str == null || (end = str.length()) == 0) { return str; } if (stripChars == null) { while ((end != 0) && Character.isWhitespace(str.charAt(end - 1))) { end--; } } else if (stripChars.length() == 0) { return str; } else { while ((end != 0) && (stripChars.indexOf(str.charAt(end - 1)) != -1)) { end--; } } return str.substring(0, end); } 
+  public static String stripEnd(String str, String stripChars) {
+    int end;
+    if (str == null || (end = str.length()) == 0) {
+      return str;
+    }
+    if (stripChars == null) {
+      while ((end != 0) && Character.isWhitespace(str.charAt(end - 1))) {
+        end--;
+      }
+    } else if (stripChars.length() == 0) {
+      return str;
+    } else {
+      while ((end != 0) && (stripChars.indexOf(str.charAt(end - 1)) != -1)) {
+        end--;
+      }
+    }
+    return str.substring(0, end);
+  }
 ```
 
 
@@ -49,7 +66,11 @@ stripメソッドは内部でstripStartとstripEndメソッドを実行してい
 
 
 ```java
- while ((end != 0) && (stripChars.indexOf(str.charAt(end - 1)) != -1)) { end--; } } return str.substring(0, end); 
+      while ((end != 0) && (stripChars.indexOf(str.charAt(end - 1)) != -1)) {
+        end--;
+      }
+    }
+    return str.substring(0, end);
 ```
 
 

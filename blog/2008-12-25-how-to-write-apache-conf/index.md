@@ -70,7 +70,7 @@ Directoryタグ
 e.g. 
 
 ```html
-〜
+<directory "/var/www/html">〜<directory>
 ```
 
  属性にディレクトリパスを指定している。

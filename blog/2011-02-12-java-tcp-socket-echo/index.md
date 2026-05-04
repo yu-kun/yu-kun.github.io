@@ -15,7 +15,36 @@ slug: java-tcp-socket-echo
 
 
 ```java
- package tcpechoserver; import java.io.IOException; import java.io.InputStream; import java.io.OutputStream; import java.net.ServerSocket; import java.net.Socket; import java.net.SocketAddress; public class Main { private static final int BUFSIZE = 32; // 受信バッファサイズ public static void main(String[] args) throws IOException { int servPort = 5000; // サーバソケットの作成 ServerSocket servSock = new ServerSocket(servPort); int recvMsgSize; // 受信メッセージサイズ byte[] receiveBuf = new byte[BUFSIZE]; // 受信バッファ // クライアントからの接続を待ち受けるループ while (true) { Socket clntSock = servSock.accept(); // クライアントの接続を取得 SocketAddress clientAddress = clntSock.getRemoteSocketAddress(); System.out.println("接続中：" + clientAddress); InputStream in = clntSock.getInputStream(); OutputStream out = clntSock.getOutputStream(); while ((recvMsgSize = in.read(receiveBuf)) != -1) { out.write(receiveBuf, 0, recvMsgSize); } clntSock.close(); } // 到達不能コード } } 
+package tcpechoserver;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.net.SocketAddress;
+public class Main {
+    private static final int BUFSIZE = 32; // 受信バッファサイズ
+    public static void main(String[] args) throws IOException {
+	    int servPort = 5000;
+		// サーバソケットの作成
+	    ServerSocket servSock = new ServerSocket(servPort);
+		int recvMsgSize; // 受信メッセージサイズ
+		byte[] receiveBuf = new byte[BUFSIZE]; // 受信バッファ
+		// クライアントからの接続を待ち受けるループ
+		while (true) {
+			Socket clntSock = servSock.accept(); // クライアントの接続を取得
+			SocketAddress clientAddress = clntSock.getRemoteSocketAddress();
+			System.out.println("接続中：" + clientAddress);
+			InputStream in = clntSock.getInputStream();
+			OutputStream out = clntSock.getOutputStream();
+			while ((recvMsgSize = in.read(receiveBuf)) != -1) {
+				out.write(receiveBuf, 0, recvMsgSize);
+			}
+			clntSock.close();
+		}
+		// 到達不能コード
+	}
+}
 ```
 
  
@@ -26,7 +55,40 @@ slug: java-tcp-socket-echo
 
 
 ```java
- package tcpechoclient; import java.io.IOException; import java.io.InputStream; import java.io.OutputStream; import java.net.Socket; import java.net.SocketException; public class Main { public static void main(String[] args) throws IOException { String server = "localhost"; int servPort = 5000; byte[] data = "Hello, Net world".getBytes(); byte[] msg = new byte[data.length]; Socket socket = new Socket(server, servPort); System.out.println("サーバとの接続を確立。"); InputStream in = socket.getInputStream(); OutputStream out = socket.getOutputStream(); out.write(data); // サーバに文字列を送付 System.out.println("送信：" + new String(data)); // サーバからの返信を受信 int totalBytesRcvd = 0; int bytesRcvd; while (totalBytesRcvd < data.length) { // 全文を受信するまでloop if ((bytesRcvd = in.read( // 引数は読込データ、Offset、読込データ長 msg, totalBytesRcvd, data.length - totalBytesRcvd)) == -1) { throw new SocketException("接続遮断"); } totalBytesRcvd += bytesRcvd; } // while end System.out.println("受信：" + new String(msg)); socket.close(); } } 
+package tcpechoclient;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.Socket;
+import java.net.SocketException;
+public class Main {
+    public static void main(String[] args) throws IOException {
+		String server = "localhost";
+		int servPort = 5000;
+		byte[] data = "Hello, Net world".getBytes();
+		byte[] msg = new byte[data.length];
+		Socket socket = new Socket(server, servPort);
+		System.out.println("サーバとの接続を確立。");
+		InputStream in = socket.getInputStream();
+		OutputStream out = socket.getOutputStream();
+		out.write(data); // サーバに文字列を送付
+		System.out.println("送信：" + new String(data));
+		// サーバからの返信を受信
+		int totalBytesRcvd = 0;
+		int bytesRcvd;
+		while (totalBytesRcvd < data.length) { // 全文を受信するまでloop
+			if ((bytesRcvd = in.read( // 引数は読込データ、Offset、読込データ長
+					msg,
+					totalBytesRcvd,
+					data.length - totalBytesRcvd)) == -1) {
+				throw new SocketException("接続遮断");
+			}
+			totalBytesRcvd += bytesRcvd;
+		} // while end
+		System.out.println("受信：" + new String(msg));
+		socket.close();
+	}
+}
 ```
 
  尚、java.io.InputStream#read(byte b\[\], int off, int len)の仕様は下記の通り。 (忘れてたので備忘録としてメソッドのコメントより抜粋)

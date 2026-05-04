@@ -16,7 +16,21 @@ slug: actionscript-embed-mp3-sound-swf-flash
 次のコードはEmbedタグで指定したサウンドを再生する処理を表しています。 _PlaySound.as_ 
 
 ```actionscript
- package info.yukun { import flash.display.Sprite; import flash.media.Sound; public class PlaySound extends Sprite { [Embed(source='sample.mp3')] // mp3ファイルのパスを指定（ここではカレントディレクトリのsample.mp3ファイル） private static const SampleSound:Class; private var sampleMp3:Sound = new SampleSound(); public function PlaySound():void { sampleMp3.play(); // サウンドの再生 } } } 
+package info.yukun
+{
+	import flash.display.Sprite;
+	import flash.media.Sound;
+	public class PlaySound extends Sprite
+	{
+		[Embed(source='sample.mp3')] // mp3ファイルのパスを指定（ここではカレントディレクトリのsample.mp3ファイル）
+		private static const SampleSound:Class;
+		private var sampleMp3:Sound = new SampleSound();
+		public function PlaySound():void
+		{
+			sampleMp3.play(); // サウンドの再生
+		}
+	}
+}
 ```
 
 

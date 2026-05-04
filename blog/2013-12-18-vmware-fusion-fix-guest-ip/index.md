@@ -22,7 +22,14 @@ slug: vmware-fusion-fix-guest-ip
 VMware Fusionをインストール後、ifconfigコマンドを実行すると下記のI/Fが追加されているのを確認できる。 
 
 ```bash
- $ ifconfig ＜中略＞ vmnet1: flags=8863 mtu 1500 ether 00:50:56:c0:00:01 inet 192.168.190.1 netmask 0xffffff00 broadcast 192.168.190.255 vmnet8: flags=8863 mtu 1500 ether 00:50:56:c0:00:08 inet 172.16.56.1 netmask 0xffffff00 broadcast 172.16.56.255 
+$ ifconfig
+＜中略＞
+vmnet1: flags=8863<up,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST> mtu 1500
+ether 00:50:56:c0:00:01
+inet 192.168.190.1 netmask 0xffffff00 broadcast 192.168.190.255
+vmnet8: flags=8863<up,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST> mtu 1500
+ether 00:50:56:c0:00:08
+inet 172.16.56.1 netmask 0xffffff00 broadcast 172.16.56.255
 ```
 
  vmnet1はPrivate to Mac用のGW、vmnet8はShare with my Mac用のGW。今回vmnet8のサブネットにDHCPで割り振られるIPを固定化するには下記の設定ファイルを修正する。

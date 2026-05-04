@@ -17,7 +17,29 @@ slug: python-upper-lower-case-letters-converted
 
 
 ```python
- #!/usr/bin/python # coding: UTF-8 # リスト中の文字列要素を大文字⇔小文字変換 str_atog = "ABCDEFG" str_hton = "hijklmn" # lower(), upper()メソッドの使い方 print "大文字(列) %s を小文字(列) %s に変換" % (str_atog, str_atog.lower()) print "小文字(列) %s を大文字(列) %s に変換" % (str_hton, str_hton.upper()) print arr = ['And', 'Begin', 'Code', 'Double'] arr2 = ['end', 'flag', 'gem', 'halt'] # for文で小文字[大文字](列)を要素とするリストを生成 n_arr = [] for str in arr: n_arr.append(str.lower()) print n_arr n_arr2 = [] for str in arr2: n_arr2.append(str.upper()) print n_arr2, 'n' # リストコンプリヘンションで小文字[大文字](列)を要素とするリストを生成 print [str.lower() for str in arr] print [str.upper() for str in arr2] 
+#!/usr/bin/python
+# coding: UTF-8
+# リスト中の文字列要素を大文字⇔小文字変換
+str_atog = "ABCDEFG"
+str_hton = "hijklmn"
+# lower(), upper()メソッドの使い方
+print "大文字(列) %s を小文字(列) %s に変換" % (str_atog, str_atog.lower())
+print "小文字(列) %s を大文字(列) %s に変換" % (str_hton, str_hton.upper())
+print
+arr  = ['And', 'Begin', 'Code', 'Double']
+arr2 = ['end', 'flag', 'gem', 'halt']
+# for文で小文字[大文字](列)を要素とするリストを生成
+n_arr = []
+for str in arr:
+    n_arr.append(str.lower())
+print n_arr
+n_arr2 = []
+for str in arr2:
+    n_arr2.append(str.upper())
+print n_arr2, 'n'
+# リストコンプリヘンションで小文字[大文字](列)を要素とするリストを生成
+print [str.lower() for str in arr]
+print [str.upper() for str in arr2]
 ```
 
 

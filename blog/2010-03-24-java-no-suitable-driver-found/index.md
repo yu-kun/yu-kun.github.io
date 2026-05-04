@@ -14,7 +14,13 @@ slug: java-no-suitable-driver-found
 JDBCを用いてServletからMySQLのテーブルへアクセスする過程で、DriverManager.getConnectionメソッドの呼び出しの後、NullPointerExceptionが送出された(アプリケーション・サーバーはTomcat)。 
 
 ```java
- ＜前略＞ Connection conn = null; try { conn = DriverManager.getConnection(URL, USER, PASS); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(""); ＜後略＞ 
+＜前略＞
+Connection conn = null;
+    try {
+      conn = DriverManager.getConnection(URL, USER, PASS);
+      Statement stmt = conn.createStatement();
+      ResultSet rs = stmt.executeQuery("<sql文>");
+＜後略＞
 ```
 
  [![tomcat_error_nullpointer](./tomcat_error_nullpointer-e1269499672856.png "tomcat_error_nullpointer")](./tomcat_error_nullpointer-e1269499672856.png)

@@ -55,7 +55,7 @@ annoying\_message.py内の下記のステートメント想定しているイン
 
 
 ```python
- from pygaze.libscreen import Display, Screen 
+from pygaze.libscreen import Display, Screen
 ```
 
 

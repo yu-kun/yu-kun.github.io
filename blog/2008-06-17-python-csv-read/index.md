@@ -14,7 +14,20 @@ slug: python-csv-read
 
 
 ```python
- #!/usr/bin/python # coding: UTF-8 # CSVファイルの読み込み import csv filename = "table01.csv" csvfile = open(filename) print csvfile for row in csv.reader(csvfile): print row # 1行のリスト for elem in row: print elem, # 行の中の要素 print csvfile.close() print csvfile 
+#!/usr/bin/python
+# coding: UTF-8
+# CSVファイルの読み込み
+import csv
+filename = "table01.csv"
+csvfile = open(filename)
+print csvfile
+for row in csv.reader(csvfile):
+    print row        # 1行のリスト
+    for elem in row:
+        print elem,    # 行の中の要素
+    print
+csvfile.close()
+print csvfile
 ```
 
 

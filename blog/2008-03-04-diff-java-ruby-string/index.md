@@ -23,7 +23,26 @@ Rubyでは文字を\[\]で指すとき終端文字の次の添え字を指すと
 
 
 ```java
- public class Test { public static void main(String[] args) { String str = "abcdef"; char[] arr = str.toCharArray(); // String型をchar型の配列に変換 System.out.println(arr); System.out.println(str.length()+ " == " + arr.length); try { System.out.println(arr[6]); } catch (java.lang.ArrayIndexOutOfBoundsException e) { System.out.println("キャッチ：" + e); - } try { System.out.println(str.charAt(6)); } catch (java.lang.StringIndexOutOfBoundsException e) { System.out.println("キャッチ：" + e); } // 最後の文字を知るためには System.out.println(str.charAt(str.length() - 1)); } } 
+public class Test {
+  public static void main(String[] args) {
+    String str = "abcdef";
+    char[] arr = str.toCharArray(); // String型をchar型の配列に変換
+    System.out.println(arr);
+    System.out.println(str.length()+ " == " + arr.length);
+    try {
+      System.out.println(arr[6]);
+    } catch (java.lang.ArrayIndexOutOfBoundsException e) {
+      System.out.println("キャッチ：" + e);
+-    }
+    try {
+      System.out.println(str.charAt(6));
+    } catch (java.lang.StringIndexOutOfBoundsException e) {
+      System.out.println("キャッチ：" + e);
+    }
+    // 最後の文字を知るためには
+    System.out.println(str.charAt(str.length() - 1));
+  }
+}
 ```
 
 

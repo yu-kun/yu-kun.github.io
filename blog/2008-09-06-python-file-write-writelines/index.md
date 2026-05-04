@@ -24,7 +24,15 @@ slug: python-file-write-writelines
 
 
 ```python
- #!/usr/bin/python # coding: UTF-8 # 書き込む文字列 str1 = """It is meaningless only to think my long further aims idly. It is important to set my aims but at the same time I should confirm my present condition. Unless I set the standard where I am in any level, I'll be puzzled about what I should do from now on.""" f = open('text.txt', 'w') # 書き込みモードで開く f.write(str1) # 引数の文字列をファイルに書き込む f.close() # ファイルを閉じる 
+#!/usr/bin/python
+# coding: UTF-8
+# 書き込む文字列
+str1 = """It is meaningless only to think my long further aims idly.
+It is important to set my aims but at the same time I should confirm my present condition.
+Unless I set the standard where I am in any level, I'll be puzzled about what I should do from now on."""
+f = open('text.txt', 'w') # 書き込みモードで開く
+f.write(str1) # 引数の文字列をファイルに書き込む
+f.close() # ファイルを閉じる
 ```
 
 
@@ -45,7 +53,15 @@ Unless I set the standard where I am in any level, I'll be puzzled about what I 
 
 
 ```python
- #!/usr/bin/python # coding: UTF-8 str2 = """It is meaningless only to think my long further aims idly. It is important to set my aims but at the same time I should confirm my present condition. Unless I set the standard where I am in any level, I'll be puzzled about what I should do from now on.""" strs = str2.split('¥n') # 一行が一要素(文字列)のリスト f = open('text2.txt', 'w') # 書き込みモードで開く f.writelines(strs) # シーケンスが引数。 f.close() 
+#!/usr/bin/python
+# coding: UTF-8
+str2 = """It is meaningless only to think my long further aims idly.
+It is important to set my aims but at the same time I should confirm my present condition.
+Unless I set the standard where I am in any level, I'll be puzzled about what I should do from now on."""
+strs = str2.split('¥n') # 一行が一要素(文字列)のリスト
+f = open('text2.txt', 'w') # 書き込みモードで開く
+f.writelines(strs) # シーケンスが引数。
+f.close()
 ```
 
 

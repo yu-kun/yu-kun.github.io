@@ -18,7 +18,50 @@ slug: java-ngram
 
 
 ```java
- import java.io.*; import java.util.*; /** * N-gram法 */ public class Make2gram { public static void main(String[] args) { final short nsepa = 1; // 2gram String line; ArrayList filelist = new ArrayList(); ArrayList bigram = new ArrayList(); if (args.length < 1) { // コマンドライン引数の数 System.out.println("How to use: java Make2gram [filename]"); System.exit(1); } try { BufferedReader br = new BufferedReader(new FileReader(args[0])); while ((line = br.readLine()) != null) { //System.out.println(line); filelist.add(new StringBuffer(line)); // 入力ファイルは一行=一要素として格納 } br.close(); } catch (Exception e) { System.err.println("[main] : " + e.toString()); } for (Iterator it = filelist.iterator(); it.hasNext(); ) { StringBuffer str = (StringBuffer) it.next(); int lm = str.length() - nsepa; for (int i = 0; i < lm; i++) { StringBuffer bi = new StringBuffer(4); // 4Byte(2文字)分の容量(Javaの内部文字コードはUnicode) bi.append(str.charAt(i)); // append():文字列の末尾に追加 bi.append(str.charAt(i+1)); bigram.add(bi); //System.out.print(str.charAt(i)); //System.out.println(str.charAt(i+1)); } } // 2-gramを表示 for (Iterator it = bigram.iterator(); it.hasNext(); ) { System.out.println(it.next()); } } } 
+import java.io.*;
+import java.util.*;
+/**
+ * N-gram法
+ */
+public class Make2gram {
+  public static void main(String[] args) {
+    final short nsepa = 1; // 2gram
+    String line;
+    ArrayList<stringBuffer> filelist = new ArrayList<stringBuffer>();
+    ArrayList<stringBuffer> bigram = new ArrayList<stringBuffer>();
+    if (args.length < 1) { // コマンドライン引数の数
+      System.out.println("How to use: java Make2gram [filename]");
+      System.exit(1);
+    }
+    try {
+      BufferedReader br = new BufferedReader(new FileReader(args[0]));
+      while ((line = br.readLine()) != null) {
+        //System.out.println(line);
+        filelist.add(new StringBuffer(line)); // 入力ファイルは一行=一要素として格納
+      }
+      br.close();
+    }
+    catch (Exception e) {
+      System.err.println("[main] : " + e.toString());
+    }
+    for (Iterator it = filelist.iterator(); it.hasNext(); ) {
+      StringBuffer str = (StringBuffer) it.next();
+      int lm = str.length() - nsepa;
+      for (int i = 0; i < lm; i++) {
+        StringBuffer bi = new StringBuffer(4); // 4Byte(2文字)分の容量(Javaの内部文字コードはUnicode)
+        bi.append(str.charAt(i)); // append():文字列の末尾に追加
+        bi.append(str.charAt(i+1));
+        bigram.add(bi);
+        //System.out.print(str.charAt(i));
+        //System.out.println(str.charAt(i+1));
+      }
+    }
+    // 2-gramを表示
+    for (Iterator it = bigram.iterator(); it.hasNext(); ) {
+      System.out.println(it.next());
+    }
+  }
+}
 ```
 
 

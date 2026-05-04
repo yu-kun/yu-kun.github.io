@@ -21,7 +21,7 @@ slug: wordpress-twenty-twelve-invisible-eyecatch-image
 
 
 ```php
- 
+<?php the_post_thumbnail(); ?>
 ```
 
 
@@ -29,7 +29,7 @@ slug: wordpress-twenty-twelve-invisible-eyecatch-image
 
 
 ```php
- 
+<!-- <?php the_post_thumbnail(); ?> -->
 ```
 
 
@@ -41,7 +41,9 @@ Twenty Twelve v1.9以降からはPHPステートメント内にthe\_post\_thumbn
 
 
 ```php
- 
+<?php if ( ! post_password_required() && ! is_attachment() ) :
+	the_post_thumbnail();
+endif; ?>
 ```
 
 
@@ -49,7 +51,9 @@ Twenty Twelve v1.9以降からはPHPステートメント内にthe\_post\_thumbn
 
 
 ```php
- 
+<?php if ( ! post_password_required() && ! is_attachment() ) :
+	// the_post_thumbnail();
+endif; ?>
 ```
 
 

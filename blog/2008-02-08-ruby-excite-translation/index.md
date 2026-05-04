@@ -19,7 +19,15 @@ Webの巡回などにはWWW::Mechanizeという便利なライブラリがあり
 
 
 ```ruby
- #!/usr/bin/ruby require 'net/http' require 'kconv' before = "hello" http = Net::HTTP.new('www.excite.co.jp') response = http.post('/world/english', "before=#{before}&wb_lp=ENJA") result = Kconv.tosjis(response.body) result =~ /"after"[^>]*>(.*)/ism puts $1 
+#!/usr/bin/ruby
+require 'net/http'
+require 'kconv'
+before = "hello"
+http = Net::HTTP.new('www.excite.co.jp')
+response = http.post('/world/english', "before=#{before}&wb_lp=ENJA")
+result = Kconv.tosjis(response.body)
+result =~ /"after"[^>]*>(.*)/ism
+puts $1
 ```
 
 

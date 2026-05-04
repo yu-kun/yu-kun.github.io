@@ -17,7 +17,19 @@ Pythonの数値計算モジュールであるNumPyのアレイ計算の基本を
 Python3系で記述している。 
 
 ```python
- import numpy as np # 2行4列のアレイを作る arr1 = np.array([[1,2,3,4],[5,6,7,8]]) print("arr1 == \n", arr1) # アレイのかけ算: それぞれの要素のかけ算となる print("arr1 * arr1 ==\n", arr1 * arr1) # np.dot(arr1, arr1)でも同様の結果を得られる。 # アレイの引き算: それぞれの要素の引き算となる print("arr1 - arr1 ==\n", arr1 - arr1) # 1(スカラー)をアレイの各要素で割る print("1 / arr1 ==\n", 1 / arr1) # アレイの累乗は各要素の累乗 print("arr1 ** 4 ==\n", arr1 ** 4) 
+import numpy as np
+# 2行4列のアレイを作る
+arr1 = np.array([[1,2,3,4],[5,6,7,8]])
+print("arr1 == \n", arr1)
+# アレイのかけ算: それぞれの要素のかけ算となる
+print("arr1 * arr1 ==\n", arr1 * arr1)
+# np.dot(arr1, arr1)でも同様の結果を得られる。
+# アレイの引き算: それぞれの要素の引き算となる
+print("arr1 - arr1 ==\n", arr1 - arr1)
+# 1(スカラー)をアレイの各要素で割る
+print("1 / arr1 ==\n", 1 / arr1)
+# アレイの累乗は各要素の累乗
+print("arr1 ** 4 ==\n", arr1 ** 4)
 ```
 
 

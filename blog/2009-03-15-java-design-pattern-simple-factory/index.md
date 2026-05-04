@@ -21,7 +21,71 @@ slug: java-design-pattern-simple-factory
 
 
 ```java
- public class Main { public static void main(String[] args) { new Main(); } public Main() { NameFactory nameFactory = new NameFactory(); Namer namer; namer = nameFactory.getNamer("String#indexOf()"); printName(namer); namer = nameFactory.getNamer("ArrayList.get()"); printName(namer); namer = nameFactory.getNamer("Thread#run()"); printName(namer); } private void printName(Namer namer) { System.out.println("Class Name: " + namer.className); System.out.println("Method Name: " + namer.methodName); } } public class NameFactory { // 区切り文字の種類によって、処理する派生クラスを決める public Namer getNamer(String input) { if (input.indexOf(".") > 0) return new PeriodNamer(input); else if (input.indexOf("#") > 0) return new SharpNamer(input); return null; } } public class Namer { protected String className; protected String methodName; public String getClassName() { return className; } public String getMethodName() { return methodName; } } public class SharpNamer extends Namer { // 「#」で名前を区切る public SharpNamer(String str) { int i = str.lastIndexOf("#"); if (i > 0) { className = str.substring(0, i); // (beginIndex, endIndex) methodName = str.substring(i + 1); // (beginIndex) } else { className = ""; methodName = str; } } } public class PeriodNamer extends Namer { // 「.」で名前を区切る public PeriodNamer(String str) { int i = str.lastIndexOf("."); if (i > 0) { className = str.substring(0, i); // (beginIndex, endIndex) methodName = str.substring(i + 1); // (beginIndex) } else { className = ""; methodName = str; } } } 
+public class Main {
+    public static void main(String[] args) {
+        new Main();
+    }
+    public Main() {
+        NameFactory nameFactory = new NameFactory();
+        Namer namer;
+        namer = nameFactory.getNamer("String#indexOf()");
+        printName(namer);
+        namer = nameFactory.getNamer("ArrayList.get()");
+        printName(namer);
+        namer = nameFactory.getNamer("Thread#run()");
+        printName(namer);
+    }
+    private void printName(Namer namer) {
+        System.out.println("Class  Name: " + namer.className);
+        System.out.println("Method Name: " + namer.methodName);
+    }
+}
+public class NameFactory {
+    // 区切り文字の種類によって、処理する派生クラスを決める
+    public Namer getNamer(String input) {
+        if (input.indexOf(".") > 0)
+            return new PeriodNamer(input);
+        else if (input.indexOf("#") > 0)
+            return new SharpNamer(input);
+        return null;
+    }
+}
+public class Namer {
+    protected String className;
+    protected String methodName;
+    public String getClassName() {
+        return className;
+    }
+    public String getMethodName() {
+        return methodName;
+    }
+}
+public class SharpNamer extends Namer {
+    // 「#」で名前を区切る
+    public SharpNamer(String str) {
+        int i = str.lastIndexOf("#");
+        if (i > 0) {
+            className = str.substring(0, i); // (beginIndex, endIndex)
+            methodName = str.substring(i + 1); // (beginIndex)
+        } else {
+            className = "";
+            methodName = str;
+        }
+    }
+}
+public class PeriodNamer extends Namer {
+    // 「.」で名前を区切る
+    public PeriodNamer(String str) {
+        int i = str.lastIndexOf(".");
+        if (i > 0) {
+            className = str.substring(0, i); // (beginIndex, endIndex)
+            methodName = str.substring(i + 1); // (beginIndex)
+        } else {
+            className = "";
+            methodName = str;
+        }
+    }
+}
 ```
 
 

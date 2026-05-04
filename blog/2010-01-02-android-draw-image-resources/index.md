@@ -38,7 +38,19 @@ void drawBitmap(Bitmap image, Rect src, Rect dst, Paint p)
 
 
 ```java
- package info.yukun.imagesp; import android.app.Activity; import android.os.Bundle; import android.view.Window; public class ImageSp extends Activity { /** Called when the activity is first created. */ @Override public void onCreate(Bundle savedInstanceState) { super.onCreate(savedInstanceState); requestWindowFeature(Window.FEATURE_NO_TITLE); setContentView(new ImageView(this)); } } 
+package info.yukun.imagesp;
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.Window;
+public class ImageSp extends Activity {
+	/** Called when the activity is first created. */
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		setContentView(new ImageView(this));
+	}
+}
 ```
 
 
@@ -46,7 +58,37 @@ void drawBitmap(Bitmap image, Rect src, Rect dst, Paint p)
 
 
 ```java
- package info.yukun.imagesp; import android.content.Context; import android.content.res.Resources; import android.graphics.Bitmap; import android.graphics.BitmapFactory; import android.graphics.Canvas; import android.graphics.Color; import android.graphics.Rect; import android.view.View; public class ImageView extends View { private Bitmap image; public ImageView(Context context) { super(context); setBackgroundColor(Color.WHITE); // リソースの画像ファイルの読み込み Resources r = context.getResources(); image = BitmapFactory.decodeResource(r, R.drawable.icon); } @Override protected void onDraw(Canvas canvas) { // イメージ描画 canvas.drawBitmap(image, 0, 0, null); int w = image.getWidth(); int h = image.getHeight(); // 描画元の矩形イメージ Rect src = new Rect(0, 0, w, h); // 描画先の矩形イメージ Rect dst = new Rect(0, 200, w*2, 200 + h*2); canvas.drawBitmap(image, src, dst, null); } } 
+package info.yukun.imagesp;
+import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Rect;
+import android.view.View;
+public class ImageView extends View {
+	private Bitmap image;
+	public ImageView(Context context) {
+		super(context);
+		setBackgroundColor(Color.WHITE);
+		// リソースの画像ファイルの読み込み
+		Resources r = context.getResources();
+		image = BitmapFactory.decodeResource(r, R.drawable.icon);
+	}
+	@Override
+	protected void onDraw(Canvas canvas) {
+		// イメージ描画
+		canvas.drawBitmap(image, 0, 0, null);
+		int w = image.getWidth();
+		int h = image.getHeight();
+		// 描画元の矩形イメージ
+		Rect src = new Rect(0, 0, w, h);
+		// 描画先の矩形イメージ
+		Rect dst = new Rect(0, 200, w*2, 200 + h*2);
+		canvas.drawBitmap(image, src, dst, null);
+	}
+}
 ```
 
 

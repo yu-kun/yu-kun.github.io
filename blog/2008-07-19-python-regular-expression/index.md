@@ -12,7 +12,32 @@ slug: python-regular-expression
 
 
 ```python
- # coding: Shift_JIS import re # 正規表現を扱うモジュールのインポート # 正規表現のチェックプリント用の関数 def PrintRegMatch(pat, txt): # 書式: re.match(パターン, テキスト) m = re.match(pat, txt) # パターンにマッチしなかった場合はNoneを返す if m != None: print 'パターン"%s"はテキスト"%s"にマッチ「する」' % (pat, txt) else: print 'パターン"%s"はテキスト"%s"にマッチ「しない」' % (pat, txt) txt = 'ABCDEFGH' # 探索される文字列を「テキスト」 # 探索する　文字列を「パターン」 PrintRegMatch('ABC', txt) PrintRegMatch('FGH', txt) print # メタ文字を用いたマッチング # 「.」任意の1文字にマッチ PrintRegMatch('.BCD', txt) PrintRegMatch('....EFGH', txt) PrintRegMatch('...EFGH', txt) print # 「^」は文字列の先頭にマッチするパターン(MULTILINEフラグを設定すると行頭にもマッチ) PrintRegMatch('^ABC', txt) PrintRegMatch('^BCD', txt) print # 「$」は文字列の末尾にマッチするパターン(MULTILINEフラグを設定すると行末にもマッチ) PrintRegMatch('EFGH$', txt) PrintRegMatch('....EFGH$', txt) 
+# coding: Shift_JIS
+import re # 正規表現を扱うモジュールのインポート
+# 正規表現のチェックプリント用の関数
+def PrintRegMatch(pat, txt):
+    #   書式: re.match(パターン, テキスト)
+    m = re.match(pat, txt) # パターンにマッチしなかった場合はNoneを返す
+    if m != None: print 'パターン"%s"はテキスト"%s"にマッチ「する」' % (pat, txt)
+    else: print 'パターン"%s"はテキスト"%s"にマッチ「しない」' % (pat, txt)
+txt = 'ABCDEFGH' # 探索される文字列を「テキスト」
+                 # 探索する　文字列を「パターン」
+PrintRegMatch('ABC', txt)
+PrintRegMatch('FGH', txt)
+print
+# メタ文字を用いたマッチング
+# 「.」任意の1文字にマッチ
+PrintRegMatch('.BCD', txt)
+PrintRegMatch('....EFGH', txt)
+PrintRegMatch('...EFGH', txt)
+print
+# 「^」は文字列の先頭にマッチするパターン(MULTILINEフラグを設定すると行頭にもマッチ)
+PrintRegMatch('^ABC', txt)
+PrintRegMatch('^BCD', txt)
+print
+# 「$」は文字列の末尾にマッチするパターン(MULTILINEフラグを設定すると行末にもマッチ)
+PrintRegMatch('EFGH$', txt)
+PrintRegMatch('....EFGH$', txt)
 ```
 
 

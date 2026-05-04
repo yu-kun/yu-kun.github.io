@@ -43,19 +43,104 @@ slug: java-observe-event-model-view
 
 
 ```java
- import java.awt.Container; import java.awt.GridLayout; import javax.swing.JFrame; import javax.swing.JLabel; class CountView extends JFrame implements CountListener{ private final JLabel binaryLabel = new JLabel("0"); private final JLabel decimalLabel = new JLabel("0"); private CountModel cModel = new CountModel(0); public static void main(String[] args) { new CountView(); } public CountView() { super("Counter"); Container c = getContentPane(); c.setLayout(new GridLayout(2, 2)); c.add(new JLabel(" 2進数:")); c.add(binaryLabel); c.add(new JLabel("10進数:")); c.add(decimalLabel); setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); cModel.addCountListener(this); // ModelにViewを登録 pack(); setVisible(true); } public void countChanged(CountChangeEvent e) { if (e.getSource() == cModel) { binaryLabel.setText(Integer.toString(cModel.getCount(), 2)); decimalLabel.setText(Integer.toString(cModel.getCount(), 10)); } } } 
+import java.awt.Container;
+import java.awt.GridLayout;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+class CountView extends JFrame implements CountListener{
+	private final JLabel binaryLabel = new JLabel("0");
+	private final JLabel decimalLabel = new JLabel("0");
+	private CountModel cModel = new CountModel(0);
+	public static void main(String[] args) {
+		new CountView();
+	}
+	public CountView() {
+		super("Counter");
+		Container c = getContentPane();
+		c.setLayout(new GridLayout(2, 2));
+		c.add(new JLabel(" 2進数:"));
+		c.add(binaryLabel);
+		c.add(new JLabel("10進数:"));
+		c.add(decimalLabel);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		cModel.addCountListener(this); // ModelにViewを登録
+		pack();
+		setVisible(true);
+	}
+	public void countChanged(CountChangeEvent e) {
+		if (e.getSource() == cModel) {
+			binaryLabel.setText(Integer.toString(cModel.getCount(), 2));
+			decimalLabel.setText(Integer.toString(cModel.getCount(), 10));
+		}
+	}
+}
 ```
 
  
 
 ```java
- import java.util.ArrayList; import java.util.List; import java.util.Timer; import java.util.TimerTask; /** * カウントするModel */ public class CountModel { private int count; private final List listeners = new ArrayList(); private Timer t = new Timer("Count Timer", false); CountModel(int i) { count = i; t.scheduleAtFixedRate(new CountTime(), 0, 1000); } // Viewを登録 public void addCountListener(CountListener listener) { listeners.add(listener); } public int getCount() { return count; } public void setCount(int i) { count = i; notifyToListeners(); } // Viewへの通知 private void notifyToListeners() { for (CountListener listener : listeners) { listener.countChanged(new CountChangeEvent(this)); } } class CountTime extends TimerTask { @Override public void run() { setCount(getCount() + 1); } } } 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+/**
+ * カウントするModel
+ */
+public class CountModel {
+	private int count;
+	private final List<countListener> listeners = new ArrayList<countListener>();
+	private Timer t = new Timer("Count Timer", false);
+	CountModel(int i) {
+		count = i;
+		t.scheduleAtFixedRate(new CountTime(), 0, 1000);
+	}
+	// Viewを登録
+	public void addCountListener(CountListener listener) {
+		listeners.add(listener);
+	}
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int i) {
+		count = i;
+		notifyToListeners();
+	}
+	// Viewへの通知
+	private void notifyToListeners() {
+		for (CountListener listener : listeners) {
+			listener.countChanged(new CountChangeEvent(this));
+		}
+	}
+	class CountTime extends TimerTask {
+		@Override
+		public void run() {
+			setCount(getCount() + 1);
+		}
+	}
+}
 ```
 
  
 
 ```java
- /** * View側で実装する(Model側から呼び出し) */ public interface CountListener { public void countChanged(CountChangeEvent e); } /** * 通知内容を表すイベント(Modelが生成しViewが受け取る) */ public class CountChangeEvent { private final CountModel source; public CountChangeEvent(CountModel count) { this.source = count; } public CountModel getSource() { return source; } } 
+/**
+ * View側で実装する(Model側から呼び出し)
+ */
+public interface CountListener {
+	public void countChanged(CountChangeEvent e);
+}
+/**
+ * 通知内容を表すイベント(Modelが生成しViewが受け取る)
+ */
+public class CountChangeEvent {
+	private final CountModel source;
+	public CountChangeEvent(CountModel count) {
+		this.source = count;
+	}
+	public CountModel getSource() {
+		return source;
+	}
+}
 ```
 
 

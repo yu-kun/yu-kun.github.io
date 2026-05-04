@@ -17,7 +17,18 @@ slug: mysql-create-table-drop-describe
 以下のコマンドを打つと、 
 
 ```sql
- mysql> CREATE TABLE book -> ( -> id INT(11), -> category_id INT(11), -> title VARCHAR(64), -> author_name VARCHAR(32), -> detail TEXT, -> price INT(11), -> image VARCHAR(64) -> ); Query OK, 0 rows affected (0.09 sec) mysql> 
+mysql&gt; CREATE TABLE book
+    -&gt; (
+    -&gt; id INT(11),
+    -&gt; category_id INT(11),
+    -&gt; title VARCHAR(64),
+    -&gt; author_name VARCHAR(32),
+    -&gt; detail TEXT,
+    -&gt; price INT(11),
+    -&gt; image VARCHAR(64)
+    -&gt; );
+Query OK, 0 rows affected (0.09 sec)
+mysql&gt;
 ```
 
  次のようなテーブルを作成します。
@@ -35,13 +46,26 @@ slug: mysql-create-table-drop-describe
 
 
 ```sql
- mysql> CREATE TABLE book2 -> ( -> id INT(11) NOT NULL AUTO_INCREMENT, -> title VARCHAR(64), -> author_name VARCHAR(32), -> detail TEXT, -> image VARCHAR(64), -> PRIMARY KEY (id) -> ); Query OK, 0 rows affected (0.02 sec) mysql> 
+mysql&gt; CREATE TABLE book2
+    -&gt; (
+    -&gt; id INT(11) NOT NULL AUTO_INCREMENT,
+    -&gt; title VARCHAR(64),
+    -&gt; author_name VARCHAR(32),
+    -&gt; detail TEXT,
+    -&gt; image VARCHAR(64),
+    -&gt; PRIMARY KEY (id)
+    -&gt; );
+Query OK, 0 rows affected (0.02 sec)
+mysql&gt;
 ```
 
  NOT NULLを指定することによってそのレコードを挿入する際にidフィールドが空であることを防止し、AUTO\_INCREMENTを指定することによってレコードが追加されると（その際idフィールに代入指定が無い場合）idフィールドに1を代入し、その後もレコード追加の度に**前挿入レコードのidに+1した値**を代入していきます。余談ですが、SQLiteではINTEGER型のフィールドを主キーとするとデフォルトでauto incrementされます。 ちなみに、データベース内で既に作成されているテーブルと同じ名前のテーブルを再度作成しようとすると以下のようなエラーを返します。 
 
 ```sql
- mysql> CREATE TABLE book ...＜中略＞ ERROR 1050 (42S01): Table 'book' already exists mysql> 
+mysql&gt; CREATE TABLE book
+...＜中略＞
+ERROR 1050 (42S01): Table 'book' already exists
+mysql&gt;
 ```
 
 
@@ -52,7 +76,15 @@ slug: mysql-create-table-drop-describe
 さて、上で作成したテーブルが本当に出来ているのかSHOW TABLES コマンドで確認してみましょう。 
 
 ```sql
- mysql> SHOW TABLES; +---------------------+ | Tables_in_bookshelf | +---------------------+ | book | | book2 | +---------------------+ 2 rows in set (0.00 sec) mysql> 
+mysql&gt; SHOW TABLES;
++---------------------+
+| Tables_in_bookshelf |
++---------------------+
+| book                |
+| book2               |
++---------------------+
+2 rows in set (0.00 sec)
+mysql&gt;
 ```
 
  しっかり出来ていますね。
@@ -62,7 +94,18 @@ slug: mysql-create-table-drop-describe
 それでは、テーブル内の構造はどうでしょうか。book2はオプションで色々設定しましたので、DESCRIBE（DESC）コマンドで確認してみましょう。 
 
 ```sql
- mysql> DESC book2; +-------------+-------------+------+-----+---------+----------------+ | Field | Type | Null | Key | Default | Extra | +-------------+-------------+------+-----+---------+----------------+ | id | int(11) | NO | PRI | NULL | auto_increment | | title | varchar(64) | YES | | NULL | | | author_name | varchar(32) | YES | | NULL | | | detail | text | YES | | NULL | | | image | varchar(64) | YES | | NULL | | +-------------+-------------+------+-----+---------+----------------+ 6 rows in set (0.00 sec) mysql> 
+mysql&gt; DESC book2;
++-------------+-------------+------+-----+---------+----------------+
+| Field       | Type        | Null | Key | Default | Extra          |
++-------------+-------------+------+-----+---------+----------------+
+| id          | int(11)     | NO   | PRI | NULL    | auto_increment |
+| title       | varchar(64) | YES  |     | NULL    |                |
+| author_name | varchar(32) | YES  |     | NULL    |                |
+| detail      | text        | YES  |     | NULL    |                |
+| image       | varchar(64) | YES  |     | NULL    |                |
++-------------+-------------+------+-----+---------+----------------+
+6 rows in set (0.00 sec)
+mysql&gt;
 ```
 
  DESCでも同じ結果が返ってきます。
@@ -72,7 +115,15 @@ slug: mysql-create-table-drop-describe
 別の環境でもう一度作成したい場合等に使えます。 
 
 ```sql
- mysql> SHOW CREATE TABLE book2; CREATE TABLE `book2` ( `id` int(11) NOT NULL auto_increment, `title` varchar(64) default NULL, `author_name` varchar(32) default NULL, `detail` text, `image` varchar(64) default NULL, PRIMARY KEY (`id`) ) ENGINE=MyISAM DEFAULT CHARSET=utf8 
+mysql&gt; SHOW CREATE TABLE book2;
+CREATE TABLE `book2` (
+  `id` int(11) NOT NULL auto_increment,
+  `title` varchar(64) default NULL,
+  `author_name` varchar(32) default NULL,
+  `detail` text,
+  `image` varchar(64) default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8
 ```
 
  上述のCREATE TABLE文では省いていたオプションが明示されていますが、確かにこの文でbook2を作成できます。
@@ -82,7 +133,16 @@ slug: mysql-create-table-drop-describe
 最後に、テーブルの削除を試してみます。 
 
 ```sql
- mysql> DROP TABLE book; Query OK, 0 rows affected (0.00 sec) mysql> SHOW TABLES; +---------------------+ | Tables_in_bookshelf | +---------------------+ | book2 | +---------------------+ 1 row in set (0.00 sec) mysql> 
+mysql&gt; DROP TABLE book;
+Query OK, 0 rows affected (0.00 sec)
+mysql&gt; SHOW TABLES;
++---------------------+
+| Tables_in_bookshelf |
++---------------------+
+| book2               |
++---------------------+
+1 row in set (0.00 sec)
+mysql&gt;
 ```
 
  一般化すると、

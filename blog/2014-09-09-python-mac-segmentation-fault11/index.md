@@ -13,7 +13,13 @@ slug: python-mac-segmentation-fault11
 下記の通り2行目の処理でセグメンテーションエラーとなる。 
 
 ```python
- $ python Python 2.7.2 (v2.7.2:8527427914a2, Jun 11 2011, 15:22:34) [GCC 4.2.1 (Apple Inc. build 5666) (dot 3)] on darwin Type "help", "copyright", "credits" or "license" for more information. >>> str1 = 'hello.doc' >>> print str1 Segmentation fault: 11 
+$ python
+Python 2.7.2 (v2.7.2:8527427914a2, Jun 11 2011, 15:22:34)
+[GCC 4.2.1 (Apple Inc. build 5666) (dot 3)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+>>> str1 = 'hello.doc'
+>>> print str1
+Segmentation fault: 11
 ```
 
  

@@ -10,7 +10,19 @@ slug: ruby-lambda
 に関して、練習します。 他の言語と比較してRubyのコードブロックの扱いは特徴的で扱い難そうに見えますが、使いこなせればコード量を減らせるし、その結果として可読性も増すので、慣れていきたいです。 
 
 ```ruby
- def times_n(n) lambda { |x| x * n} # Kernel#lambdaの引数はブロック # lambda do |x| x * n end でもよい(複数行に渉るときなど)。 end times_ten = times_n(10) # nに10を代入 # 生成されたtimes_tenはProcインスタンス p times_ten.class #=> Proc # times_ten = { |x| x * n} はエラー。 # {}でのブロックはメソッドの引数としてのみ渡せる。 # また、ブロック引数はメソッドの最後の引数として定義する。 # ブロックの実行にはcallメソッドを用いる p times_ten.call(5) # ブロック変数xに10が代入される #=> 50 
+def times_n(n)
+  lambda  { |x| x * n}     # Kernel#lambdaの引数はブロック
+# lambda do |x| x * n end  でもよい(複数行に渉るときなど)。
+end
+times_ten = times_n(10)    # nに10を代入
+# 生成されたtimes_tenはProcインスタンス
+p times_ten.class          #=> Proc
+# times_ten = { |x| x * n} はエラー。
+# {}でのブロックはメソッドの引数としてのみ渡せる。
+# また、ブロック引数はメソッドの最後の引数として定義する。
+# ブロックの実行にはcallメソッドを用いる
+p times_ten.call(5)        # ブロック変数xに10が代入される
+#=> 50
 ```
 
 
@@ -26,7 +38,10 @@ slug: ruby-lambda
 
 
 ```ruby
- arr1 = [1, 2, 3, 4, 5] arr2 = arr1.collect(&amp;times_ten) p arr2 #=> [10, 20, 30, 40, 50] p arr2.class #=> Array 
+arr1 = [1, 2, 3, 4, 5]
+arr2 = arr1.collect(&amp;amp;times_ten)
+p arr2 #=> [10, 20, 30, 40, 50]
+p arr2.class #=> Array
 ```
 
 
@@ -42,7 +57,17 @@ slug: ruby-lambda
 
 
 ```ruby
- def times_n(n) lambda { |x| x * n} # lambdaの引数はブロック end times_ten = times_n(10) # nに10を代入 ceiling = 50 arr3 = [1, 25, 50, 55, 30, 100] p arr3.select { |x| x < ceiling } #=> [1, 25, 30] arr4 = [0.1, 2.5, 5, 5.5, 3, 10] p arr4.collect(&amp;times_ten).select { |x| x < ceiling } # -.-; #=> [1.0, 25.0, 30] 
+def times_n(n)
+  lambda { |x| x * n}   # lambdaの引数はブロック
+end
+times_ten = times_n(10) # nに10を代入
+ceiling = 50
+arr3 = [1, 25, 50, 55, 30, 100]
+p arr3.select { |x| x < ceiling }
+#=> [1, 25, 30]
+arr4 = [0.1, 2.5, 5, 5.5, 3, 10]
+p arr4.collect(&amp;amp;times_ten).select { |x| x < ceiling } #  -.-;
+#=> [1.0, 25.0, 30]
 ```
 
 

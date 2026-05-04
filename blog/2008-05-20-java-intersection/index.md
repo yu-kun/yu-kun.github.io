@@ -32,7 +32,39 @@ slug: java-intersection
 1つのトークン(単語)に対するインデックス情報（docIDリストや出現頻度情報） 
 
 ```java
- import java.util.ArrayList; /* * 1つのトークン(単語)に対するインデックス情報 */ public class IndexRecord { // 出現文書IDリスト(通常ソートの必要あり) private ArrayList posts; // 出現頻度(今回は同一doc内の頻度はカウントしない) private int freq; public IndexRecord(int id) { posts = new ArrayList(); posts.add(id); freq = 1; } /** docIDをリストに追加(今回は同一docIDのtermはカウントしない) */ public void addDocID(int id) { if (!existDocID(id)) { posts.add(id); // docIDの追加 freq++; // 出現頻度のカウントアップ } } /** docIDが既にリスト中に存在するか否か */ public boolean existDocID(int id) { return (posts.indexOf(id) != -1) ? true : false; } public String toString() { String str = freq + ", "+ posts; return str; } public ArrayList getPosts() { return posts; } } 
+import java.util.ArrayList;
+/*
+ * 1つのトークン(単語)に対するインデックス情報
+ */
+public class IndexRecord {
+  // 出現文書IDリスト(通常ソートの必要あり)
+  private ArrayList<integer> posts;
+  // 出現頻度(今回は同一doc内の頻度はカウントしない)
+  private int freq;
+  public IndexRecord(int id) {
+    posts = new ArrayList<integer>();
+    posts.add(id);
+    freq = 1;
+  }
+  /** docIDをリストに追加(今回は同一docIDのtermはカウントしない) */
+  public void addDocID(int id) {
+    if (!existDocID(id)) {
+      posts.add(id); // docIDの追加
+      freq++; // 出現頻度のカウントアップ
+    }
+  }
+  /** docIDが既にリスト中に存在するか否か */
+  public boolean existDocID(int id) {
+    return (posts.indexOf(id) != -1) ? true : false;
+  }
+  public String toString() {
+    String str = freq + ", "+ posts;
+    return str;
+  }
+  public ArrayList<integer> getPosts() {
+    return posts;
+  }
+}
 ```
 
 
@@ -40,7 +72,134 @@ slug: java-intersection
 
 
 ```java
- import java.io.BufferedReader; import java.io.IOException; import java.io.InputStreamReader; import java.util.ArrayList; import java.util.Collections; import java.util.StringTokenizer; import java.util.TreeMap; /** * 検索エンジンのAND演算処理 * Web page: https://yukun.info/ * license GPL */ public class BooleanTest { // 検索対象テキスト static String doc0 = "It is meaningless only to think my long further aims idly. "+ "It is important to set my aims but at the same time I should confirm my present condition. "+ "Unless I set the standard where I am in any level, I'll be puzzled about what I should do from now on. It's in my case."; static String doc1 = "Today, I enjoyed playing with friends daytime. "+ "After enjoying, I got back to my daily life with an vigorous power. "+ "I should think so, but why did I feel touch of uncertainty and regret? "+ "I wanna enjoy myself and another tremendously during the day when I've played. "+ "Well, As well as I commit play to quality, I'll choose such kinds of play."; static String doc2 = "I'll manage the limited time in a day. "+ "I think that I divide the time into some intervals such as 5 minutes, "+ "15 minutes and more than one hour and so on. I'll make use of this character of the interval."; public static void main(String[] args) { ArrayList docIDlist = new ArrayList(); // 文書を格納 docIDlist.add(doc0); docIDlist.add(doc1); docIDlist.add(doc2); StringTokenizer st[] = new StringTokenizer[3]; String stripChars = ".,:;?!"'[]{}()"; // 除外文字 // 文字列を空白で区切るよう設定 for (int i = 0; i < st.length; i++) { st[i] = new StringTokenizer(docIDlist.get(i), " "); } // 転置インデックス用のMap TreeMap termMap = new TreeMap(); // 分割されたトークンを取得 for (int i = 0; i < st.length; i++) { // ここでのパラメータiはdocIDを指すことと同じ while (st[i].hasMoreTokens()) { // 文字列トークンの先頭・末尾の文字をフィルタリング // org.apache.commons.lang.StringUtilsクラスを使用 // http://commons.apache.org/proper/commons-lang/ String term = StringUtils.strip(st[i].nextToken(), stripChars); //System.out.println("値 : " + term); if(termMap.containsKey(term)) { // 登録されているtermならdocIDの追加とカウントアップ IndexRecord ir = termMap.get(term); ir.addDocID(i); termMap.put(term, ir); } else { // termMapに登録されていないtermならdocIDと合わせて登録 termMap.put(term, new IndexRecord(i)); } } } // for loop ends // termMapのデバッグプリント System.out.println("単語 freq, docID"); for (String part : termMap.keySet()) { System.out.printf("%-12s : %sn", part, termMap.get(part)); } BufferedReader br = new BufferedReader(new InputStreamReader(System.in)); String words = ""; while (true) { ArrayList> postsSet = new ArrayList>(); System.out.print("検索語: "); try { // ユーザからの標準入力を受付 words = br.readLine(); if (words.equals("quit")) break; // 入力文字列をパース StringTokenizer parser = new StringTokenizer(words, " "); while (parser.hasMoreTokens()) { String term = StringUtils.strip(parser.nextToken(), stripChars); // termMapに登録されている単語か否か if (termMap.containsKey(term)) { postsSet.add(termMap.get(term).getPosts()); } else { postsSet = null; break; } } // AND演算処理 ArrayList result = intersect(postsSet); System.out.print("結果　:"); if (result == null || result.size() == 0) System.out.println("文書中に存在しません。"); else System.out.println("文書ID "+ result +"に存在します。"); } catch (IOException e) { e.printStackTrace(); } } } // main() ends // AND演算処理メソッド public static ArrayList intersect(ArrayList> postsSet) { if (postsSet == null) return null; int len = postsSet.size(); if (len == 0) return null; else if (len == 1) return postsSet.get(0); // postsSetを昇順にソート(演算回数の削減) Collections.sort(postsSet, new FreqComparator()); ArrayList< Integer > result = postsSet.get(0); for (int i = 1; i < len; i++) { result = intersect(result, postsSet.get(i)); } return result; } public static ArrayList intersect(ArrayList p1, ArrayList p2) { ArrayList answer = new ArrayList(); int len1 = p1.size(); int len2 = p2.size(); for (int i=0, j=0; i< len1 && j < len2; ) { if (p1.get(i) == p2.get(j)) { answer.add(p1.get(i)); i++; j++; } else if (p1.get(i) < p2.get(j)) { i++; } else { j++; } } return answer; } } 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.StringTokenizer;
+import java.util.TreeMap;
+/**
+ * 検索エンジンのAND演算処理
+ * Web page: https://yukun.info/
+ * license GPL
+ */
+public class BooleanTest {
+  // 検索対象テキスト
+  static String doc0 = "It is meaningless only to think my long further aims idly. "+
+  "It is important to set my aims but at the same time I should confirm my present condition. "+
+  "Unless I set the standard where I am in any level, I'll be puzzled about what I should do from now on. It's in my case.";
+  static String doc1 = "Today, I enjoyed playing with friends daytime. "+
+  "After enjoying, I got back to my daily life with an vigorous power. "+
+  "I should think so, but why did I feel touch of uncertainty and regret? "+
+  "I wanna enjoy myself and another tremendously during the day when I've played. "+
+  "Well, As well as I commit play to quality, I'll choose such kinds of play.";
+  static String doc2 = "I'll manage the limited time in a day. "+
+  "I think that I divide the time into some intervals such as 5 minutes, "+
+  "15 minutes and more than one hour and so on. I'll make use of this character of the interval.";
+  public static void main(String[] args) {
+    ArrayList<string> docIDlist = new ArrayList<string>();
+    // 文書を格納
+    docIDlist.add(doc0);
+    docIDlist.add(doc1);
+    docIDlist.add(doc2);
+    StringTokenizer st[] = new StringTokenizer[3];
+    String stripChars = ".,:;?!"'[]{}()"; // 除外文字
+    // 文字列を空白で区切るよう設定
+    for (int i = 0; i < st.length; i++) {
+      st[i] = new StringTokenizer(docIDlist.get(i), " ");
+    }
+    // 転置インデックス用のMap
+    TreeMap<string, IndexRecord> termMap = new TreeMap<string , IndexRecord>();
+    // 分割されたトークンを取得
+    for (int i = 0; i < st.length; i++) {
+      // ここでのパラメータiはdocIDを指すことと同じ
+      while (st[i].hasMoreTokens()) {
+        // 文字列トークンの先頭・末尾の文字をフィルタリング
+        // org.apache.commons.lang.StringUtilsクラスを使用
+        // http://commons.apache.org/proper/commons-lang/
+        String term = StringUtils.strip(st[i].nextToken(), stripChars);
+        //System.out.println("値 : " + term);
+        if(termMap.containsKey(term)) {
+          // 登録されているtermならdocIDの追加とカウントアップ
+          IndexRecord ir = termMap.get(term);
+          ir.addDocID(i);
+          termMap.put(term, ir);
+        } else {
+          // termMapに登録されていないtermならdocIDと合わせて登録
+          termMap.put(term, new IndexRecord(i));
+        }
+      }
+    } // for loop ends
+    // termMapのデバッグプリント
+    System.out.println("単語          freq, docID");
+    for (String part : termMap.keySet()) {
+      System.out.printf("%-12s : %sn", part, termMap.get(part));
+    }
+    BufferedReader br =  new BufferedReader(new InputStreamReader(System.in));
+    String words = "";
+    while (true) {
+      ArrayList<arrayList<integer>> postsSet = new ArrayList<arrayList<integer>>();
+      System.out.print("検索語: ");
+      try {
+        // ユーザからの標準入力を受付
+        words = br.readLine();
+        if (words.equals("quit")) break;
+        // 入力文字列をパース
+        StringTokenizer parser = new StringTokenizer(words, " ");
+        while (parser.hasMoreTokens()) {
+          String term = StringUtils.strip(parser.nextToken(), stripChars);
+          // termMapに登録されている単語か否か
+          if (termMap.containsKey(term)) {
+            postsSet.add(termMap.get(term).getPosts());
+          } else {
+            postsSet = null;
+            break;
+          }
+        }
+        // AND演算処理
+        ArrayList<integer> result = intersect(postsSet);
+        System.out.print("結果　:");
+        if (result == null || result.size() == 0)
+          System.out.println("文書中に存在しません。");
+        else
+          System.out.println("文書ID "+ result +"に存在します。");
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+  } // main() ends
+  // AND演算処理メソッド
+  public static ArrayList<integer> intersect(ArrayList<arrayList<integer>> postsSet) {
+    if (postsSet == null) return null;
+    int len = postsSet.size();
+    if (len == 0) return null;
+    else if (len == 1) return postsSet.get(0);
+    // postsSetを昇順にソート(演算回数の削減)
+    Collections.sort(postsSet, new FreqComparator());
+    ArrayList< Integer > result = postsSet.get(0);
+    for (int i = 1; i < len; i++) {
+      result = intersect(result, postsSet.get(i));
+    }
+    return result;
+  }
+  public static ArrayList<integer> intersect(ArrayList<integer> p1, ArrayList<integer> p2) {
+    ArrayList<integer> answer = new ArrayList<integer>();
+    int len1 = p1.size();
+    int len2 = p2.size();
+    for (int i=0, j=0; i< len1 && j < len2; ) {
+      if (p1.get(i) == p2.get(j)) {
+        answer.add(p1.get(i));
+        i++; j++;
+      } else if (p1.get(i) < p2.get(j)) {
+        i++;
+      } else {
+        j++;
+      }
+    }
+    return answer;
+  }
+}
 ```
 
 
@@ -48,7 +207,13 @@ slug: java-intersection
 
 
 ```java
- import java.util.ArrayList; import java.util.Comparator; public class FreqComparator implements Comparator{ public int compare(Object o1, Object o2){ return ((ArrayList) o1).size() - ((ArrayList) o2).size(); } } 
+import java.util.ArrayList;
+import java.util.Comparator;
+public class FreqComparator implements Comparator<object>{
+  public int compare(Object o1, Object o2){
+    return ((ArrayList<integer>) o1).size() - ((ArrayList<integer>) o2).size();
+  }
+}
 ```
 
 

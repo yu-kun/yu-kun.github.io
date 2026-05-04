@@ -12,7 +12,22 @@ slug: cpp-random
 
 
 ```cpp
- #include // for time() #include // for srand(), rand() #include using namespace std; #define MIN 10 #define MAX 21 int main() { srand(time(NULL)); // 現在時刻を乱数の種の設定 int lucky = MIN + rand() % (MAX - MIN); // MIN以上MAX未満の乱数を生成 cout < < "生成した乱数は" << lucky << "です。n"; for (int i = 0; i< 100; i++) { // 100個生成 cout << MIN + rand() % (MAX - MIN) << " "; } return 0; } 
+#include <ctime> // for time()
+#include <cstdlib> // for srand(), rand()
+#include <iostream>
+using namespace std;
+#define MIN 10
+#define MAX 21
+int main()
+{
+  srand(time(NULL)); // 現在時刻を乱数の種の設定
+  int lucky = MIN + rand() % (MAX - MIN); // MIN以上MAX未満の乱数を生成
+  cout < < "生成した乱数は" << lucky << "です。n";
+  for (int i = 0; i< 100; i++) { // 100個生成
+    cout << MIN + rand() % (MAX - MIN) << " ";
+  }
+  return 0;
+}
 ```
 
  

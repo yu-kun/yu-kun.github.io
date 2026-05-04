@@ -14,7 +14,11 @@ slug: ssh-tar-transfer
 
 
 ```bash
- $ ls a.txt b.txt c.txt $ tar zcf - * | ssh yu@172.16.56.168 tar zxf - -C /home/yu/test yu@172.16.56.168's password: $ 
+$ ls
+a.txt  b.txt  c.txt
+$ tar zcf - * | ssh yu@172.16.56.168 tar zxf - -C /home/yu/test
+yu@172.16.56.168's password:
+$
 ```
 
  tarコマンドのファイル名を指定するべき引数に「-」（ハイフン）を指定すると標準入力/標準出力となる。
@@ -23,7 +27,13 @@ slug: ssh-tar-transfer
 
 
 ```bash
- $ pwd /home/yu/test $ ls d.txt e.txt f.txt ＜ローカル側でsshコマンド実行＞ $ ls a.txt b.txt c.txt d.txt e.txt f.txt 
+$ pwd
+/home/yu/test
+$ ls
+d.txt  e.txt  f.txt
+＜ローカル側でsshコマンド実行＞
+$ ls
+a.txt  b.txt  c.txt  d.txt  e.txt  f.txt
 ```
 
  また、話変わってリモートホストで実行するコマンドの標準出力・エラー出力は、ローカルホスト上のsshコマンドの標準出力・エラー出力となる。 例として、リモートホストの指定ディレクトリのファイルをカレントディレクトリにtar書庫で転送し展開するコマンドは下記の通り。
@@ -32,7 +42,18 @@ slug: ssh-tar-transfer
 
 
 ```bash
- $ pwd /home/yu/test $ ls a.txt b.txt c.txt d.txt e.txt f.txt $ cat * a b c d e f $ 
+$ pwd
+/home/yu/test
+$ ls
+a.txt  b.txt  c.txt  d.txt  e.txt  f.txt
+$ cat *
+a
+b
+c
+d
+e
+f
+$
 ```
 
 
@@ -40,7 +61,21 @@ slug: ssh-tar-transfer
 
 
 ```bash
- $ pwd /home/yu/test $ ls $ ssh yu@172.16.56.168 'cd /home/yu/test ;tar zcf - * ' | tar zxf - yu@172.16.56.168's password: $ ls a.txt b.txt c.txt d.txt e.txt f.txt $ cat * a b c d e f $ 
+$ pwd
+/home/yu/test
+$ ls
+$ ssh yu@172.16.56.168 'cd /home/yu/test ;tar zcf - * ' | tar zxf -
+yu@172.16.56.168's password:
+$ ls
+a.txt  b.txt  c.txt  d.txt  e.txt  f.txt
+$ cat *
+a
+b
+c
+d
+e
+f
+$
 ```
 
 

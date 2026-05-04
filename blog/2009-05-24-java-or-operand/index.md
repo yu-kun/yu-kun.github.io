@@ -10,7 +10,15 @@ slug: java-or-operand
 以前、OR演算の2つのオペランドが両方評価されるか否かがあやふやだったので以下のコードを以て改めて確認してみます。 
 
 ```java
- public class Sample1 { public static void main(String[] args) { int i = 5, j = 10, k =15; if ((i++ < j) | (k-- > j)) System.out.println("values of i: " + i + " values of k: " + k); if ((i < j) || (--k > j)) System.out.println("values of k: " + k); } } 
+public class Sample1 {
+  public static void main(String[] args) {
+    int i = 5, j = 10, k =15;
+    if ((i++ < j) | (k-- > j))
+      System.out.println("values of i: " + i + " values of k: " + k);
+    if ((i < j) || (--k > j))
+      System.out.println("values of k: " + k);
+  }
+}
 ```
 
  実行結果は

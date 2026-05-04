@@ -13,13 +13,13 @@ slug: safari-webkit-python-syntaxhighlighter-issue
  まぁ前置きはこれくらいにして、そのChromeで自分のサイトの記事を読み込んだところ[SyntaxHighlighter](http://code.google.com/p/syntaxhighlighter/ "syntaxhighlighter - Google Code")[(v1.5.1)](http://code.google.com/p/syntaxhighlighter/wiki/Version_1_5_1 "Version_1_5_1 - syntaxhighlighter - Google Code - Version 1.5.1 release notes.")がPythonのソースコードでのみ機能しませんでした。そして同様の問題はSafariでもみられました（どちらもWebKitを使っているからか）。デバッグしてみたらshBrushPython.jsコードのエラーでしたので、該当部分を以下のように修正しました。 ファイル10行目の中ほどの、 
 
 ```python
- RegExp("'(?!')*(?:\\.|(\\\\\\') 
+RegExp("'(?!')*(?:\\.|(\\\\\\')
 ```
 
  の部分を、 
 
 ```python
- RegExp("'(?!')(?:\\.|(\\\\\\') 
+RegExp("'(?!')(?:\\.|(\\\\\\')
 ```
 
  に変更します。「\*」を削除するだけです。

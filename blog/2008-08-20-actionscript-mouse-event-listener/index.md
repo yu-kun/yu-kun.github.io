@@ -31,7 +31,32 @@ MainクラスではマウスイベントをキャッチするBallクラス（後
 
 
 ```actionscript
- package info.yukun { import flash.display.Sprite; // タイムラインを使わない場合、MovieClip より軽い public class Main extends Sprite { private var ball:Ball; // Ballクラス型の変数 private var monitor:EventMonitor; // イベントのモニタリング用のクラス // コンストラクタ： ここからプログラムコードを読んでいく public function Main():void { init(); } private function init():void { ball = new Ball(); // Ballインスタンスを作成 ball.x = stage.stageWidth / 2; // オブジェクトの表示位置(中央) ball.y = stage.stageHeight / 2; ball.regEvent(); // マウスイベントリスナーの登録 addChild(ball); // 最上位のSpriteにballオブジェクトを表示 monitor = new EventMonitor(ball); monitor.x = 0; // 左上に設置 monitor.y = 0; addChild(monitor); } } } 
+package info.yukun
+{
+  import flash.display.Sprite; // タイムラインを使わない場合、MovieClip より軽い
+  public class Main extends Sprite
+  {
+    private var ball:Ball; // Ballクラス型の変数
+    private var monitor:EventMonitor; // イベントのモニタリング用のクラス
+    // コンストラクタ： ここからプログラムコードを読んでいく
+    public function Main():void
+    {
+      init();
+    }
+    private function init():void
+    {
+      ball = new Ball(); // Ballインスタンスを作成
+      ball.x = stage.stageWidth / 2; // オブジェクトの表示位置(中央)
+      ball.y = stage.stageHeight / 2;
+      ball.regEvent(); // マウスイベントリスナーの登録
+      addChild(ball); // 最上位のSpriteにballオブジェクトを表示
+      monitor = new EventMonitor(ball);
+      monitor.x = 0; // 左上に設置
+      monitor.y = 0;
+      addChild(monitor);
+    }
+  }
+}
 ```
 
 
@@ -45,7 +70,68 @@ MainクラスではマウスイベントをキャッチするBallクラス（後
 
 
 ```actionscript
- package info.yukun { import flash.display.Sprite; import flash.events.MouseEvent; // マウスイベント用 public class Ball extends Sprite { private var radius:Number; // 円の半径 private var color:uint; // 色 private var event_state:String; // イベントの状態 public function Ball(radius:Number = 50, color:uint = 0xA3D5FF) { this.radius = radius; this.color = color; this.event_state = ""; init(); } public function init():void { graphics.beginFill(color); graphics.drawCircle(0, 0, radius); // 円の描画 graphics.endFill(); } // イベントリスナーの登録 public function regEvent():void { // このオブジェクトにクリックが発生したら登録したメソッド(onMouseEvent)を実行、と読む addEventListener(MouseEvent.CLICK, onMouseEvent); doubleClickEnabled = true; // ダブルクリックの検出を可能にする addEventListener(MouseEvent.DOUBLE_CLICK, onMouseEvent); addEventListener(MouseEvent.MOUSE_DOWN, onMouseEvent); addEventListener(MouseEvent.MOUSE_MOVE, onMouseEvent); addEventListener(MouseEvent.MOUSE_OUT, onMouseEvent); addEventListener(MouseEvent.MOUSE_OVER, onMouseEvent); addEventListener(MouseEvent.MOUSE_UP, onMouseEvent); addEventListener(MouseEvent.MOUSE_WHEEL, onMouseEvent); } public function onMouseEvent(event:MouseEvent):void { event_state = event.type; trace(event_state); switch(event_state) { case MouseEvent.ROLL_OVER: this.color = 0x0006FA; init(); break; case MouseEvent.ROLL_OUT: this.color = 0xA3D5FF; init(); break; } } public function mousePosition():String { // この場合、軸の原点は円の中心(オブジェクトのSpriteを基準) return "("+ Math.floor(mouseX) + ", " + Math.floor(mouseY) + ")"; } public function getState():String { return event_state; } } } 
+package info.yukun
+{
+  import flash.display.Sprite;
+  import flash.events.MouseEvent; // マウスイベント用
+  public class Ball extends Sprite
+  {
+    private var radius:Number; // 円の半径
+    private var color:uint; // 色
+    private var event_state:String; // イベントの状態
+    public function Ball(radius:Number = 50, color:uint = 0xA3D5FF)
+    {
+      this.radius = radius;
+      this.color = color;
+      this.event_state = "";
+      init();
+    }
+    public function init():void
+    {
+      graphics.beginFill(color);
+      graphics.drawCircle(0, 0, radius); // 円の描画
+      graphics.endFill();
+    }
+    // イベントリスナーの登録
+    public function regEvent():void
+    {
+      // このオブジェクトにクリックが発生したら登録したメソッド(onMouseEvent)を実行、と読む
+      addEventListener(MouseEvent.CLICK, onMouseEvent);
+      doubleClickEnabled = true; // ダブルクリックの検出を可能にする
+      addEventListener(MouseEvent.DOUBLE_CLICK, onMouseEvent);
+      addEventListener(MouseEvent.MOUSE_DOWN, onMouseEvent);
+      addEventListener(MouseEvent.MOUSE_MOVE, onMouseEvent);
+      addEventListener(MouseEvent.MOUSE_OUT, onMouseEvent);
+      addEventListener(MouseEvent.MOUSE_OVER, onMouseEvent);
+      addEventListener(MouseEvent.MOUSE_UP, onMouseEvent);
+      addEventListener(MouseEvent.MOUSE_WHEEL, onMouseEvent);
+    }
+    public function onMouseEvent(event:MouseEvent):void
+    {
+      event_state = event.type;
+      trace(event_state);
+      switch(event_state) {
+        case MouseEvent.ROLL_OVER:
+        this.color = 0x0006FA;
+        init();
+        break;
+        case MouseEvent.ROLL_OUT:
+        this.color = 0xA3D5FF;
+        init();
+        break;
+      }
+    }
+    public function mousePosition():String
+    {
+      // この場合、軸の原点は円の中心(オブジェクトのSpriteを基準)
+      return "("+ Math.floor(mouseX) + ", " + Math.floor(mouseY) + ")";
+    }
+    public function getState():String
+    {
+      return event_state;
+    }
+  }
+}
 ```
 
 
@@ -59,7 +145,40 @@ MainクラスではマウスイベントをキャッチするBallクラス（後
 
 
 ```actionscript
- package info.yukun { import flash.display.Sprite; import flash.events.Event; import flash.text.*; public class EventMonitor extends Sprite { private var ball:Ball; // 観測オブジェクト private var monitor_label:TextField; // 表示ラベル private var TITLE:String; public function EventMonitor(ball:Ball) { this.ball = ball; init(); } public function init():void { TITLE = "イベントモニター"; monitor_label = new TextField(); monitor_label.text = TITLE; monitor_label.autoSize = TextFieldAutoSize.LEFT; monitor_label.selectable = false; addEventListener(Event.ENTER_FRAME, onEnterFrame); addChild(monitor_label); } private function onEnterFrame(event:Event):void { var text:String = TITLE + "\n"; text += "マウス座標(原点はボールの中心): " + ball.mousePosition() + "\n"; text += "発生イベント: " + ball.getState() + "\n"; monitor_label.text = text; } } } 
+package info.yukun
+{
+  import flash.display.Sprite;
+  import flash.events.Event;
+  import flash.text.*;
+  public class EventMonitor extends Sprite
+  {
+    private var ball:Ball; // 観測オブジェクト
+    private var monitor_label:TextField; // 表示ラベル
+    private var TITLE:String;
+    public function EventMonitor(ball:Ball)
+    {
+      this.ball = ball;
+      init();
+    }
+    public function init():void
+    {
+      TITLE = "イベントモニター";
+      monitor_label = new TextField();
+      monitor_label.text = TITLE;
+      monitor_label.autoSize = TextFieldAutoSize.LEFT;
+      monitor_label.selectable = false;
+      addEventListener(Event.ENTER_FRAME, onEnterFrame);
+      addChild(monitor_label);
+    }
+    private function onEnterFrame(event:Event):void
+    {
+      var text:String = TITLE + "\n";
+      text += "マウス座標(原点はボールの中心): " + ball.mousePosition() + "\n";
+      text += "発生イベント: " + ball.getState() + "\n";
+      monitor_label.text = text;
+    }
+  }
+}
 ```
 
 

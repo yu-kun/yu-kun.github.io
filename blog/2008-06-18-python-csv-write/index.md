@@ -16,7 +16,22 @@ slug: python-csv-write
 
 
 ```python
- #!/usr/bin/python # coding: UTF-8 # CSVファイルに書き込み import csv # CSVファイルを扱うためのモジュールのインポート filename = "table02.csv" writecsv = csv.writer(file(filename, 'w'), lineterminator='n') # 書き込みファイルの設定 writecsv.writerow(['2007/11/12 20:19:18', 'や、こんばんは。']) # 1行(リスト)の書き込み writecsv.writerow(['2007/11/12 20:19:39', 'おいーす']) writecsv.writerow(['2007/11/12 20:19:53', '久しぶりだね']) writecsv.writerow(['2007/11/12 20:20:02', 'そだね。']) chatable = [['2007/11/12 20:42:58', 'そうだね'], ['2007/11/12 20:43:03', '色々ありがとう'], ['2007/11/12 20:43:12', 'いえ、こちらこそ。'], ['2007/11/12 20:43:21', 'それじゃあまた'], ['2007/11/12 20:43:27', 'うん、またねー。']] writecsv.writerows(chatable) # 複数行(リストのリスト|テーブル)の書き込み 
+#!/usr/bin/python
+# coding: UTF-8
+# CSVファイルに書き込み
+import csv # CSVファイルを扱うためのモジュールのインポート
+filename = "table02.csv"
+writecsv = csv.writer(file(filename, 'w'), lineterminator='n') # 書き込みファイルの設定
+writecsv.writerow(['2007/11/12 20:19:18', 'や、こんばんは。'])  # 1行(リスト)の書き込み
+writecsv.writerow(['2007/11/12 20:19:39', 'おいーす'])
+writecsv.writerow(['2007/11/12 20:19:53', '久しぶりだね'])
+writecsv.writerow(['2007/11/12 20:20:02', 'そだね。'])
+chatable = [['2007/11/12 20:42:58', 'そうだね'],
+['2007/11/12 20:43:03', '色々ありがとう'],
+['2007/11/12 20:43:12', 'いえ、こちらこそ。'],
+['2007/11/12 20:43:21', 'それじゃあまた'],
+['2007/11/12 20:43:27', 'うん、またねー。']]
+writecsv.writerows(chatable) # 複数行(リストのリスト|テーブル)の書き込み
 ```
 
 

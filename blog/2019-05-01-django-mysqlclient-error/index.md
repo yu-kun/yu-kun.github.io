@@ -74,7 +74,8 @@ mysqlclient==1.4.2.post1
 ※2： 
 
 ```python
- import pymysql pymysql.install_as_MySQLdb() 
+import pymysql
+pymysql.install_as_MySQLdb()
 ```
 
 
@@ -109,7 +110,16 @@ Run 'python manage.py migrate' to apply them.
 
 
 ```python
- DATABASES = { 'default': { 'ENGINE': 'django.db.backends.mysql', 'NAME': 'XXX', # データベース名 'USER': 'YYY', # ユーザ名 'PASSWORD': 'ZZZ', # パスワード 'HOST': '127.0.0.1', # MariaDBがあるサーバのIPアドレスやホストを。空欄はローカルホスト 'PORT': '3306', # 空欄はデフォルトポートの3306 } } 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'XXX',  # データベース名
+        'USER': 'YYY',  # ユーザ名
+        'PASSWORD': 'ZZZ',  # パスワード
+        'HOST': '127.0.0.1',  # MariaDBがあるサーバのIPアドレスやホストを。空欄はローカルホスト
+        'PORT': '3306',  # 空欄はデフォルトポートの3306
+    }
+}
 ```
 
 

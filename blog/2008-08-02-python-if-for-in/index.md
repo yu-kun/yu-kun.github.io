@@ -24,7 +24,17 @@ if/for文中で使われるin演算子の評価はオブジェクトごとに微
 
 
 ```python
- #!/usr/bin/python # coding: UTF-8 str1 = "abcdefghijklmn" # 文字列 # if 「検索する文字列」 in 「検索される文字列」: elem = 'def' if elem in str1: print '文字列 "%s" に "%s" は存在する。' % (str1, elem) print # for 「要素(文字)」 in 「文字列」: for ch in str1: print ch, # str1の先頭の文字から順に繰り返す 
+#!/usr/bin/python
+# coding: UTF-8
+str1 = "abcdefghijklmn" # 文字列
+# if 「検索する文字列」 in 「検索される文字列」:
+elem = 'def'
+if elem in str1:
+    print '文字列 "%s" に "%s" は存在する。' % (str1, elem)
+print
+# for 「要素(文字)」 in 「文字列」:
+for ch in str1:
+    print ch, # str1の先頭の文字から順に繰り返す
 ```
 
 
@@ -40,7 +50,31 @@ a b c d e f g h i j k l m n
 
 
 ```python
- #!/usr/bin/python # coding: UTF-8 nums = [1, 2, 3, 4, 5] # 数値のリスト chs = ['a', 'b', 'c', 'd'] # 文字列のリスト dics = [{'one':1}, {'two':2}, {'three':3}, {'four':4}] # 辞書のリスト # if 「検索する要素」 in 「検索されるリスト」: elem = 3 if elem in nums: print 'リスト %s に要素の %d は存在する。' % (nums, elem) elem = 'b' if elem in chs: print 'リスト2 %s に要素の %s は存在する。' % (chs, elem) elem = {'two':2} if elem in dics: print 'リスト3 %s に要素の %s は存在する。' % (dics, elem) print # for 「リストの要素」 in 「リスト」: for e_num in nums: print e_num, print for e_ch in chs: print e_ch, print for e_dic in dics: print e_dic, 
+#!/usr/bin/python
+# coding: UTF-8
+nums = [1, 2, 3, 4, 5] # 数値のリスト
+chs  = ['a', 'b', 'c', 'd'] # 文字列のリスト
+dics = [{'one':1}, {'two':2}, {'three':3}, {'four':4}] # 辞書のリスト
+# if 「検索する要素」 in 「検索されるリスト」:
+elem = 3
+if elem in nums:
+    print 'リスト  %s に要素の %d は存在する。' % (nums,  elem)
+elem = 'b'
+if elem in chs:
+    print 'リスト2 %s に要素の %s は存在する。' % (chs, elem)
+elem = {'two':2}
+if elem in dics:
+    print 'リスト3 %s に要素の %s は存在する。' % (dics, elem)
+print
+# for 「リストの要素」 in 「リスト」:
+for e_num in nums:
+    print e_num,
+print
+for e_ch in chs:
+    print e_ch,
+print
+for e_dic in dics:
+    print e_dic,
 ```
 
 
@@ -60,7 +94,23 @@ a b c d
 
 
 ```python
- #!/usr/bin/python # coding: UTF-8 dic = {'one':1, 'two':2, 'three':3, 'four':4} # 辞書 # if 「検索するキー」 in 「検索される辞書」: elem = 'three' if elem in dic: # 辞書のキーの検索 print '辞書 %s に要素の「キー」 %s は存在する。' % (dics, elem) print # for 「辞書のキー」 in 「辞書」: for key in dic: # for key in dic.keys(): と同じ print key, print for v in dic.values(): # 値を要素として繰り返す print v, print for (k, v) in dic.items(): # (キー, 値)のタプルを要素として繰り返す print "%s:%s, " % (k, v), 
+#!/usr/bin/python
+# coding: UTF-8
+dic  = {'one':1, 'two':2, 'three':3, 'four':4} # 辞書
+# if 「検索するキー」 in 「検索される辞書」:
+elem = 'three'
+if elem in dic: # 辞書のキーの検索
+    print '辞書 %s に要素の「キー」 %s は存在する。' % (dics, elem)
+print
+# for 「辞書のキー」 in 「辞書」:
+for key in dic: # for key in dic.keys(): と同じ
+    print key,
+print
+for v in dic.values(): # 値を要素として繰り返す
+    print v,
+print
+for (k, v) in dic.items(): # (キー, 値)のタプルを要素として繰り返す
+    print "%s:%s, " % (k, v),
 ```
 
 

@@ -13,7 +13,36 @@ slug: python-regular-expression-loop
 
 
 ```python
- # coding: Shift_JIS import re # 正規表現を扱うモジュールのインポート # 正規表現のチェックプリント用の関数 def PrintRegMatch(pat, txt): # 書式: re.match(パターン, テキスト) m = re.match(pat, txt) # パターンにマッチしなかった場合はNoneを返す if m != None: print 'パターン"%s"はテキスト"%s"にマッチ「する」' % (pat, txt) else: print 'パターン"%s"はテキスト"%s"にマッチ「しない」' % (pat, txt) txt = 'ABCDEFGH' # 探索される文字列をテキスト # 探索する　文字列をパターン # 「*」: 直前の文字の0回以上の繰り返しにマッチ PrintRegMatch('.*CDE', txt) PrintRegMatch('A.*H', txt) PrintRegMatch('A*BC', txt) PrintRegMatch('A.*BC', txt) PrintRegMatch('A*', '') print # 「+」: 直前の文字の1回以上の繰り返しにマッチ PrintRegMatch('.+DEF', txt) PrintRegMatch('A.+H', txt) PrintRegMatch('A+BC', txt) PrintRegMatch('A.+BC', txt) PrintRegMatch('A+', '') print # 「?」: 直前の文字の0or1回の繰り返しにマッチ PrintRegMatch('^A?.+$', txt) PrintRegMatch('^B?$', '') PrintRegMatch('^C?E', 'E') PrintRegMatch('A.?H', txt) PrintRegMatch('BBB?C', 'BBC') 
+# coding: Shift_JIS
+import re # 正規表現を扱うモジュールのインポート
+# 正規表現のチェックプリント用の関数
+def PrintRegMatch(pat, txt):
+    #   書式: re.match(パターン, テキスト)
+    m = re.match(pat, txt) # パターンにマッチしなかった場合はNoneを返す
+    if m != None: print 'パターン"%s"はテキスト"%s"にマッチ「する」' % (pat, txt)
+    else: print 'パターン"%s"はテキスト"%s"にマッチ「しない」' % (pat, txt)
+txt = 'ABCDEFGH' # 探索される文字列をテキスト
+                 # 探索する　文字列をパターン
+# 「*」: 直前の文字の0回以上の繰り返しにマッチ
+PrintRegMatch('.*CDE', txt)
+PrintRegMatch('A.*H', txt)
+PrintRegMatch('A*BC', txt)
+PrintRegMatch('A.*BC', txt)
+PrintRegMatch('A*', '')
+print
+# 「+」: 直前の文字の1回以上の繰り返しにマッチ
+PrintRegMatch('.+DEF', txt)
+PrintRegMatch('A.+H', txt)
+PrintRegMatch('A+BC', txt)
+PrintRegMatch('A.+BC', txt)
+PrintRegMatch('A+', '')
+print
+# 「?」: 直前の文字の0or1回の繰り返しにマッチ
+PrintRegMatch('^A?.+$', txt)
+PrintRegMatch('^B?$', '')
+PrintRegMatch('^C?E', 'E')
+PrintRegMatch('A.?H', txt)
+PrintRegMatch('BBB?C', 'BBC')
 ```
 
 
