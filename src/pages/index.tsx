@@ -28,10 +28,10 @@ function HomepageHeader() {
           />
           <div style={{ textAlign: 'left' }}>
             <Heading as="h1" style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>
-              Yu Sasaki - yu
+              Yu Sasaki
             </Heading>
             <p style={{ fontSize: '1.1rem', margin: 0, opacity: 0.8 }}>
-              Security Specialist
+              Enterprise Security Manager / Advisor
             </p>
           </div>
         </div>
@@ -47,7 +47,7 @@ export default function Home(): ReactNode {
       description="Description will go into a meta tag in <head />">
       <HomepageHeader />
       <main>
-        <div className="container padding-vert--lg">
+        <div className={`container padding-vert--lg ${styles.homepageContent}`}>
           <HomepageContent />
         </div>
       </main>
