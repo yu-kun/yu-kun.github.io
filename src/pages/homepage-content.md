@@ -37,6 +37,12 @@ Experience as a project manager for large-scale core-banking system overhauls, c
 
 **Speaking**
 
-- [Google Cloud Next (Las Vegas) — Chrome Enterprise](https://www.linkedin.com/posts/yusasaki_googlecloudnext-chromeenterprise-chromeenterprisepremium-share-7453818919938740224-GylN)
-- [JMUG - Jamf Pro terraform and GitOps adoption](https://x.com/JamfJP/status/2044750146785915183)
+- [Security Meetup / Cyberriskers — Tenant restriction for generative AI and countering Shadow MCP](https://speakerdeck.com/yukun/generative-ai-security-tenant-control-and-shadow-mcp) — Jul 2026
+- [Chrome Enterprise Security Day Tokyo 2026 — Agentless device management with Chrome and secure Gemini adoption](https://chromeonair.withgoogle.com/events/chrome-enterprise-security-day-tokyo-2026) — Jul 2026
+- [Google Cloud Next (Las Vegas) — Chrome Enterprise](https://www.linkedin.com/posts/yusasaki_googlecloudnext-chromeenterprise-chromeenterprisepremium-share-7453818919938740224-GylN) — Apr 2026
+- [JMUG — Jamf Pro Terraform and GitOps adoption](https://x.com/JamfJP/status/2044750146785915183) — Apr 2026
 - Financial ISAC — Developer and Instructor for "Cyber Quest" Incident Response Exercises
+
+**Media Coverage**
+
+- [@IT — How Mercari supports its company-wide Claude Code rollout and Shadow AI countermeasures](https://atmarkit.itmedia.co.jp/ait/articles/2608/04/news002.html) — Aug 2026 (interview, Japanese)
