@@ -31,7 +31,7 @@ function HomepageHeader() {
               Yu Sasaki
             </Heading>
             <p style={{ fontSize: '1.1rem', margin: 0, opacity: 0.8 }}>
-              Enterprise Security Manager / Advisor
+              Enterprise Security Specialist
             </p>
           </div>
         </div>
