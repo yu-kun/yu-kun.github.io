@@ -43,8 +43,8 @@ function HomepageHeader() {
 export default function Home(): ReactNode {
   return (
     <Layout
-      title={`Hello from yu`}
-      description="Description will go into a meta tag in <head />">
+      title="Enterprise Security Engineering"
+      description="Enterprise security engineering by Yu Sasaki — endpoint hardening, Zero Trust and device identity, and Security as Code. Talks, writing, and field notes.">
       <HomepageHeader />
       <main>
         <div className={`container padding-vert--lg ${styles.homepageContent}`}>
