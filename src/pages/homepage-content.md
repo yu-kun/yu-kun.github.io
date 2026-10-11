@@ -40,7 +40,7 @@ Experience as a project manager for large-scale core-banking system overhauls, c
 - [Security Meetup / Cyberriskers — Tenant restriction for generative AI and countering Shadow MCP](https://speakerdeck.com/yukun/generative-ai-security-tenant-control-and-shadow-mcp) — Jul 2026
 - [Chrome Enterprise Security Day Tokyo 2026 — Agentless device management with Chrome and secure Gemini adoption](https://chromeonair.withgoogle.com/events/chrome-enterprise-security-day-tokyo-2026) — Jul 2026
 - [Google Cloud Next (Las Vegas) — Chrome Enterprise](https://www.linkedin.com/posts/yusasaki_googlecloudnext-chromeenterprise-chromeenterprisepremium-share-7453818919938740224-GylN) — Apr 2026
-- [JMUG — Jamf Pro Terraform and GitOps adoption](https://x.com/JamfJP/status/2044750146785915183) — Apr 2026
+- [JMUG — Jamf Pro Terraform and GitOps adoption](https://speakerdeck.com/yukun/jmug-terraform-jamf-pro-iac-gitops-secure-ci) — Apr 2026
 - Financial ISAC — Developer and Instructor for "Cyber Quest" Incident Response Exercises
 
 **Media Coverage**
