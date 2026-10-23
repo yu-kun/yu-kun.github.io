@@ -19,7 +19,7 @@ slug: nginx-lets-encrypt-certificate-update
 
 ### 前提環境
 
-CentOS 7系、Nginx、Let's Encryptのクライアントツールはcertbot。既にTLS証明書は導入済み。
+CentOS 7系、Nginx、Let's Encryptのクライアントツールはcertbot。既にTLS証明書は導入済み。
 
 ### Nginxの設定
 
@@ -27,7 +27,7 @@ certbotの--webrootオプション(※)を用いてcertbotクライアント(web
 
 ※webサーバ側のドキュメントルート下に出力される認証用のファイルで認証を行う。 [User Guide — Certbot documentation](https://certbot.eff.org/docs/using.html)
 
-httpsではなくhttpであり、仮に全てのhttpアクセスを301リダイレクトしている場合は認証が失敗する為、下記の通りNginxの設定を変更する。
+httpsではなくhttpであり、仮に全てのhttpアクセスを301リダイレクトしている場合は認証が失敗する為、下記の通りNginxの設定を変更する。
 
 ```
 server {
