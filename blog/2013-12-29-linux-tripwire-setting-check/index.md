@@ -148,7 +148,7 @@ The object: "/lib/init/rw" is on a different file system...ignoring.
 ### Continuing...
 ＜中略＞
 The object: "/proc/fs/nfsd" is on a different file system...ignoring.
-The object: "/proc/sys/fs/binfmt_misc" is on a different file system...ignoring.
+The object: "/proc/sys/fs/binfmt_misc" is on a different file system...ignoring.
 Wrote database file: /var/lib/tripwire/debian.twd
 The database was successfully generated.
 

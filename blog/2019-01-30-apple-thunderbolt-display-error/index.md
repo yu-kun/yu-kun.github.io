@@ -19,6 +19,6 @@ slug: apple-thunderbolt-display-error
 
 ### 解決例
 
-Apple側からはSMCリセットについてアドバイス頂き、下記リンク先の手順を実施したところ事象は解消。 [Mac の SMC (システム管理コントローラ) をリセットする方法 - Apple サポート](https://support.apple.com/ja-jp/HT201295)
+Apple側からはSMCリセットについてアドバイス頂き、下記リンク先の手順を実施したところ事象は解消。 [Mac の SMC (システム管理コントローラ) をリセットする方法 - Apple サポート](https://support.apple.com/ja-jp/HT201295)
 
 MacBookもThunderbolt Displayもかれこれ5年近く使用しているが、まだまだ頑張ってもらいたい。(せめてPython3.0が標準のOS＋WiFi6普及までは)

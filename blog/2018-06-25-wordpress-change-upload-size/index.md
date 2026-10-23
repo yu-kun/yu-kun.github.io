@@ -48,6 +48,6 @@ systemctl restart php-fpm
 
 > post\_max\_size integer Sets max size of post data allowed. This setting also affects file upload. To upload large files, this value must be larger than upload\_max\_filesize. Generally speaking, memory\_limit should be larger than post\_max\_size.
 
-その為、厳密に言うと、上述の設定例でuploadできるファイルサイズは10MB未満となる。しかし、WordPress側のビューは両ディレクティブの値が同値の場合は下図の通り10MBで表示する。
+その為、厳密に言うと、上述の設定例でuploadできるファイルサイズは10MB未満となる。しかし、WordPress側のビューは両ディレクティブの値が同値の場合は下図の通り10MBで表示する。
 
 [![wordpress_import_size](./wordpress_import_size.png)](./wordpress_import_size.png)

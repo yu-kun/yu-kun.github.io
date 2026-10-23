@@ -46,7 +46,7 @@ ALLOWED_HOSTS = ['*']
 
 ```
 
-ワイルドカード指定は[HTTP Host header attacks](https://docs.djangoproject.com/en/2.1/topics/security/#host-headers-virtual-hosting)のリスクがあり、別途プロキシサーバー等を立てている場合は、そこでホスト名チェックを代替する方法もある。ただ、セキュリティ防御の基本方針はDefence in Depthなので、どちらも環境に合わせて明示するのがベター。(開発時は省略したくなるが)
+ワイルドカード指定は[HTTP Host header attacks](https://docs.djangoproject.com/en/2.1/topics/security/#host-headers-virtual-hosting)のリスクがあり、別途プロキシサーバー等を立てている場合は、そこでホスト名チェックを代替する方法もある。ただ、セキュリティ防御の基本方針はDefence in Depthなので、どちらも環境に合わせて明示するのがベター。(開発時は省略したくなるが)
 
 ### 原因
 
