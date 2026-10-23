@@ -5290,8 +5290,8 @@ packages:
     resolution: {integrity: sha512-4LCcse/U2MHZ63HAJVE+v71o7yOdIe4cZ70Wpf8D/IyjDKYQLV5GD46B+hSTjJsvV5PztjvHoU580EftxjDZFQ==}
     engines: {node: '>=12.20'}
 
-  zod@4.3.4:
-    resolution: {integrity: sha512-Zw/uYiiyF6pUT1qmKbZziChgNPRu+ZRneAsMUDU6IwmXdWt5JwcUfy2bvLOCUtz5UniaN/Zx5aFttZYbYc7O/A==}
+  zod@4.6.7:
+    resolution: {integrity: sha512-g8W2D2kU6a8untc053fX1uVBKzM7yqAxW/3zwk83+6RyF2+SKOuV+c0wBDhUwzV1PaGapmZH+rmcUzPf+3CGwg==}
 
   zwitch@2.0.4:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
@@ -5305,33 +5305,33 @@ snapshots:
       section-matter: 1.0.0
       strip-bom-string: 1.0.0
 
-  '@ai-sdk/gateway@2.0.24(zod@4.3.4)':
+  '@ai-sdk/gateway@2.0.24(zod@4.6.7)':
     dependencies:
       '@ai-sdk/provider': 2.0.1
-      '@ai-sdk/provider-utils': 3.0.20(zod@4.3.4)
+      '@ai-sdk/provider-utils': 3.0.20(zod@4.6.7)
       '@vercel/oidc': 3.0.5
-      zod: 4.3.4
+      zod: 4.6.7
 
-  '@ai-sdk/provider-utils@3.0.20(zod@4.3.4)':
+  '@ai-sdk/provider-utils@3.0.20(zod@4.6.7)':
     dependencies:
       '@ai-sdk/provider': 2.0.1
       '@standard-schema/spec': 1.1.0
       eventsource-parser: 3.0.6
-      zod: 4.3.4
+      zod: 4.6.7
 
   '@ai-sdk/provider@2.0.1':
     dependencies:
       json-schema: 0.4.0
 
-  '@ai-sdk/react@2.0.119(react@19.3.1)(zod@4.3.4)':
+  '@ai-sdk/react@2.0.119(react@19.3.1)(zod@4.6.7)':
     dependencies:
-      '@ai-sdk/provider-utils': 3.0.20(zod@4.3.4)
-      ai: 5.0.117(zod@4.3.4)
+      '@ai-sdk/provider-utils': 3.0.20(zod@4.6.7)
+      ai: 5.0.117(zod@4.6.7)
       react: 19.3.1
       swr: 2.3.8(react@19.3.1)
       throttleit: 2.1.0
     optionalDependencies:
-      zod: 4.3.4
+      zod: 4.6.7
 
   '@algolia/abtesting@1.12.2':
     dependencies:
@@ -6514,14 +6514,14 @@ snapshots:
 
   '@docsearch/react@4.4.0(@algolia/client-search@5.46.2)(@types/react@19.2.7)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(search-insights@2.17.3)':
     dependencies:
-      '@ai-sdk/react': 2.0.119(react@19.3.1)(zod@4.3.4)
+      '@ai-sdk/react': 2.0.119(react@19.3.1)(zod@4.6.7)
       '@algolia/autocomplete-core': 1.19.2(@algolia/client-search@5.46.2)(algoliasearch@5.46.2)(search-insights@2.17.3)
       '@docsearch/core': 4.4.0(@types/react@19.2.7)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       '@docsearch/css': 4.4.0
-      ai: 5.0.117(zod@4.3.4)
+      ai: 5.0.117(zod@4.6.7)
       algoliasearch: 5.46.2
       marked: 16.4.2
-      zod: 4.3.4
+      zod: 4.6.7
     optionalDependencies:
       '@types/react': 19.2.7
       react: 19.3.1
@@ -8076,13 +8076,13 @@ snapshots:
       clean-stack: 2.2.0
       indent-string: 4.0.0
 
-  ai@5.0.117(zod@4.3.4):
+  ai@5.0.117(zod@4.6.7):
     dependencies:
-      '@ai-sdk/gateway': 2.0.24(zod@4.3.4)
+      '@ai-sdk/gateway': 2.0.24(zod@4.6.7)
       '@ai-sdk/provider': 2.0.1
-      '@ai-sdk/provider-utils': 3.0.20(zod@4.3.4)
+      '@ai-sdk/provider-utils': 3.0.20(zod@4.6.7)
       '@opentelemetry/api': 1.9.0
-      zod: 4.3.4
+      zod: 4.6.7
 
   ajv-formats@2.1.1:
     dependencies:
@@ -11958,6 +11958,6 @@ snapshots:
 
   yocto-queue@1.2.2: {}
 
-  zod@4.3.4: {}
+  zod@4.6.7: {}
 
   zwitch@2.0.4: {}
