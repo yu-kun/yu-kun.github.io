@@ -13,7 +13,7 @@ Oracle(旧Sun) Javaは下記サイトからダウンロードする。 [Java SE 
 
 ```
 # rpm -ivh jdk-7u10-linux-x64.rpm
-(100%)########################################### [100%]
+########################################### [100%]
 Unpacking JAR files...
 	rt.jar...
 Error: Could not open input file: /usr/java/jdk1.7.0_10/jre/lib/rt.pack

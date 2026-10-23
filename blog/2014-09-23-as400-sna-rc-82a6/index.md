@@ -26,4 +26,4 @@ slug: as400-sna-rc-82a6
 
 ### メッセージ
 
->  CPF4333 (Escape)  CPF5281 (Escape)  CPF5538 (Escape)
+> CPF4333 (Escape), CPF5281 (Escape), CPF5538 (Escape)
