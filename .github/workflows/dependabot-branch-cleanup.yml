@@ -1,0 +1,36 @@
+name: Dependabot branch cleanup
+
+# Merges done by auto-merge (GITHUB_TOKEN) do not trigger the repository's
+# "Automatically delete head branches" setting, and Dependabot's own cleanup
+# sometimes leaves branches behind. Delete merged/closed Dependabot branches
+# on a schedule instead.
+on:
+  schedule:
+    - cron: "0 3 * * *" # 12:00 JST
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: read
+
+jobs:
+  cleanup:
+    name: Delete merged Dependabot branches
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete branches without open PRs
+        run: |
+          gh api --paginate "repos/$REPO/git/matching-refs/heads/dependabot/" -q '.[].ref' |
+            sed 's|^refs/heads/||' |
+            while read -r branch; do
+              open=$(gh pr list -R "$REPO" --head "$branch" --state open --json number -q 'length')
+              closed=$(gh pr list -R "$REPO" --head "$branch" --state closed --json number -q 'length')
+              # Keep branches with an open PR, or with no PR yet
+              if [ "$open" -eq 0 ] && [ "$closed" -gt 0 ]; then
+                echo "Deleting $branch"
+                gh api -X DELETE "repos/$REPO/git/refs/heads/$branch"
+              fi
+            done
+        env:
+          REPO: ${{ github.repository }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
