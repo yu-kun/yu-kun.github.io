@@ -19,6 +19,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Delete branches without open PRs
+        # Explicit bash enables pipefail, so a failed refs lookup fails the run
+        shell: bash
         run: |
           gh api --paginate "repos/$REPO/git/matching-refs/heads/dependabot/" -q '.[].ref' |
             sed 's|^refs/heads/||' |
