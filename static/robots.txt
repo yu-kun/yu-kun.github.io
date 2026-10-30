@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://yukun.info/sitemap.xml
+Sitemap: https://yukun.info/ja/sitemap.xml
