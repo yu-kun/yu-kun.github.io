@@ -21,6 +21,7 @@ I am an Enterprise Security specialist with a career rooted in system engineerin
 
 - [Google Cloud Blog — Chrome Enterprise Premium drives 50%+ projected cost reduction for Mercari](https://cloud.google.com/blog/products/chrome-enterprise/chrome-enterprise-premium-drives-50-projected-cost-reduction-for-mercari/) — Nov 2026 (guest post)
 - [ZDNET Japan — Learning from Mercari: Security in the AI era with VDI-independent data protection and a browser-first approach](https://japan.zdnet.com/pickup/chrome_enterprise_premium_tu_15/35253062/) — Nov 2026 (Japanese)
+- [Cyberhaven — How Mercari Rebuilt Its DLP Program with Data Lineage](https://www.cyberhaven.com/customers/mercari) — Nov 2026 (customer case study, quoted)
 - [@IT — How Mercari supports its company-wide Claude Code rollout and Shadow AI countermeasures](https://atmarkit.itmedia.co.jp/ait/articles/2608/04/news002.html) — Aug 2026 (interview, Japanese)
 
 ## Experience
