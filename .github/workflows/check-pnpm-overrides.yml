@@ -1,0 +1,80 @@
+name: Check pnpm overrides
+
+# pnpm.overrides in package.json force patched versions of vulnerable
+# transitive dependencies that upstream (Docusaurus) has not bumped yet.
+# This workflow detects when upstream catches up so the overrides can be
+# removed, instead of silently pinning old major versions forever.
+
+on:
+  schedule:
+    - cron: "0 0 * * 1" # Every Monday 09:00 JST
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - package.json
+      - pnpm-lock.yaml
+      - .github/scripts/check-overrides.mjs
+      - .github/workflows/check-pnpm-overrides.yml
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: Check pnpm overrides
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115 # v6.1.1
+        with:
+          version: 9
+
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 20
+
+      - name: Check whether overrides are still needed
+        id: check
+        run: node .github/scripts/check-overrides.mjs
+
+      - name: Annotate pull request
+        if: github.event_name == 'pull_request' && steps.check.outputs.removable != ''
+        env:
+          REMOVABLE: ${{ steps.check.outputs.removable }}
+        run: |
+          echo "::warning title=pnpm overrides can be removed::Upstream now resolves to patched versions without overrides: ${REMOVABLE}. Remove them from package.json pnpm.overrides."
+
+      - name: Open or update tracking issue
+        if: github.event_name != 'pull_request' && steps.check.outputs.removable != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REMOVABLE: ${{ steps.check.outputs.removable }}
+          TABLE: ${{ steps.check.outputs.table }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          title="chore(deps): pnpm overrides can be removed"
+          body=$(cat <<EOF
+          Upstream dependency ranges now resolve to patched versions without these overrides:
+
+          **Removable:** \`${REMOVABLE}\`
+
+          ${TABLE}
+
+          Remove the entries from \`pnpm.overrides\` in \`package.json\`, run \`pnpm install\`, and confirm \`pnpm build\` passes.
+
+          _Detected by [Check pnpm overrides](${RUN_URL})._
+          EOF
+          )
+          existing=$(gh issue list --repo "$GITHUB_REPOSITORY" --state open --search "in:title \"$title\"" --json number --jq '.[0].number')
+          if [ -n "$existing" ]; then
+            gh issue edit "$existing" --repo "$GITHUB_REPOSITORY" --body "$body"
+            echo "Updated issue #$existing"
+          else
+            gh issue create --repo "$GITHUB_REPOSITORY" --title "$title" --body "$body"
+          fi
